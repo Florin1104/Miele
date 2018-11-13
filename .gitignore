@@ -1,1 +1,7 @@
 *.bak
+/WM_main/__vm
+/WM_main/Release
+/WM_main/.vs
+/WM_main/WM_main.sln
+/WM_main/WM_main.vcxproj
+/WM_main/WM_main.vcxproj.filters
