@@ -25,7 +25,7 @@
 // Define the washing program to select
 typedef enum WashingProgram {
     WP_NONE = 0,
-    // ..
+    // .. TBD
 }WashingProgram_te;
 
 class Potentiometer
