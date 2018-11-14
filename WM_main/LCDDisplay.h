@@ -22,6 +22,8 @@
 
 // Initial starting point of the LCD cursor (0,0)
 #define CURSOR_INITIAL_INDEX 0
+#define NUMBER_OF_COLUMNS    16
+#define NUMBER_OF_ROWS       2
 
 #include "Arduino.h"
 #include "LiquidCrystal_I2C.h"
@@ -38,10 +40,14 @@ private:
     uint8_t WritingCursorLine_u8;
     uint8_t WritingCursorColumn_u8;
     // Send a specific command to the LCD display
-    bool SendCommand_b();
+    // TBD if needed
+    //bool SendCommand_b();
 
     // Send a character to the LCD display (it is mainly called to display a string)
     bool SendCharacter_b(char CharacterToSend_c);
+
+    // Pointer to the object 
+    LiquidCrystal_I2C * lcd_po;
 
 
 public:
@@ -64,8 +70,24 @@ public:
         this->DeviceAdress_u8 = DeviceAdress_u8;
         WritingCursorColumn_u8 = CURSOR_INITIAL_INDEX;
         WritingCursorLine_u8 = CURSOR_INITIAL_INDEX;
+        lcd_po = NULL;
     }
 
+    /*******************************************************************************
+    @Description   Destructor
+
+    --------------------------------------------------------------------------------
+    @Returns       none
+
+    --------------------------------------------------------------------------------
+    @Parameters    none
+    *******************************************************************************/
+    ~LCDDisplay()
+    {
+        (void)ClearScreen_b();
+    }
+
+    bool init_b();
     
     /*******************************************************************************
     @Description   Used to display a string to the LCD display
