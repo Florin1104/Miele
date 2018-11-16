@@ -66,6 +66,18 @@ class Potentiometer
      *******************************************************************************/
      WashingProgram_te GetSelectedProgram();
 
+     /*******************************************************************************
+     @Description   Read value of potetntiometer and return it after debouncing 
+                    (8 bit ADC)
+
+     --------------------------------------------------------------------------------
+     @Returns       WashingProgram_te - Wasching program selected
+
+     --------------------------------------------------------------------------------
+     @Parameters    None
+     *******************************************************************************/
+     int ReadPotetntiometerValue();
+
      bool init_b();
 
      
