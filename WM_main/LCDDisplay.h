@@ -47,8 +47,10 @@ private:
     bool SendCharacter_b(char CharacterToSend_c);
 
     // Pointer to the object 
-    LiquidCrystal_I2C * lcd_po;
+    
+    bool initflag_b;
 
+    LiquidCrystal_I2C* StartCommunication_b();
 
 public:
    
@@ -63,14 +65,14 @@ public:
                    SclPinNumber_u8 - for the clock line in the I2C protocol
                    DeviceAdress_u8 - device's adress in the I2C protocol
     *******************************************************************************/
-    LCDDisplay(uint8_t SdaPinNumber_u8, uint8_t SclPinNumber_u8, uint8_t DeviceAdress_u8)
+    LCDDisplay(uint8_t DeviceAdress_u8,uint8_t SdaPinNumber_u8=21, uint8_t SclPinNumber_u8=22)
     {
         this->SclPinNumber_u8 = SclPinNumber_u8;
         this->SdaPinNumber_u8 = SdaPinNumber_u8;
         this->DeviceAdress_u8 = DeviceAdress_u8;
         WritingCursorColumn_u8 = CURSOR_INITIAL_INDEX;
         WritingCursorLine_u8 = CURSOR_INITIAL_INDEX;
-        lcd_po = NULL;
+        initflag_b = false;
     }
 
     /*******************************************************************************
@@ -87,7 +89,7 @@ public:
         (void)ClearScreen_b();
     }
 
-    bool init_b();
+    
     
     /*******************************************************************************
     @Description   Used to display a string to the LCD display
