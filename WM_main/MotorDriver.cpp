@@ -113,7 +113,7 @@ uint16_t MotorDriver::MoveMotor_u16(uint8_t Speed_u8, MotorRotation_te Rotation_
         ErrorCode_u16 = ERROR_VALUE_TOO_HIGH;
         
         // Check if the speed is in limit.
-        if (Speed_u8 > 100)
+        if (Speed_u8 <= 100)
         {
             m_MotorRotation_e = Rotation_e;
 
