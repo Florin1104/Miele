@@ -1,87 +1,93 @@
 /*******************************************************************************
-@Module          LCD display
+@Module         Control Button (CB)
 
 /*******************************************************************************
 --------------------------------------------------------------------------------
-@Filename        Potentiometer.h
+@Filename       CB_ControlButton.h
 
 --------------------------------------------------------------------------------
-@Description     Mainly used for interpreting different potetiometer positions 
-                 as wasching programmes
+@Description    Represents a single button from the wasing machine control panel
 
 --------------------------------------------------------------------------------
-@Author          Marian S.
-@Date            13.11.2018
+@Author         Iulian G.
+@Date           15.11.2018
 
 -------------------------------------------------------------------------------
-@Copyright       Miele & Cie Copyright 2018
+@Copyright      Miele & Cie Copyright 2018
 *******************************************************************************/
 
-#ifndef _POTENTIOMETER_h
-#define _POTENTIOMETER_h
+#ifndef _CB_CONTROLBUTTON_H_
+#define _CB_CONTROLBUTTON_H_
 
+#define DEBOUNCE_DELAY_MS 50 // the debounce time, increase value if the output flickers
+
+#include <stdint.h>
 #include "Arduino.h"
 
-// Define the washing program to select
-typedef enum WashingProgram {
-    WP_NONE = 0,
-    // .. TBD
-}WashingProgram_te;
+typedef enum ButtonsPanel_e
+{
+    BTN_POWER_ID = 0,
+    BTN_START_STOP_ID,
+    BTN_WASH_ID, 
+    BTN_SPIN_ID,
+    BTN_DOOR_SWITCH_ID,
 
-class Potentiometer
+    //this should be the last entry
+    BTN_LAST_ENTRY = 5
+}ButtonsPanel_te;
+
+class ControlButton
 {
 
  private:
 
-     bool initflag_b;
-     // Holds the number of the pin that the potentiometer is attached to
-     uint8_t InputPin_u8;
-     // When the user checks for a program, turn de according LED on
-     void TurnProgramLED_v(WashingProgram_te SelectedProgram_e);
- 
+     uint8_t m_InputPinNumber_u8;       // button pin location
+     uint8_t m_buttonState_u8;          // current reading from the input pin
+     uint8_t m_lastButtonState_u8;      // the previous reading from the input pin
+     uint32_t m_lastDebounceTime_u32;   // the last time the output pin was toggled
+     uint32_t m_debounceDelay_32;       // the debounce time
+
+     // hold if init() has been called
+     bool m_InitFlag_b;
 
 
  public:
-
      /*******************************************************************************
-     @Description   Constructor used to initialize a potentiometer object
+     @Description   Constructor used to initialise a button object
 
      --------------------------------------------------------------------------------
      @Returns       none
 
      --------------------------------------------------------------------------------
-     @Parameters    InputPin_u8 - pin number which the potetntiometer is attached
+     @Parameters    none
      *******************************************************************************/
-     Potentiometer(uint8_t InputPin_u8) { this->InputPin_u8 = InputPin_u8;initflag_b = false; }
-    
+     ControlButton();
+
+
+
      /*******************************************************************************
-     @Description   Used to get the selected program based on the potentiometer's 
-                    position
+     @Description   Initialize control button with pin location (only once)
 
      --------------------------------------------------------------------------------
-     @Returns       WashingProgram_te - Wasching program selected
+     @Returns       bool - whether or not button object was successfully initialized
+
+     --------------------------------------------------------------------------------
+     @Parameters    pinNumber_u8 - pin number
+     *******************************************************************************/
+     bool Initialise_b(uint8_t pinNumber_u8);
+
+
+
+     /*******************************************************************************
+     @Description   check if button is pressed taking into account the debounce
+
+     --------------------------------------------------------------------------------
+     @Returns       bool - true if pressed
 
      --------------------------------------------------------------------------------
      @Parameters    None
      *******************************************************************************/
-     WashingProgram_te GetSelectedProgram();
-
-     /*******************************************************************************
-     @Description   Read value of potetntiometer and return it after debouncing 
-                    (8 bit ADC)
-
-     --------------------------------------------------------------------------------
-     @Returns       WashingProgram_te - Wasching program selected
-
-     --------------------------------------------------------------------------------
-     @Parameters    None
-     *******************************************************************************/
-     int ReadPotetntiometerValue();
-
-     bool init_b();
-
-     
+     uint8_t isPressed_b();
 };
 
 #endif
-

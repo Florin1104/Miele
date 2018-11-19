@@ -18,6 +18,7 @@
 *******************************************************************************/
 #include "Potentiometer.h"
 
+#define NUMBER_OF_READINGS 1
 /*******************************************************************************
 Function description and additional notes,
 are given at the function prototype in the header file
@@ -38,12 +39,18 @@ are given at the function prototype in the header file
 *******************************************************************************/
 WashingProgram_te Potentiometer::GetSelectedProgram()
 {
-    uint8_t PotentiometerPosition_u8 = 0;
-    PotentiometerPosition_u8 = analogRead(InputPin_u8);
+    int RawPotentiometer_u8 = 0;
+    RawPotentiometer_u8 = analogRead(InputPin_u8);
+
+   
+    int PotettiometerValue = 0;
+    PotettiometerValue = map(RawPotentiometer_u8,0,4095,0,100);
+    Serial.println(PotettiometerValue);
 
     // TBD: Map the program to the read value
     return WP_NONE;
 }
+
 
 void Potentiometer::TurnProgramLED_v(WashingProgram_te ProgramSelected_e)
 {
