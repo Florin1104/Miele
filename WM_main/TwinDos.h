@@ -1,59 +1,51 @@
 /*******************************************************************************
-@Module         Control Button (CB)
+@Module         Twin Dos
 
 /*******************************************************************************
 --------------------------------------------------------------------------------
-@Filename       CB_ControlButton.h
+@Filename       TwinDos.h
 
 --------------------------------------------------------------------------------
-@Description    Represents a single button from the wasing machine control panel
+@Description    TwinDos is a two-phase washing system built into the Miele W1
+                range of front loader washing machines. It uses two integrated
+                cartridges - 
+                the first filled with a liquid detergent (UltraPhase 1)
+                and the second a detergent enhancer liquid (UltraPhase 2),
+                including oxygenated bleach for stain removals. 
+                The liquids are dispensed at the appropriate time in the wash
+                cycle and the appropriate ratio depending on the type of wash.
 
 --------------------------------------------------------------------------------
 @Author         Iulian G.
-@Date           15.11.2018
+@Date           14.11.2018
 
 -------------------------------------------------------------------------------
 @Copyright      Miele & Cie Copyright 2018
 *******************************************************************************/
 
-#ifndef _CB_CONTROLBUTTON_H_
-#define _CB_CONTROLBUTTON_H_
-
-#define DEBOUNCE_DELAY_MS 50 // the debounce time, increase value if the output flickers
+#ifndef _TWINDOS_H_
+#define _TWINDOS_H_
 
 #include <stdint.h>
 #include "Arduino.h"
 
-typedef enum ButtonsPanel_e
-{
-    BTN_POWER_ID = 0,
-    BTN_START_STOP_ID,
-    BTN_WASH_ID, 
-    BTN_SPIN_ID,
-    BTN_DOOR_SWITCH_ID,
 
-    //this should be the last entry
-    BTN_LAST_ENTRY = 5
-}ButtonsPanel_te;
-
-class ControlButton
+class TwinDos
 {
 
  private:
 
-     uint8_t m_InputPinNumber_u8;       // button pin location
-     uint8_t m_buttonState_u8;          // current reading from the input pin
-     uint8_t m_lastButtonState_u8;      // the previous reading from the input pin
-     uint32_t m_lastDebounceTime_u32;   // the last time the output pin was toggled
-     uint32_t m_debounceDelay_32;       // the debounce time
+     // Holds the pin number that the TwinDos system is attached to
+     uint8_t m_InputPin_u8;
 
      // hold if init() has been called
      bool m_InitFlag_b;
 
 
  public:
+
      /*******************************************************************************
-     @Description   Constructor used to initialise a button object
+     @Description   Constructor used to initialise a TwinDos system object
 
      --------------------------------------------------------------------------------
      @Returns       none
@@ -61,33 +53,29 @@ class ControlButton
      --------------------------------------------------------------------------------
      @Parameters    none
      *******************************************************************************/
-     ControlButton();
-
-
+     TwinDos();
 
      /*******************************************************************************
-     @Description   Initialize control button with pin location (only once)
+     @Description   Initialize TwinDos sytem with pin location (only once)
 
      --------------------------------------------------------------------------------
-     @Returns       bool - whether or not button object was successfully initialized
+     @Returns       bool - whether or not TwinDos was successfully initialized
 
      --------------------------------------------------------------------------------
-     @Parameters    pinNumber_u8 - pin number
+     @Parameters    pin_u8 - first pin number
      *******************************************************************************/
-     bool Initialise_b(uint8_t pinNumber_u8);
-
-
+     bool Initialise_e(uint8_t pin_u8);
 
      /*******************************************************************************
-     @Description   check if button is pressed taking into account the debounce
+     @Description   check if both cartridges are in
 
      --------------------------------------------------------------------------------
-     @Returns       bool - true if pressed
+     @Returns       bool - true if both are in
 
      --------------------------------------------------------------------------------
      @Parameters    None
      *******************************************************************************/
-     uint8_t isPressed_b();
+     bool isPresent_b();
 };
 
 #endif
