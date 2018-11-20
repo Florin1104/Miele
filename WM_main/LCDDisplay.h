@@ -17,12 +17,30 @@
 @Copyright       Miele & Cie Copyright 2018
 *******************************************************************************/
 
+
+// !!! USE CASE EXAMPLE !!!
+// Create an object globally
+// In the setup function call .init() -> check for errors
+// Whenever you want to display something on THE LCD, call DisplayString_b() with the string you want to display
+
+// LCDDisplay lcd();
+
+// void setup()
+// { ... 
+// lcd.init(); 
+//  ... }
+
+// void loop()
+// { ... 
+// lcd.DisplayString("Hello BuzzCamp !!"); 
+//  ... }
+
 #ifndef _LCDDISPLAY_h
 #define _LCDDISPLAY_h
 
 // Initial starting point of the LCD cursor (0,0)
 #define CURSOR_INITIAL_INDEX 0
-#define NUMBER_OF_COLUMNS    16
+#define NUMBER_OF_COLUMNS    1
 #define NUMBER_OF_ROWS       2
 
 #include "Arduino.h"
