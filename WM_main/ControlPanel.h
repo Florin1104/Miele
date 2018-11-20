@@ -16,6 +16,59 @@
 @Copyright      Miele & Cie Copyright 2018
 *******************************************************************************/
 
+
+
+/*******************************************************************************
+@Example:
+--------------------------------------------------------------------------------
+
+#include "ControlPanel.h"
+static uint8_t lastButtonPressed_8;
+
+ControlPanel controlPanel_o;
+
+void setup()
+{
+    // put your setup code here, to run once:
+
+    Serial.begin(9600);                 // serial init for test messages
+    delay(1000);                        // give time to Wemos Lolin32 to finish setup
+    controlPanel_o.Initialise_e();      //be sure to initialise "s_pinLocation_au8[]" with propper pins
+}
+
+void loop()
+{
+    // put your main code here, to run repeatedly:
+    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_v(); // constantly check if a button was pressed
+    switch(lastButtonPressed_8)
+    {
+    case BUTTON_POWER_ID:
+        Serial.println("Power button pressed");
+        // TBD
+        break;
+    case BUTTON_START_STOP_ID:
+        Serial.println("Start/Stop button pressed");
+        // TBD
+        break;
+    case BUTTON_WASH_ID:
+        Serial.println("Wash button pressed");
+        // TBD
+        break;
+    case BUTTON_SPIN_ID:
+        Serial.println("Spin button pressed");
+        // TBD
+        break;
+    case BUTTON_DOOR_SWITCH_ID:
+        Serial.println("Door button pressed");
+        // TBD
+        break;
+    default:
+        break;
+    }
+}
+
+*******************************************************************************/
+
 #ifndef _CONTROLPANEL_H_
 #define _CONTROLPANEL_H_
 
@@ -31,6 +84,7 @@ class ControlPanel
 {
 private:
     ControlButton m_btnList_ao[BUTTON_LAST_ENTRY_ID];       // panel button list
+    uint8_t m_lastSuccessfulButtonPush_u8;                  // remember last button successful press
     bool m_ButtonCurrentState_ab[BUTTON_LAST_ENTRY_ID];     // remember button state to answer when asked
     bool m_InitFlag_b;                                      // hold if init() has been called
 public:
@@ -66,12 +120,12 @@ public:
      @Description   constantly checks if a button was pressed
 
      --------------------------------------------------------------------------------
-     @Returns       none
+     @Returns       last button ID successful press
 
      --------------------------------------------------------------------------------
      @Parameters    none
      *******************************************************************************/
-    void poolButtonsStateChanges_v();
+     uint8_t poolButtonsStateChanges_v();
 
 
     /*******************************************************************************

@@ -42,37 +42,37 @@
 @Prototypes local Functions
 *******************************************************************************/
 
-// keep last button pressed
-static uint8_t ButtonPushed_u8;
+// keep last button interrupt
+static uint8_t LastButtonInterrupt_u8;
 
 // button interrupt function
 void BTN_PowerActive_v()
 {
-    ButtonPushed_u8 = BUTTON_POWER_ID;
+    LastButtonInterrupt_u8 = BUTTON_POWER_ID;
 }
 
 // button interrupt function
 void BTN_StartStopActive_v()
 {
-    ButtonPushed_u8 = BUTTON_START_STOP_ID;
+    LastButtonInterrupt_u8 = BUTTON_START_STOP_ID;
 }
 
 // button interrupt function
 void BTN_WashActive_v()
 {
-    ButtonPushed_u8 = BUTTON_WASH_ID;
+    LastButtonInterrupt_u8 = BUTTON_WASH_ID;
 }
 
 // button interrupt function
 void BTN_SpinActive_v()
 {
-    ButtonPushed_u8 = BUTTON_SPIN_ID;
+    LastButtonInterrupt_u8 = BUTTON_SPIN_ID;
 }
 
 // button interrupt function
 void BTN_DoorActive_v()
 {
-    ButtonPushed_u8 = BUTTON_DOOR_SWITCH_ID;
+    LastButtonInterrupt_u8 = BUTTON_DOOR_SWITCH_ID;
 }
 
 ControlPanel::ControlPanel()
@@ -82,7 +82,9 @@ ControlPanel::ControlPanel()
 
 ButtonError_te ControlPanel::Initialise_e()
 {
+    LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;
     ButtonError_te error = BUTTON_ERROR_INVALID_PIN;
+    m_lastSuccessfulButtonPush_u8 = BUTTON_LAST_ENTRY_ID;
     
     if(m_InitFlag_b == false)
     {
@@ -126,50 +128,28 @@ ButtonError_te ControlPanel::Initialise_e()
     return error;
 }
 
-void ControlPanel::poolButtonsStateChanges_v()
+uint8_t ControlPanel::poolButtonsStateChanges_v()
 {
-    if(ButtonPushed_u8 != BUTTON_LAST_ENTRY_ID)
+    m_lastSuccessfulButtonPush_u8 = BUTTON_LAST_ENTRY_ID;
+    
+    if(LastButtonInterrupt_u8 != BUTTON_LAST_ENTRY_ID)
     {
         // ensure that is a LOW to HIGH transition
-        if(m_btnList_ao[ButtonPushed_u8].isPressed_b() == LOW && m_ButtonCurrentState_ab[ButtonPushed_u8] == false)
+        if(m_btnList_ao[LastButtonInterrupt_u8].isPressed_b() == LOW && m_ButtonCurrentState_ab[LastButtonInterrupt_u8] == false)
         {
-            switch(ButtonPushed_u8)
-            {
-            case BUTTON_POWER_ID:
-                Serial.println("Power button pressed");
-                // TBD
-                break;
-            case BUTTON_START_STOP_ID:
-                Serial.println("Start/Stop button pressed");
-                // TBD
-                break;
-            case BUTTON_WASH_ID:
-                Serial.println("Wash button pressed");
-                // TBD
-                break;
-            case BUTTON_SPIN_ID:
-                Serial.println("Spin button pressed");
-                // TBD
-                break;
-            case BUTTON_DOOR_SWITCH_ID:
-                Serial.println("Door button pressed");
-                // TBD
-                break;
-            default:
-                break;
-            }
-            m_ButtonCurrentState_ab[ButtonPushed_u8] = true;
-
-            // ensure that a button "isPressed()" method is executed only once after a successful button press detection
-            ButtonPushed_u8 = BUTTON_LAST_ENTRY_ID;
+            m_ButtonCurrentState_ab[LastButtonInterrupt_u8] = true;
+            m_lastSuccessfulButtonPush_u8 = LastButtonInterrupt_u8;
+            LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;
+        }
+        // ensure that is a HIGH to LOW transition
+        if(m_btnList_ao[LastButtonInterrupt_u8].isPressed_b() == HIGH && m_ButtonCurrentState_ab[LastButtonInterrupt_u8] == true)
+        {
+            m_ButtonCurrentState_ab[LastButtonInterrupt_u8] = false;
+            LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;
         }
     }
-    // ensure that is a HIGH to LOW transition
-    if(m_btnList_ao[ButtonPushed_u8].isPressed_b() == HIGH && m_ButtonCurrentState_ab[ButtonPushed_u8] == true)
-    {
-        m_ButtonCurrentState_ab[ButtonPushed_u8] = false;
-        ButtonPushed_u8 = BUTTON_LAST_ENTRY_ID;
-    }
+    
+    return m_lastSuccessfulButtonPush_u8;
 }
 
 bool ControlPanel::getButtonState_b(ButtonsPanel_te buttonID_e)

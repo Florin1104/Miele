@@ -23,6 +23,40 @@
 @Copyright      Miele & Cie Copyright 2018
 *******************************************************************************/
 
+
+/*******************************************************************************
+@Example:
+--------------------------------------------------------------------------------
+
+#include "TwinDos.h";
+TwinDos twinDos_o;
+
+void setup()
+{
+    // put your setup code here, to run once:
+    Serial.begin(9600);
+    delay(1000);
+
+    twinDos_o.Initialise_e(26); //setup TwinDos pin number
+}
+
+void loop()
+{
+    // put your main code here, to run repeatedly:
+    if(twinDos_o.isPresent_b())
+    {
+        Serial.println("Connected");
+    }
+    else
+    {
+        Serial.println("NOT connected");
+    }
+
+}
+
+*******************************************************************************/
+
+
 #ifndef _TWINDOS_H_
 #define _TWINDOS_H_
 

@@ -84,6 +84,10 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
 
             m_InitFlag_b = true;
         }
+        else
+        {
+            Serial.println("Pin initialise error: " + String(pinNumber_u8));
+        }
     }
     else
     {

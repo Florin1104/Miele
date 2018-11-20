@@ -1,6 +1,8 @@
 
 #define LED_WASHING_STARTED             ()
 
+#include "TwinDos.h";
+TwinDos twinDos_o;
 /*******************************************************************************
 @Typedefinitions (module-local)
 *******************************************************************************/
@@ -19,21 +21,23 @@
 void setup()
 {
     // put your setup code here, to run once:
+    Serial.begin(9600);
+    delay(1000);
 
+    twinDos_o.Initialise_e(18); //setup TwinDos pin number
 }
 
-/*******************************************************************************
-@Description   Program starts from here. This is run repeatedly. 
-
---------------------------------------------------------------------------------
-@Returns       none
-
---------------------------------------------------------------------------------
-@Parameters    none
-*******************************************************************************/
 void loop()
 {
     // put your main code here, to run repeatedly:
+    if(twinDos_o.isPresent_b())
+    {
+        Serial.println("Connected");
+    }
+    else
+    {
+        Serial.println("NOT connected");
+    }
 
 }
 
