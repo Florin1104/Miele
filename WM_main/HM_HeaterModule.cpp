@@ -22,6 +22,8 @@
 /*******************************************************************************
 @Constants (global)
 *******************************************************************************/
+#define DHT_SENSOR_DEFAULT_PIN (0)
+#define DHT_SENSOR_TYPE        (DHT11)
 
 /*******************************************************************************
 @Macros (global)
@@ -42,33 +44,45 @@
 /*******************************************************************************
 @Prototypes local Functions
 *******************************************************************************/
-
-
-
-/*******************************************************************************
-Function description and additional notes,
-are given at the function prototype in the header file
-*******************************************************************************/
-unsigned int GetTemperature_uint()
+HeaterModule::HeaterModule():m_TemperatureAndHumiditySensor_o(DHT_SENSOR_DEFAULT_PIN, DHT_SENSOR_TYPE)
 {
-    // TBD
-    return 0;
-}
-/*******************************************************************************
-Function description and additional notes,
-are given at the function prototype in the header file
-*******************************************************************************/
-void StartHeating_v()
-{
-    // TBD
+
 }
 
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
+float HeaterModule::GetTemperature_f()
+{
+    DHT dht(2, DHT11);
+    // Read temperature as Celsius (the default)
+    float t = dht.readTemperature();
+
+    return 1.5;
+}
 
 /*******************************************************************************
 Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
-void StopHeating_v()
+void HeaterModule::Initialise_v(uint8_t HeatingElementPin_u8, uint8_t HeaterSensorPin_u8)
 {
-    // TBD
+   // DHT dht(DHTPIN, DHTTYPE);
+}
+
+void HeaterModule::StartHeating_v()
+{
+}
+
+void HeaterModule::StopHeating_v()
+{
+}
+
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
+HeaterModule::~HeaterModule()
+{
 }
