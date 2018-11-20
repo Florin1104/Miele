@@ -17,6 +17,14 @@
 @Copyright       Miele & Cie Copyright 2018
 *******************************************************************************/
 
+// Potentiometer pot(13); // pin number 13
+
+
+// void loop()
+// { ... 
+// pot.GetelectedProgram() -> will return an enumeraton value repreenting wasching program selected
+//  ... }
+
 #ifndef _POTENTIOMETER_h
 #define _POTENTIOMETER_h
 
@@ -66,17 +74,7 @@ class Potentiometer
      *******************************************************************************/
      WashingProgram_te GetSelectedProgram();
 
-     /*******************************************************************************
-     @Description   Read value of potetntiometer and return it after debouncing 
-                    (8 bit ADC)
-
-     --------------------------------------------------------------------------------
-     @Returns       WashingProgram_te - Wasching program selected
-
-     --------------------------------------------------------------------------------
-     @Parameters    None
-     *******************************************************************************/
-     int ReadPotetntiometerValue();
+ 
 
      bool init_b();
 

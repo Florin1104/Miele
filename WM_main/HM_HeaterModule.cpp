@@ -23,7 +23,7 @@
 @Constants (global)
 *******************************************************************************/
 #define DHT_SENSOR_DEFAULT_PIN (0)
-#define DHT_SENSOR_TYPE        (DHT11)
+#define DHT_SENSOR_TYPE        (15)
 
 /*******************************************************************************
 @Macros (global)
@@ -44,7 +44,7 @@
 /*******************************************************************************
 @Prototypes local Functions
 *******************************************************************************/
-HeaterModule::HeaterModule():m_TemperatureAndHumiditySensor_o(DHT_SENSOR_DEFAULT_PIN, DHT_SENSOR_TYPE)
+HeaterModule::HeaterModule()
 {
 
 }
@@ -55,9 +55,9 @@ are given at the function prototype in the header file
 *******************************************************************************/
 float HeaterModule::GetTemperature_f()
 {
-    DHT dht(2, DHT11);
+   // DHT dht(2, DHT11);
     // Read temperature as Celsius (the default)
-    float t = dht.readTemperature();
+   // float t = dht.readTemperature();
 
     return 1.5;
 }

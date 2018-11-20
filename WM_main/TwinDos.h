@@ -1,9 +1,9 @@
 /*******************************************************************************
-@Module         Twin Dos (TD)
+@Module         Twin Dos
 
 /*******************************************************************************
 --------------------------------------------------------------------------------
-@Filename       TS_TwinDos.h
+@Filename       TwinDos.h
 
 --------------------------------------------------------------------------------
 @Description    TwinDos is a two-phase washing system built into the Miele W1
@@ -23,8 +23,42 @@
 @Copyright      Miele & Cie Copyright 2018
 *******************************************************************************/
 
-#ifndef _TS_TWINDOS_H_
-#define _TS_TWINDOS_H_
+
+/*******************************************************************************
+@Example:
+--------------------------------------------------------------------------------
+
+#include "TwinDos.h";
+TwinDos twinDos_o;
+
+void setup()
+{
+    // put your setup code here, to run once:
+    Serial.begin(9600);
+    delay(1000);
+
+    twinDos_o.Initialise_e(26); //setup TwinDos pin number
+}
+
+void loop()
+{
+    // put your main code here, to run repeatedly:
+    if(twinDos_o.isPresent_b())
+    {
+        Serial.println("Connected");
+    }
+    else
+    {
+        Serial.println("NOT connected");
+    }
+
+}
+
+*******************************************************************************/
+
+
+#ifndef _TWINDOS_H_
+#define _TWINDOS_H_
 
 #include <stdint.h>
 #include "Arduino.h"
@@ -35,9 +69,8 @@ class TwinDos
 
  private:
 
-     // Holds the numbers of pins that the TwinDos system is attached to
-     uint8_t m_InputPin1_u8;
-     uint8_t m_InputPin2_u8;
+     // Holds the pin number that the TwinDos system is attached to
+     uint8_t m_InputPin_u8;
 
      // hold if init() has been called
      bool m_InitFlag_b;
@@ -63,10 +96,9 @@ class TwinDos
      @Returns       bool - whether or not TwinDos was successfully initialized
 
      --------------------------------------------------------------------------------
-     @Parameters    pin1_u8 - first pin number
-                    pin2_u8 - second pin number
+     @Parameters    pin_u8 - first pin number
      *******************************************************************************/
-     bool Initialise_b(uint8_t pin1_u8, uint8_t pin2_u8);
+     bool Initialise_e(uint8_t pin_u8);
 
      /*******************************************************************************
      @Description   check if both cartridges are in

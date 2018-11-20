@@ -1,7 +1,7 @@
 /*******************************************************************************
-@Module         Twin Dos (TD)
+@Module         Twin Dos
 --------------------------------------------------------------------------------
-@Filename       TD_TwinDos.cpp
+@Filename       TwinDos.cpp
 --------------------------------------------------------------------------------
 @Description    check in header file for more details
 
@@ -17,7 +17,7 @@
 /*******************************************************************************
 @Project Includes
 *******************************************************************************/
-#include "TD_TwinDos.h"
+#include "TwinDos.h"
 
 /*******************************************************************************
 @Constants (global)
@@ -49,8 +49,7 @@ are given at the function prototype in the header file
 *******************************************************************************/
 TwinDos::TwinDos()
 {
-    m_InputPin1_u8 = 0;
-    m_InputPin2_u8 = 0;
+    m_InputPin_u8 = 0;
     m_InitFlag_b = false;
 }
 
@@ -58,16 +57,14 @@ TwinDos::TwinDos()
 Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
-bool TwinDos::Initialise_b(uint8_t pin1_u8, uint8_t pin2_u8)
+bool TwinDos::Initialise_e(uint8_t pin_u8)
 {
     bool initialized_b = false;
     
     if(m_InitFlag_b == false)
     {
-        m_InputPin1_u8 = pin1_u8;
-        m_InputPin2_u8 = pin2_u8;
-        pinMode(m_InputPin1_u8, INPUT_PULLUP);
-        pinMode(m_InputPin2_u8, INPUT_PULLUP);
+        m_InputPin_u8 = pin_u8;
+        pinMode(m_InputPin_u8, INPUT_PULLUP);
 
         m_InitFlag_b = true;
         initialized_b = true;
@@ -84,7 +81,7 @@ bool TwinDos::isPresent_b()
     bool cartridgeIn_b = false;
     
     // "!" because when pressed they will connected to ground, their value will be "0", so: if(false && false)
-    if(!digitalRead(m_InputPin1_u8) && !digitalRead(m_InputPin2_u8))
+    if(!digitalRead(m_InputPin_u8))
     {
         cartridgeIn_b = true;
     }
