@@ -7,14 +7,15 @@
                ESP32 module.
                The motor can be spined in clockwise and counterclockwise.
         
-    Example:              
+    Example: 
+    #define ERROR_SERIAL(err){Serial.print(__LINE__);Serial.print("ERROR is: ");Serial.println((int)err);}
     // This should be in the setup
     ERROR_SERIAL(motor_ob.Initialise_u16(19, 25));
 
     // This should be in the loop
-    ERROR_SERIAL(motor_ob.MoveMotor_u16(200, MOTOR_ROTATION_CLOCKWISE, 2));
+    ERROR_SERIAL(motor_ob.MoveMotor_u16(80, MOTOR_ROTATION_CLOCKWISE, 2));
     ERROR_SERIAL(motor_ob.StopMotor_u16(2));
-    ERROR_SERIAL(motor_ob.MoveMotor_u16(200, MOTOR_ROTATION_COUNTER_CLOCKWISE, 2));
+    ERROR_SERIAL(motor_ob.MoveMotor_u16(80, MOTOR_ROTATION_COUNTER_CLOCKWISE, 2));
     ERROR_SERIAL(motor_ob.StopMotor_u16(2));
 
 --------------------------------------------------------------------------------
