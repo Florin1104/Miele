@@ -21,8 +21,9 @@
 /*******************************************************************************
 @Project Includes
 *******************************************************************************/
-#include <DHT_U.h>
-#include <DHT.h>
+#include "Arduino.h"
+//#include <DHT_U.h>
+//#include <DHT.h>
 /*******************************************************************************
 @Type definitions (global)
 *******************************************************************************/
@@ -90,7 +91,7 @@ public:
     ~HeaterModule();
 
 private:
-    DHT m_TemperatureAndHumiditySensor_o;
+    uint16_t m_TemperatureAndHumiditySensor_o;
 
 };
 
