@@ -1,8 +1,15 @@
 
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 #define LED_WASHING_STARTED             ()
 
-#include "TwinDos.h";
-TwinDos twinDos_o;
+
+//#include "LCDDisplay.h"
+#include "Sound.h"
+
+
+//LCDDisplay lcd(21,22,0x3f);
+
 /*******************************************************************************
 @Typedefinitions (module-local)
 *******************************************************************************/
@@ -18,26 +25,24 @@ TwinDos twinDos_o;
 --------------------------------------------------------------------------------
 @Parameters    none
 *******************************************************************************/
+
+#define ERROR_SERIAL(err){Serial.print(__LINE__);Serial.print("ERROR is: ");Serial.println((int)err);}
+
+
+
+
 void setup()
 {
-    // put your setup code here, to run once:
-    Serial.begin(9600);
-    delay(1000);
+    InitialiseSound_v();
 
-    twinDos_o.Initialise_e(18); //setup TwinDos pin number
+   //lcd.init_b();
+
+   //lcd.DisplayString_b("Buzz Camp 2018 Miele");
 }
 
 void loop()
 {
-    // put your main code here, to run repeatedly:
-    if(twinDos_o.isPresent_b())
-    {
-        Serial.println("Connected");
-    }
-    else
-    {
-        Serial.println("NOT connected");
-    }
+    PlaySound_v(3);
 
 }
 
