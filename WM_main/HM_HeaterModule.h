@@ -22,76 +22,116 @@
 @Project Includes
 *******************************************************************************/
 #include "Arduino.h"
-//#include <DHT_U.h>
-//#include <DHT.h>
+#include <DHT.h>
+#include <DHT_U.h>
+
+#define HEATER_PIN                        (25)
+#define HEATER_TEMPERATURE_SENSOR_PIN     (15)
+#define DHT_SENSOR_TYPE				      (11)
+
+#define HEATING_ELEMENT_TEMPERATURE_MAX	  (55)
+
+#define ERROR_NO_ERROR                      (0)
+#define ERROR_MODULE_IS_NOT_INTIALISED      (1)
+#define ERROR_PIN_NOT_COMPATIBLE_WITH_PWM   (2)
+#define ERROR_VALUE_TOO_HIGH                (3)
+
+
+#define FUTURE_IMPLEMENATION    (0)
+
+
 /*******************************************************************************
 @Type definitions (global)
 *******************************************************************************/
-//#define HEATER_PIN                        ()
-//#define HEATER_TEMPERATURE_SENSOR_PIN     ()
-
-#define HEATING_ELEMENT_TEMPERATURE_MAX (55)
 
 /*******************************************************************************
 @Class definitions (global)
 *******************************************************************************/
-
 class HeaterModule
 {
+
 public:
-    HeaterModule();
+	HeaterModule();
 
     /*******************************************************************************
     @Prototypes global Functions
     *******************************************************************************/
     /*******************************************************************************
-    @Description   TODO
+    @Description   This method is used to get the heater temperature form the Heater
 
     --------------------------------------------------------------------------------
-    @Returns       TODO
+    @Returns       t- is the value for the temperature to be returened
 
     --------------------------------------------------------------------------------
-    @Parameters    TODO
+    @Parameters    no parameters
     *******************************************************************************/
     float GetTemperature_f();
 
 
     /*******************************************************************************
-    @Description   TODO
+    @Description   This method is used to initialise the module. It should be called
+                   after the object creation.
 
     --------------------------------------------------------------------------------
-    @Returns       TODO
+    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not intialised.
+                   ERROR_PIN_NOT_COMPATIBLE_WITH_PWM - Pin not PWM capable.
 
     --------------------------------------------------------------------------------
-    @Parameters    TODO
+    @Parameters    HeatingElementPin_u8 and HeaterSensorPin_u8 - Specifies the
+				   PWM pin and the Heater digital data pin
     *******************************************************************************/
-    void Initialise_v(uint8_t HeatingElementPin_u8, uint8_t HeaterSensorPin_u8);
-
+	uint16_t Initialise_u16(uint8_t HeatingElementPin_u8, uint8_t HeaterSensorPin_u8);
     /*******************************************************************************
-    @Description   TODO
+    @Description   This method is used to produce PWM signals to the Heater module
 
     --------------------------------------------------------------------------------
     @Returns       none
 
     --------------------------------------------------------------------------------
-    @Parameters    TODO
+    @Parameters    value- is used to map the PWM signal range
     *******************************************************************************/
-    void StartHeating_v();
+	void StartHeating_v(float value);
 
     /*******************************************************************************
-    @Description   TODO
+    @Description   This method is used to set the PWM signal to 0 for the Heater
 
     --------------------------------------------------------------------------------
-    @Returns       none
+    @Returns       no returns
 
     --------------------------------------------------------------------------------
-    @Parameters    TODO
+    @Parameters    no parameters
     *******************************************************************************/
     void StopHeating_v();
     ~HeaterModule();
 
 private:
     uint16_t m_TemperatureAndHumiditySensor_o;
+
+	// This variable is used in order to chek if the module
+	// is initalised
+
+	bool m_isModuleInitialized_b=false;
+
+	// One of this pins shloud pe pwm capable
+    
+	uint8_t m_HeatingElementPin_u8;
+	uint8_t m_HeaterSensorPin_u8;
+	DHT dht_o;
+	
+
+    /*******************************************************************************
+    @Description   Private method to check if a pin is PWM capable.
+
+    --------------------------------------------------------------------------------
+    @Returns       True if pin is PWM capable.
+                   False otherwise.
+
+    --------------------------------------------------------------------------------
+    @Parameters    Pin_u8 - Pin number to be checked.
+
+    *******************************************************************************/
+	bool m_isPinPwm_b(uint8_t Pin_u8);
+
 
 };
 
