@@ -10,11 +10,11 @@
                  adapter
 
 --------------------------------------------------------------------------------
-@Author          Marian S.
-@Date            13.11.2018
+@Author          Marian S., Fabian V.
+@Date            20.03.2019
 
 -------------------------------------------------------------------------------
-@Copyright       Miele & Cie Copyright 2018
+@Copyright       Miele & Cie Copyright 2019
 *******************************************************************************/
 
 
@@ -23,28 +23,30 @@
 // In the setup function call .init() -> check for errors
 // Whenever you want to display something on THE LCD, call DisplayString_b() with the string you want to display
 
-// LCDDisplay lcd();
-
-// void setup()
-// { ... 
-// lcd.init(); 
-//  ... }
-
-// void loop()
-// { ... 
-// lcd.DisplayString("Hello BuzzCamp !!"); 
-//  ... }
+//void setup()
+//{
+//    Serial.begin(9600);
+//	lcd.init_b();
+//}
+//
+//void loop()
+//{   
+//	lcd.DisplayString_b("Hello world1");
+//	delay(1000);
+//	lcd.ClearScreen_b();
+//	lcd.DisplayString_b("Hello world2");
+//}
 
 #ifndef _LCDDISPLAY_h
 #define _LCDDISPLAY_h
 
 // Initial starting point of the LCD cursor (0,0)
 #define CURSOR_INITIAL_INDEX 0
-#define NUMBER_OF_COLUMNS    1
+#define NUMBER_OF_COLUMNS    4
 #define NUMBER_OF_ROWS       2
 
 #include "Arduino.h"
-#include "LiquidCrystal_I2C.h"
+#include <LiquidCrystal_I2C.h>
 class LCDDisplay
 {
 
@@ -57,9 +59,6 @@ private:
     // Writing coordinates of the LCD cursor
     uint8_t WritingCursorLine_u8;
     uint8_t WritingCursorColumn_u8;
-    // Send a specific command to the LCD display
-    // TBD if needed
-    //bool SendCommand_b();
 
     // Send a character to the LCD display (it is mainly called to display a string)
     bool SendCharacter_b(char CharacterToSend_c);
@@ -105,6 +104,7 @@ public:
         (void)ClearScreen_b();
     }
 
+	// TODO add description
     bool init_b();
     
     /*******************************************************************************
@@ -132,6 +132,18 @@ public:
     *******************************************************************************/
     bool ClearScreen_b();
 
+	/*******************************************************************************
+    @Description   Private method to check if a pin is I2C capable.
+
+    --------------------------------------------------------------------------------
+    @Returns       True if pin is I2C capable.
+                   False otherwise.
+
+    --------------------------------------------------------------------------------
+    @Parameters    Pin_u8 - Pin number to be checked.
+
+    *******************************************************************************/
+	bool m_isPinI2C_b(uint8_t Pin_u8);
 };
 
 #endif

@@ -9,13 +9,37 @@
 @Description     TODO
 
 --------------------------------------------------------------------------------
-@Author          Dragos B.
-@Date            13.11.2018
+@Author          Dragos B., Fabian V.
+@Date            20.3.2019
 
 -------------------------------------------------------------------------------
 @Copyright       Miele & Cie Copyright 2018
 *******************************************************************************/
+// Example
+//HeaterModule heaterModule_o;
+//
+//void setup()
+//{
+//    // put your setup code here, to run once:
+//    Serial.begin(9600);
+//
+//	  heaterModule_o.Initialise_u16(GPIO_NUM_25,GPIO_NUM_15);
+//}
+//
+//void loop()
+//{ 
+//  Start heating the element 
+//	heaterModule_o.StartHeating_v(64);
 
+//  read the data from the temperature sensor
+//	float t=heaterModule_o.GetTemperature_f();
+
+//  Print the temperature data to serial port 
+//	Serial.print(t);
+
+//  Stop the heater module
+//	heaterModule_o.StopHeating_v();
+//}
 #ifndef _HEATERMODULE_H_  
 #define _HEATERMODULE_H_
 /*******************************************************************************
@@ -25,19 +49,20 @@
 #include <DHT.h>
 #include <DHT_U.h>
 
-#define HEATER_PIN                        (25)
-#define HEATER_TEMPERATURE_SENSOR_PIN     (15)
-#define DHT_SENSOR_TYPE				      (11)
+#define HEATER_PIN									(25)
+#define HEATER_TEMPERATURE_SENSOR_PIN				(15)
+#define DHT_SENSOR_TYPE								(11)
 
-#define HEATING_ELEMENT_TEMPERATURE_MAX	  (55)
+// Maximum configurable values.
+#define HEATING_ELEMENT_TEMPERATURE_MAX				(55)
+#define MAX_POWER_PWM								(120)
 
-#define ERROR_NO_ERROR                      (0)
-#define ERROR_MODULE_IS_NOT_INTIALISED      (1)
-#define ERROR_PIN_NOT_COMPATIBLE_WITH_PWM   (2)
-#define ERROR_VALUE_TOO_HIGH                (3)
+// Error Codes for current module.
+#define ERROR_HEATER_NO_ERROR					    (0)
+#define ERRORH_HEATER_MODULE_IS_NOT_INTIALISED      (1)
+#define ERROR_HEATER_PIN_NOT_COMPATIBLE_WITH_PWM    (2)
+#define ERROR_VALUE_TOO_HIGH                        (3)
 
-
-#define FUTURE_IMPLEMENATION    (0)
 
 
 /*******************************************************************************
@@ -51,7 +76,11 @@ class HeaterModule
 {
 
 public:
-	HeaterModule();
+	/*******************************************************************************
+    @Description   Default constructor.
+
+    *******************************************************************************/
+	HeaterModule(); 
 
     /*******************************************************************************
     @Prototypes global Functions
@@ -67,7 +96,6 @@ public:
     *******************************************************************************/
     float GetTemperature_f();
 
-
     /*******************************************************************************
     @Description   This method is used to initialise the module. It should be called
                    after the object creation.
@@ -81,6 +109,7 @@ public:
 				   PWM pin and the Heater digital data pin
     *******************************************************************************/
 	uint16_t Initialise_u16(uint8_t HeatingElementPin_u8, uint8_t HeaterSensorPin_u8);
+
     /*******************************************************************************
     @Description   This method is used to produce PWM signals to the Heater module
 
@@ -102,6 +131,11 @@ public:
     @Parameters    no parameters
     *******************************************************************************/
     void StopHeating_v();
+
+	/*******************************************************************************
+    @Description   Default destructor.
+
+    *******************************************************************************/
     ~HeaterModule();
 
 private:
@@ -109,15 +143,16 @@ private:
 
 	// This variable is used in order to chek if the module
 	// is initalised
+	bool m_isModuleInitialized_b = false;
 
-	bool m_isModuleInitialized_b=false;
-
-	// One of this pins shloud pe pwm capable
-    
+	// m_HeatingElementPin_u8  shloud pe pwm capable
 	uint8_t m_HeatingElementPin_u8;
-	uint8_t m_HeaterSensorPin_u8;
-	DHT dht_o;
 	
+	// Pin used for temperature sensor.
+	uint8_t m_HeaterSensorPin_u8;
+
+	// Object used for DHT sensor.
+	DHT dht_o;
 
     /*******************************************************************************
     @Description   Private method to check if a pin is PWM capable.
@@ -131,7 +166,6 @@ private:
 
     *******************************************************************************/
 	bool m_isPinPwm_b(uint8_t Pin_u8);
-
 
 };
 

@@ -6,7 +6,7 @@
 @Description   TODO
 
 --------------------------------------------------------------------------------
-@Author        Dragos B.
+@Author        Dragos B., Fabian V.
 @Date          13.11.2018
 
 @Copyright     Miele  Cie Copyright 2018
@@ -79,7 +79,7 @@ are given at the function prototype in the header file
 uint16_t HeaterModule::Initialise_u16(uint8_t HeatingElementPin_u8, uint8_t HeaterSensorPin_u8)
 {   
 
-	uint16_t ErrorCode_u16 = ERROR_PIN_NOT_COMPATIBLE_WITH_PWM;
+	uint16_t ErrorCode_u16 = ERROR_HEATER_PIN_NOT_COMPATIBLE_WITH_PWM ;
 
 	// check that the pins are not the same
 	if(HeatingElementPin_u8 !=HeaterSensorPin_u8)
@@ -96,7 +96,7 @@ uint16_t HeaterModule::Initialise_u16(uint8_t HeatingElementPin_u8, uint8_t Heat
 			ledcSetup(PWM_CHANNEL_THREE, PWM_FREQUENCY,RESOLUTION_BITS);
 
 			// Initialise DHT module
-			dht_o=DHT(HeaterSensorPin_u8,DHT_SENSOR_TYPE);
+			dht_o=DHT(m_HeaterSensorPin_u8,DHT_SENSOR_TYPE);
 			dht_o.begin();
 		
 			// The element is not heating 
@@ -105,7 +105,7 @@ uint16_t HeaterModule::Initialise_u16(uint8_t HeatingElementPin_u8, uint8_t Heat
 			// Module is now initialised
 			m_isModuleInitialized_b=true;
 
-			ErrorCode_u16 = ERROR_NO_ERROR;
+			ErrorCode_u16 = ERROR_HEATER_NO_ERROR;
 			
 		}
 	}
@@ -113,13 +113,27 @@ uint16_t HeaterModule::Initialise_u16(uint8_t HeatingElementPin_u8, uint8_t Heat
 	return ErrorCode_u16;
 }
 
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
 void HeaterModule::StartHeating_v(float value)
-
 {   
-	value=map(value,0,255,0,255);
-	ledcWrite(PWM_CHANNEL_THREE,value);
+	value=map(value,0,MAX_POWER_PWM,0,100);
+	if(value <= MAX_POWER_PWM)
+	{
+	    ledcWrite(PWM_CHANNEL_THREE,value);
+	}
+	else if(value > MAX_POWER_PWM)
+	{
+		StopHeating_v();
+	}
 }
 
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
 void HeaterModule::StopHeating_v()
 {   	
 		ledcWrite(PWM_CHANNEL_THREE,0);

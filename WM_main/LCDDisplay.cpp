@@ -9,7 +9,7 @@
 @Description     Implementation of LCDDisplay class
 
 --------------------------------------------------------------------------------
-@Author          Marian S.
+@Author          Marian S., Fabian V.
 @Date            14.11.2018
 
 -------------------------------------------------------------------------------
@@ -92,4 +92,26 @@ bool LCDDisplay::SendCharacter_b(char CharacterToDisplay)
         return true;
     }
     return false;
+}
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
+bool LCDDisplay::m_isPinI2C_b(uint8_t Pin_u8)
+{
+	bool isI2CPinValid_b=false;
+
+	// All the pins that are I2C capable for ESP32.
+    const uint8_t ValidI2CPins_au8[] = { 15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32,39,36};
+	
+	// Is pin I2C capable?
+	for (uint8_t i = 0; i< sizeof(ValidI2CPins_au8)/sizeof(ValidI2CPins_au8[0]); i++)
+	{
+		if(Pin_u8 == ValidI2CPins_au8[i])
+		{
+			isI2CPinValid_b=true;
+			break;
+		}
+	}
+	return isI2CPinValid_b;
 }

@@ -6,13 +6,12 @@
 @Description    Check the header and class description for more details.
 
 --------------------------------------------------------------------------------
-@Author        Dragos B.
+@Author        Dragos B., Fabian V.
 @Date          13.11.2018
 
 @Copyright     Miele  Cie Copyright 2018
 
 *******************************************************************************/
-
 
 /*******************************************************************************
 @Project Includes
@@ -73,17 +72,23 @@ void InitialiseSound_v()
 Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
-void PlaySound_v(uint16_t TimeInSeconds_u16)
+void PlaySound_v(uint16_t TimeInSeconds_u16, Sounds_te sounds)
 {
-    for (int freq = 5000; freq < 7000; freq = freq + 250)
-    {
-        ledcWriteTone(PWM_CHANNEL, freq);
-        delay(500);
-    }
-
-
+	GenerateSounds(sounds);
 }
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
+int GenerateSounds(int sound_freq)
+{
+	for(int freq= sound_freq; freq <7000; freq++)
+	{
+		sound_freq=ledcWriteTone(PWM_CHANNEL, freq);
+	}
 
+	return sound_freq;
+}
 /*******************************************************************************
 Function description and additional notes,
 are given at the function prototype in the header file
