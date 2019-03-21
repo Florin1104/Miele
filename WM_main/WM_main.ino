@@ -1,9 +1,3 @@
-
-#include <LiquidCrystal_I2C.h>
-#include <DHT_U.h>
-#include <DHT.h>
-#include <Adafruit_Sensor.h>
-#include <Wire.h>
 #define LED_WASHING_STARTED             ()
 
 #include "TwinDos.h";
@@ -11,6 +5,7 @@
 #include "ControlPanel.h"
 #include "MotorDriver.h"
 #include "Sound.h"
+//#include "LCDDisplay.h"
 
 TwinDos twinDos_o;
 HeaterModule heaterModule_o;

@@ -7,7 +7,7 @@ written by Adafruit Industries
 #include "DHT.h"
 
 #define MIN_INTERVAL 2000
-
+DHT::DHT(){}
 DHT::DHT(uint8_t pin, uint8_t type, uint8_t count) {
   _pin = pin;
   _type = type;

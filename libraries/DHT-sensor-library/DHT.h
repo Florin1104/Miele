@@ -37,6 +37,7 @@ written by Adafruit Industries
 
 class DHT {
   public:
+   DHT();
    DHT(uint8_t pin, uint8_t type, uint8_t count=6);
    void begin(void);
    float readTemperature(bool S=false, bool force=false);

@@ -46,7 +46,7 @@
 #define NUMBER_OF_ROWS       2
 
 #include "Arduino.h"
-#include <LiquidCrystal_I2C.h>
+#include "LiquidCrystal_I2C.h"
 class LCDDisplay
 {
 

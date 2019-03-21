@@ -46,8 +46,8 @@
 @Project Includes
 *******************************************************************************/
 #include "Arduino.h"
-#include <DHT.h>
-#include <DHT_U.h>
+#include "DHT.h"
+#include "DHT_U.h"
 
 #define HEATER_PIN									(25)
 #define HEATER_TEMPERATURE_SENSOR_PIN				(15)
