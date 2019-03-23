@@ -53,6 +53,8 @@
 #define HEATER_TEMPERATURE_SENSOR_PIN				(15)
 #define DHT_SENSOR_TYPE								(11)
 
+#define MAINS_WATER_TEMPERATURE_DEFAULT   (15)
+
 // Maximum configurable values.
 #define HEATING_ELEMENT_TEMPERATURE_MAX				(55)
 #define MAX_POWER_PWM								(120)
@@ -153,6 +155,9 @@ private:
 
 	// Object used for DHT sensor.
 	DHT dht_o;
+
+  // Simualted temperature
+  float SimuTemperature_f = MAINS_WATER_TEMPERATURE_DEFAULT;
 
     /*******************************************************************************
     @Description   Private method to check if a pin is PWM capable.
