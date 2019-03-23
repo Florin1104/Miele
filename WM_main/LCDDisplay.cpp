@@ -57,13 +57,30 @@ are given at the function prototype in the header file
 *******************************************************************************/
 bool LCDDisplay::DisplayString_b(char* StringToDisplay_pc)
 {
+	// maximum for filling the connected LCD display
+	if (strlen(StringToDisplay_pc) > NUMBER_OF_COLUMNS*NUMBER_OF_ROWS)
+	{
+		ClearScreen_b();
+		DisplayString_b("FORBIDDEN!");
+	}
+
+	if (strcmp(StringToDisplay_pc, "FORBIDDEN!") == 0)
+	{
+		return false;
+	}
     if (lcd_po != NULL && StringToDisplay_pc !=NULL)
     {
         while (*StringToDisplay_pc != '\0')
         {
-            if (SendCharacter_b(*StringToDisplay_pc))
-                StringToDisplay_pc++;
-            return false;
+			if (SendCharacter_b(*StringToDisplay_pc) == true)
+			{
+				StringToDisplay_pc++;
+			}
+			else 
+			{
+				return false;
+			}
+				
         }
         return true;
 
@@ -81,10 +98,15 @@ bool LCDDisplay::SendCharacter_b(char CharacterToDisplay)
     {
         if (WritingCursorColumn_u8 == NUMBER_OF_COLUMNS - 1)
         {
-            if (WritingCursorLine_u8 < 1)
+			if (WritingCursorLine_u8 < 1) 
+			{
                 WritingCursorLine_u8++;
-            else
+				WritingCursorColumn_u8 = 0;
+			}
+			else
+			{
                 (void)ClearScreen_b();
+			}
         }
         lcd_po->setCursor(WritingCursorColumn_u8, WritingCursorLine_u8);
         lcd_po->print(CharacterToDisplay);

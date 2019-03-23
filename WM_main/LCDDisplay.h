@@ -42,7 +42,7 @@
 
 // Initial starting point of the LCD cursor (0,0)
 #define CURSOR_INITIAL_INDEX 0
-#define NUMBER_OF_COLUMNS    4
+#define NUMBER_OF_COLUMNS    16
 #define NUMBER_OF_ROWS       2
 
 #include "Arduino.h"
