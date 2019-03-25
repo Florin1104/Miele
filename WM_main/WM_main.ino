@@ -93,24 +93,25 @@ void setup()
 void loop()
 {
 
+    // constantly check if a button was pressed
+    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_v(); 
 
-  
-    // put your main code here, to run repeatedly:
-    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_v(); // constantly check if a button was pressed
     
   switch(lastButtonPressed_8)
     {
     case BUTTON_POWER_ID:
         isPowerButtonPressed = true;
         SERIAL_PRINTLN("Power Button");
+        
         break;
 
     case BUTTON_START_STOP_ID:
+     SERIAL_PRINTLN("BUTTON_START_STOP_ID");
 
         break;
 
     case BUTTON_WASH_ID:
-
+ SERIAL_PRINTLN("BUTTON_WASH_ID");
         // TBD
         break;
 
@@ -123,7 +124,7 @@ void loop()
     case BUTTON_DOOR_SWITCH_ID:
 
         SERIAL_PRINTLN("Door switch is pushed");
-        isDoorClosed = true;
+  
         break;
 
     }
@@ -145,12 +146,13 @@ void loop()
 
       //float t = heaterModule_o.GetTemperature_f();
       //SERIAL_PRINTLN(t);
-      SERIAL_PRINTLN(isPowerButtonPressed);
-      SERIAL_PRINTLN(isSpinButtonPressed);
+      //SERIAL_PRINTLN(isPowerButtonPressed);
+      //SERIAL_PRINTLN(isSpinButtonPressed);
 
       
       lcd.ClearScreen_b();
       lcd.DisplayString_b("Do something!");
+      
 
       
       
