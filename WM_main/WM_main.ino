@@ -10,6 +10,15 @@
 //#include "LCDDisplay.h"
 
 
+#define ENABLE_SERIAL_PRINT (1)
+
+#if (ENABLE_SERIAL_PRINT == 1)
+#define SERIAL_PRINTLN(Data) Serial.println(Data)
+#else
+#define SERIAL_PRINTLN(Data)
+#endif
+
+
 /*******************************************************************************
 @Typedefinitions (module-local)
 *******************************************************************************/
@@ -32,7 +41,7 @@ TwinDos twinDos_o;
 
 /****************************** Heater Module **********************************/
 // Heating Element - 25   
-// Temperature Sensor - 17
+// Temperature Sensor - 15
 HeaterModule heaterModule_o;
 
 /********************* Motor Power Control *************************************/
@@ -49,7 +58,7 @@ LCDDisplay lcd(GPIO_NUM_21, GPIO_NUM_22, 0x3f);
 /************************* Control Panel Buttons *******************************/
 // Control Panel Buttons
 // PowerPin,   StartPin,   WashPin,    SpinPin,    DoorPin
-// { 33,         18,         22,         13,         14 };
+// { 33,         18,         19,         13,         14 };
 ControlPanel controlPanel_o;
 
 
@@ -61,10 +70,10 @@ ControlPanel controlPanel_o;
 void setup()
 {
     // put your setup code here, to run once:
-
-    Serial.begin(9600);                 // serial init for test messages
+#if (ENABLE_SERIAL_PRINT == 1)
+    Serial.begin(115200);                 // serial init for test messages
     delay(1000);                        // give time to Wemos Lolin32 to finish setup
-    
+#endif
     controlPanel_o.Initialise_e();      //be sure to initialise "s_pinLocation_au8[]" with propper pins
     
     heaterModule_o.Initialise_u16(GPIO_NUM_25, GPIO_NUM_15);
@@ -74,10 +83,16 @@ void setup()
    lcd.init_b();
 }
 
+
+/* Global variables used in loop()*/
+  bool isPowerButtonPressed = false;
+  bool isSpinButtonPressed  = false;
+
+
+
 void loop()
 {
-  bool isPowerButtonPressed = false;
-  bool isStartButtonPressed = false;
+
 
   
     // put your main code here, to run repeatedly:
@@ -86,61 +101,59 @@ void loop()
   switch(lastButtonPressed_8)
     {
     case BUTTON_POWER_ID:
-      lcd.ClearScreen_b();
-      Serial.println("Power button pressed");
-      lcd.DisplayString_b("Power button pressed");
-      isPowerButtonPressed = true;
-
+        isPowerButtonPressed = true;
+        SERIAL_PRINTLN("Power Button");
         break;
 
     case BUTTON_START_STOP_ID:
-    lcd.ClearScreen_b();
-    lcd.DisplayString_b("Start button pressed");
-
-    isStartButtonPressed = true;
 
         break;
 
     case BUTTON_WASH_ID:
-    lcd.ClearScreen_b();
-    lcd.DisplayString_b("Wash button pressed");
+
         // TBD
         break;
 
     case BUTTON_SPIN_ID:
-    
-    lcd.ClearScreen_b();
-    lcd.DisplayString_b("Spin button pressed");
+      isSpinButtonPressed = true;
+      SERIAL_PRINTLN("Spin Button");
         // TBD
         break;
 
     case BUTTON_DOOR_SWITCH_ID:
 
-    lcd.ClearScreen_b();
-    lcd.DisplayString_b("Door is closed");
-        // TBD
+        SERIAL_PRINTLN("Door switch is pushed");
+        isDoorClosed = true;
         break;
 
     }
 
-  if(isPowerButtonPressed == true)
+  if((isPowerButtonPressed == true) && (isSpinButtonPressed == true))
   {
-    //Serial.println("Start heating");
-    //heaterModule_o.StartHeating_v(70);
 
-
-
-    Serial.println("Spin Motor");
+    SERIAL_PRINTLN("Spin Motor");
     motorDriver_o.MoveMotor_u16(50, MOTOR_ROTATION_CLOCKWISE,2);
+    motorDriver_o.StopMotor_u16(1);
 
     isPowerButtonPressed = false;
+    isSpinButtonPressed  = false;
+
+
+    
   }
 
-  motorDriver_o.StopMotor_u16(1);
-  float t = heaterModule_o.GetTemperature_f();
-  Serial.print(t);
-  lcd.ClearScreen_b();
-  lcd.DisplayString_b("astept o comanda");
+
+      //float t = heaterModule_o.GetTemperature_f();
+      //SERIAL_PRINTLN(t);
+      SERIAL_PRINTLN(isPowerButtonPressed);
+      SERIAL_PRINTLN(isSpinButtonPressed);
+
+      
+      lcd.ClearScreen_b();
+      lcd.DisplayString_b("Do something!");
+
+      
+      
 }
 
 /*******************************************************************************

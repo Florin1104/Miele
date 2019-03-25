@@ -78,7 +78,7 @@ void loop()
 
 // enter button pin locations
 //                                      PowerPin,   StartPin,   WashPin,    SpinPin,    DoorPin
-static uint8_t s_pinLocation_au8[] =   {33,         18,         22,         13,         14       };
+static uint8_t s_pinLocation_au8[] =   {33,         18,         19,         13,         14       };
 
 class ControlPanel
 {
