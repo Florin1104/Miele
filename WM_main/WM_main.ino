@@ -101,7 +101,7 @@ void loop()
     {
     case BUTTON_POWER_ID:
         isPowerButtonPressed = true;
-        SERIAL_PRINTLN("Power Button");
+        SERIAL_PRINTLN("Power Btton");
         
         break;
 
