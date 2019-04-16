@@ -106,20 +106,22 @@ void loop()
         break;
 
     case BUTTON_START_STOP_ID:
-     SERIAL_PRINTLN("BUTTON_START_STOP_ID");
+		SERIAL_PRINTLN("BUTTON_START_STOP_ID");
 
         break;
 
     case BUTTON_WASH_ID:
- SERIAL_PRINTLN("BUTTON_WASH_ID");
+		SERIAL_PRINTLN("BUTTON_WASH_ID");
         // TBD
-        break;
+        
+		break;
 
     case BUTTON_SPIN_ID:
-      isSpinButtonPressed = true;
-      SERIAL_PRINTLN("Spin Button");
+		isSpinButtonPressed = true;
+		SERIAL_PRINTLN("Spin Button");
         // TBD
-        break;
+        
+		break;
 
     case BUTTON_DOOR_SWITCH_ID:
 
