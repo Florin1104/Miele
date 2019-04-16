@@ -131,19 +131,26 @@ void loop()
 
     }
 
-  if((isPowerButtonPressed == true) && (isSpinButtonPressed == true))
-  {
 
-    SERIAL_PRINTLN("Spin Motor");
+
+
+    SERIAL_PRINTLN("Spin Moto MOTOR_ROTATION_CLOCKWISE for 2 seconds");
     motorDriver_o.MoveMotor_u16(50, MOTOR_ROTATION_CLOCKWISE,2);
     motorDriver_o.StopMotor_u16(1);
 
-    isPowerButtonPressed = false;
-    isSpinButtonPressed  = false;
+  // TODO spin motor conter clockwise 2 seconds
 
 
-    
-  }
+    // TODO Set and Get temperature
+
+	// TODO Play a sound
+
+	// TODO test RGB led(3 pins)
+
+	// TODO test all Potentiometer level
+
+	// TODO  test twindos
+
 
 
       //float t = heaterModule_o.GetTemperature_f();
