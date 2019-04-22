@@ -80,8 +80,14 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
         if(error_e == BUTTON_ERROR_OK)
         {
             m_InputPinNumber_u8 = pinNumber_u8;
-            pinMode(m_InputPinNumber_u8, INPUT_PULLUP);
-
+            if ( m_InputPinNumber_u8 == DOOR_PIN)
+            {
+                pinMode(m_InputPinNumber_u8, INPUT_PULLUP);
+            }
+            else 
+            {
+                pinMode(m_InputPinNumber_u8, INPUT_PULLUP);
+            }          
             m_InitFlag_b = true;
         }
         else
@@ -126,4 +132,9 @@ uint8_t ControlButton::isPressed_b()
     // save the reading. Next time through the loop, it'll be the m_lastButtonState_u8
     m_lastButtonState_u8 = currentState_u8;
     return m_buttonState_u8;
+}
+
+ bool ControlButton::isDoorOpen_b()
+{
+    return (digitalRead(DOOR_PIN));
 }

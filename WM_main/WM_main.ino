@@ -1,195 +1,139 @@
-#include <Wire.h>
-#define LED_WASHING_STARTED             ()
-
-#include "TwinDos.h";
-#include "HM_HeaterModule.h"
 #include "ControlPanel.h"
-#include "MotorDriver.h"
-#include "Sound.h"
-#include "LCDDisplay.h"
-//#include "LCDDisplay.h"
+#include "LED.h"
+#include "TwinDos.h";
 
+#define TWIN_DOS_PIN 35
 
-#define ENABLE_SERIAL_PRINT (1)
-
-#if (ENABLE_SERIAL_PRINT == 1)
-#define SERIAL_PRINTLN(Data) Serial.println(Data)
-#else
-#define SERIAL_PRINTLN(Data)
-#endif
-
-
-/*******************************************************************************
-@Typedefinitions (module-local)
-*******************************************************************************/
-
-
-
-/*******************************************************************************
-@Description   TODO
-
---------------------------------------------------------------------------------
-@Returns       none
-
---------------------------------------------------------------------------------
-@Parameters    none
-*******************************************************************************/
 static uint8_t lastButtonPressed_8;
+static uint8_t R_pin_u8 = 25;
+static uint8_t G_pin_u8 = 26;
+static uint8_t B_pin_u8 = 27;
 
-/***************************** Twindows Pins ***********************************/
+LED led(R_pin_u8, G_pin_u8, B_pin_u8);
 TwinDos twinDos_o;
-
-/****************************** Heater Module **********************************/
-// Heating Element - 25   
-// Temperature Sensor - 15
-HeaterModule heaterModule_o;
-
-/********************* Motor Power Control *************************************/
-// Motor A - 16
-// Motor B - 17
-MotorDriver motorDriver_o;
-
-/************************ LCD Display ******************************************/
-// LCD Display
-// Clock Pin 21
-// Data  Pin 22
-LCDDisplay lcd(GPIO_NUM_21, GPIO_NUM_22, 0x3f);
-
-/************************* Control Panel Buttons *******************************/
-// Control Panel Buttons
-// PowerPin,   StartPin,   WashPin,    SpinPin,    DoorPin
-// { 33,         18,         19,         13,         14 };
 ControlPanel controlPanel_o;
 
-
-
-
-
+bool doorButtonPressed_b = false;
+bool startButtonPressed_b = false;
 
 
 void setup()
 {
     // put your setup code here, to run once:
-#if (ENABLE_SERIAL_PRINT == 1)
-    Serial.begin(115200);                 // serial init for test messages
-    delay(1000);                        // give time to Wemos Lolin32 to finish setup
-#endif
+
+    Serial.begin(9600);                 // serial init for test messages
+    delay(1500);                        // give time to Wemos Lolin32 to finish setup
     controlPanel_o.Initialise_e();      //be sure to initialise "s_pinLocation_au8[]" with propper pins
-    
-    heaterModule_o.Initialise_u16(GPIO_NUM_25, GPIO_NUM_15);
-  
-    motorDriver_o.Initialise_u16(GPIO_NUM_16,  GPIO_NUM_17);
-  
-   lcd.init_b();
+    led.setColor_v(0, 0, 0);
+
+    twinDos_o.Initialise_e(TWIN_DOS_PIN); //setup TwinDos pin number
 }
-
-
-/* Global variables used in loop()*/
-  bool isPowerButtonPressed = false;
-  bool isSpinButtonPressed  = false;
-
-
 
 void loop()
-{
-
-    // constantly check if a button was pressed
-    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_v(); 
+{ 
+    // SCENARIO 1
+    /*lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_u8(); // constantly check if a button was pressed
+  
 
     
-  switch(lastButtonPressed_8)
+    switch(lastButtonPressed_8)
     {
     case BUTTON_POWER_ID:
-        isPowerButtonPressed = true;
-        SERIAL_PRINTLN("Power Button");
-        
+        Serial.println("Power button pressed");
+        // TBD
         break;
-
     case BUTTON_START_STOP_ID:
-     SERIAL_PRINTLN("BUTTON_START_STOP_ID");
-
+        Serial.println("Start/Stop button pressed");       
+        startButtonPressed_b = true;
         break;
-
     case BUTTON_WASH_ID:
- SERIAL_PRINTLN("BUTTON_WASH_ID");
-        // TBD
+        Serial.println("Wash button pressed");        
         break;
-
     case BUTTON_SPIN_ID:
-      isSpinButtonPressed = true;
-      SERIAL_PRINTLN("Spin Button");
+        Serial.println("Spin button pressed");
         // TBD
         break;
-
     case BUTTON_DOOR_SWITCH_ID:
-
-        SERIAL_PRINTLN("Door switch is pushed");
-  
+        Serial.println("Door button pressed");
+        doorButtonPressed_b = true;
         break;
-
+    default:        
+        break;
     }
 
-  if((isPowerButtonPressed == true) && (isSpinButtonPressed == true))
-  {
+       
+    // Check 
+    if(doorButtonPressed_b == true)
+    {
+        if (startButtonPressed_b == true)
+        {
+   
+            if(ControlButton::isDoorOpen_b() == true)
+            {
+                led.setColorRed_v();
+                startButtonPressed_b = false;                
+            }                
+            else
+            {
+                led.setColorGreen_v();   
+              
+            }         
+        }                        
+    }
+    */
 
-    SERIAL_PRINTLN("Spin Motor");
-    motorDriver_o.MoveMotor_u16(50, MOTOR_ROTATION_CLOCKWISE,2);
-    motorDriver_o.StopMotor_u16(1);
-
-    isPowerButtonPressed = false;
-    isSpinButtonPressed  = false;
-
+    // SCENARIO 2
+    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_u8(); // constantly check if a button was pressed
+  
 
     
-  }
-
-
-      //float t = heaterModule_o.GetTemperature_f();
-      //SERIAL_PRINTLN(t);
-      //SERIAL_PRINTLN(isPowerButtonPressed);
-      //SERIAL_PRINTLN(isSpinButtonPressed);
-
-      
-      lcd.ClearScreen_b();
-      lcd.DisplayString_b("Do something!");
-      
-
-      
-      
+    switch(lastButtonPressed_8)
+    {
+    case BUTTON_POWER_ID:
+        Serial.println("Power button pressed");
+        // TBD
+        break;
+    case BUTTON_START_STOP_ID:
+        Serial.println("Start/Stop button pressed");       
+        startButtonPressed_b = true;
+        break;
+    case BUTTON_WASH_ID:
+        Serial.println("Wash button pressed");        
+        break;
+    case BUTTON_SPIN_ID:
+        Serial.println("Spin button pressed");
+        // TBD
+        break;
+    case BUTTON_DOOR_SWITCH_ID:
+        Serial.println("Door button pressed");
+        doorButtonPressed_b = true;
+        break;
+    default:        
+        break;
+    }
+    bool is_twindos = digitalRead(35);
+    Serial.print("twindosul imi zice ca e: ");
+    Serial.println(is_twindos);
+    // Check 
+    if(doorButtonPressed_b == true)
+    {
+        if (startButtonPressed_b == true)
+        {
+   
+            if(ControlButton::isDoorOpen_b() == true || !(twinDos_o.isPresent_b()))
+            {
+                led.setColorRed_v();
+                startButtonPressed_b = false;                
+            }                
+            else
+            {
+                if (twinDos_o.isPresent_b())
+                {
+                    led.setColorBlue_v();
+                }              
+            }         
+        }                        
+    }
+    
 }
 
-/*******************************************************************************
-@Local Functions
-*******************************************************************************/
-
-
-/*******************************************************************************
-@Description   TODO
-
---------------------------------------------------------------------------------
-@Returns       TODO
-
---------------------------------------------------------------------------------
-@Parameters    TODO
-*******************************************************************************/
-bool isDoorClosed_b()
-{
-    // TBD
-  return false;
-}
-
-
-/*******************************************************************************
-@Description   TODO
-
---------------------------------------------------------------------------------
-@Returns       TODO
-
---------------------------------------------------------------------------------
-@Parameters    TODO
-*******************************************************************************/
-bool AreCartridgesPresent_b()
-{
-    // TBD
-  return false;
-}

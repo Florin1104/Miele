@@ -39,7 +39,7 @@ void setup()
 void loop()
 {
     // put your main code here, to run repeatedly:
-    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_v(); // constantly check if a button was pressed
+    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_u8(); // constantly check if a button was pressed
     switch(lastButtonPressed_8)
     {
     case BUTTON_POWER_ID:
@@ -125,7 +125,7 @@ public:
      --------------------------------------------------------------------------------
      @Parameters    none
      *******************************************************************************/
-     uint8_t poolButtonsStateChanges_v();
+     uint8_t poolButtonsStateChanges_u8();
 
 
     /*******************************************************************************
