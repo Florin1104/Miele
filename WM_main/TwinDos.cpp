@@ -6,8 +6,8 @@
 @Description    check in header file for more details
 
 --------------------------------------------------------------------------------
-@Author         Iulian G.
-@Date           14.11.2018
+@Author         Iulian G.,  Bogdan Calinoiu
+@Date           14.11.2018, 22.04.2018
 
 @Copyright      Miele  Cie Copyright 2018
 
@@ -49,8 +49,8 @@ are given at the function prototype in the header file
 *******************************************************************************/
 TwinDos::TwinDos()
 {
-    m_InputPin_u8 = 0;
-    m_InitFlag_b = false;
+    this->m_InputPin_u8 = 0;
+    this->m_InitFlag_b = false;
 }
 
 /*******************************************************************************
@@ -58,18 +58,15 @@ Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
 bool TwinDos::Initialise_e(uint8_t pin_u8)
-{
-    bool initialized_b = false;
-    
+{        
     if(m_InitFlag_b == false)
     {
-        m_InputPin_u8 = pin_u8;
-        pinMode(m_InputPin_u8, INPUT_PULLUP);
+        this->m_InputPin_u8 = pin_u8;
+        pinMode(this->m_InputPin_u8, INPUT_PULLUP);
 
-        m_InitFlag_b = true;
-        initialized_b = true;
+        this->m_InitFlag_b = true;    
     }
-    return initialized_b;
+    return this->m_InitFlag_b;
 }
 
 /*******************************************************************************
@@ -77,14 +74,7 @@ Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
 bool TwinDos::isPresent_b()
-{
-    bool cartridgeIn_b = false;
-    
-    // "!" because when pressed they will connected to ground, their value will be "0", so: if(false && false)
-    if(!digitalRead(m_InputPin_u8))
-    {
-        cartridgeIn_b = true;
-    }
-    
-    return cartridgeIn_b;
+{    
+    // "!" because when pressed they will connected to ground, their value will be "0", so: if(false && false)    
+    return !digitalRead(this->m_InputPin_u8);
 }

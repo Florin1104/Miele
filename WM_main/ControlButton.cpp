@@ -6,8 +6,8 @@
 @Description    check in header file for more details
 
 --------------------------------------------------------------------------------
-@Author         Iulian G.
-@Date           15.11.2018
+@Author         Iulian G.,  Bogdan Calinoiu
+@Date           15.11.2018, 22.04.2019
 
 @Copyright      Miele  Cie Copyright 2018
 
@@ -79,15 +79,8 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
         }
         if(error_e == BUTTON_ERROR_OK)
         {
-            m_InputPinNumber_u8 = pinNumber_u8;
-            if ( m_InputPinNumber_u8 == DOOR_PIN)
-            {
-                pinMode(m_InputPinNumber_u8, INPUT_PULLUP);
-            }
-            else 
-            {
-                pinMode(m_InputPinNumber_u8, INPUT_PULLUP);
-            }          
+            m_InputPinNumber_u8 = pinNumber_u8;                        
+            pinMode(m_InputPinNumber_u8, INPUT_PULLUP);                    
             m_InitFlag_b = true;
         }
         else

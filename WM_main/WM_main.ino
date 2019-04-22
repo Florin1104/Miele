@@ -2,7 +2,7 @@
 #include "LED.h"
 #include "TwinDos.h";
 
-#define TWIN_DOS_PIN 35
+#define TWIN_DOS_PIN 32
 
 static uint8_t lastButtonPressed_8;
 static uint8_t R_pin_u8 = 25;
@@ -26,7 +26,7 @@ void setup()
     controlPanel_o.Initialise_e();      //be sure to initialise "s_pinLocation_au8[]" with propper pins
     led.setColor_v(0, 0, 0);
 
-    twinDos_o.Initialise_e(TWIN_DOS_PIN); //setup TwinDos pin number
+    twinDos_o.Initialise_e(TWIN_DOS_PIN); //setup TwinDos pin number    
 }
 
 void loop()
@@ -86,7 +86,7 @@ void loop()
     lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_u8(); // constantly check if a button was pressed
   
 
-    
+    //
     switch(lastButtonPressed_8)
     {
     case BUTTON_POWER_ID:
@@ -105,16 +105,13 @@ void loop()
         // TBD
         break;
     case BUTTON_DOOR_SWITCH_ID:
-        Serial.println("Door button pressed");
+        Serial.println("Door button presssed");
         doorButtonPressed_b = true;
         break;
     default:        
         break;
     }
-    bool is_twindos = digitalRead(35);
-    Serial.print("twindosul imi zice ca e: ");
-    Serial.println(is_twindos);
-    // Check 
+                
     if(doorButtonPressed_b == true)
     {
         if (startButtonPressed_b == true)
@@ -136,4 +133,3 @@ void loop()
     }
     
 }
-
