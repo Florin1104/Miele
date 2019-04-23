@@ -40,10 +40,10 @@
 // TODO add description for each enum
 typedef enum Sounds_e
 {
-	DOOR_OPEN_SOUND = 5000,
-	DOOR_CLOSED_SOUND = 6000,
+	DOOR_OPEN_SOUND     = 5000,
+	DOOR_CLOSED_SOUND   = 6000,
 	PROGRAM_START_SOUND = 6500,
-	PROGRAM_END_SOUND = 7000
+	PROGRAM_END_SOUND   = 7000
 
 }Sounds_te;
 

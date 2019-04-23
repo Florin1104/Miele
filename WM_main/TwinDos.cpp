@@ -80,7 +80,7 @@ bool TwinDos::isPresent_b()
 {
     bool cartridgeIn_b = false;
     
-    // "!" because when pressed they will connected to ground, their value will be "0", so: if(false && false)
+    // "!" because when pressed they will connect to ground, their value will be "0", so: if(false && false)
     if(!digitalRead(m_InputPin_u8))
     {
         cartridgeIn_b = true;

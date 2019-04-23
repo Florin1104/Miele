@@ -21,13 +21,13 @@
 /*******************************************************************************
 @Constants (global)
 *******************************************************************************/
-#define SECOND_TO_MILLISECONDS      (1000)
-#define PWM_CHANNEL                  (1)
-#define BUZZER_PIN                   (12)
-
-
-#define PWM_FREQUENCY               (2000)
-#define RESOLUTION_BITS             (8)
+#define SECOND_TO_MILLISECONDS (1000)
+#define PWM_CHANNEL            (1)
+#define BUZZER_PIN             (12)
+							   
+							   
+#define PWM_FREQUENCY          (2000)
+#define RESOLUTION_BITS        (8)
 
 // This delay is used in order to call one line for
 // a certain number of milliseconds.

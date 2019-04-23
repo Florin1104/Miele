@@ -72,22 +72,23 @@ float HeaterModule::GetTemperature_f()
     // Read temperature as Celsius (the default)
      float temperature = dht_o.readTemperature();
 
-//    // Simulate temperature
-//    unsigned long time_now = millis();
-//    Serial.println(time_now);
-//    
-//    if( millis() < time_now + 500)
-//    {
-//      SimuTemperature_f= SimuTemperature_f+(time_now%2+(int)SimuTemperature_f%3);
-//    }
-//    
-//    
-//    if(SimuTemperature_f >= 75)
-//    { 
-//      SimuTemperature_f = 75;  
-//    } 
+    // Simulate temperature
+    unsigned long time_now = millis();
+    Serial.println(time_now);
+    
+    if( millis() < time_now + 500)
+    {
+      SimuTemperature_f= SimuTemperature_f+(time_now%2+(int)SimuTemperature_f%3);
+    }
+    
+    
+    if(SimuTemperature_f >= 75)
+    { 
+      SimuTemperature_f = 75;  
+    }
 
-  
+	return SimuTemperature_f;
+
 
     return temperature;
 }
