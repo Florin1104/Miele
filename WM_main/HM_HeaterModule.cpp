@@ -28,10 +28,13 @@
 #define PWM_FREQUENCY				(12000)
 #define RESOLUTION_BITS             (8)
 
+
+
+
 // This delay is used in order to call one line for
 // a certain number of milliseconds.
 // It should be used like this: DELAY_NON_BREAKING(WaitMs_u32) CodeToBeCalled();
-#define DELAY_NON_BREAKING(WaitMs_u32) for (unsigned long time_now = millis(); millis() < time_now + WaitMs_u32;)
+#define DELAY_NON_BREAKING(WaitMs_u32) for (static unsigned long time_now = millis(); millis() < time_now + WaitMs_u32;)
 
 // This part is the replacement of delay frm Arduino
 #define DELAY_DO_NOTHING(WaitMs_u32) DELAY_NON_BREAKING(WaitMs_u32);
@@ -67,9 +70,26 @@ are given at the function prototype in the header file
 float HeaterModule::GetTemperature_f()
 {
     // Read temperature as Celsius (the default)
-    float t = dht_o.readTemperature();
+     float temperature = dht_o.readTemperature();
 
-    return t;
+//    // Simulate temperature
+//    unsigned long time_now = millis();
+//    Serial.println(time_now);
+//    
+//    if( millis() < time_now + 500)
+//    {
+//      SimuTemperature_f= SimuTemperature_f+(time_now%2+(int)SimuTemperature_f%3);
+//    }
+//    
+//    
+//    if(SimuTemperature_f >= 75)
+//    { 
+//      SimuTemperature_f = 75;  
+//    } 
+
+  
+
+    return temperature;
 }
 
 /*******************************************************************************
@@ -122,7 +142,11 @@ void HeaterModule::StartHeating_v(float value)
 	value=map(value,0,MAX_POWER_PWM,0,100);
 	if(value <= MAX_POWER_PWM)
 	{
-	    ledcWrite(PWM_CHANNEL_THREE,value);
+    // TODO - Check for DHT11 pins
+    // start heating resistor
+	  //ledcWrite(PWM_CHANNEL_THREE,value);
+
+   
 	}
 	else if(value > MAX_POWER_PWM)
 	{

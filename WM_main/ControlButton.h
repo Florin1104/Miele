@@ -6,7 +6,7 @@
 @Filename       ControlButton.h
 
 --------------------------------------------------------------------------------
-@Description    Represents a single button from the wasing machine control panel
+@Description    Represents a single button from the washing machine control panel
 
 --------------------------------------------------------------------------------
 @Author         Iulian G.
@@ -33,7 +33,7 @@ typedef enum ButtonError_e
 static uint8_t interruptEnablePins_au8[] = {15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32};
 
 #define DEBOUNCE_DELAY_MS 50 // the debounce time, increase value if the output flickers
-
+#define DOOR_PIN  14
 #include <stdint.h>
 #include "Arduino.h"
 
@@ -100,6 +100,18 @@ class ControlButton
      @Parameters    None
      *******************************************************************************/
      uint8_t isPressed_b();
+
+     /*******************************************************************************
+     @Description   Check if door is open.
+
+     --------------------------------------------------------------------------------
+     @Returns       True if the door is open,
+                    False otherwise.
+
+     --------------------------------------------------------------------------------
+     @Parameters    None
+     *******************************************************************************/
+     static bool isDoorOpen_b();
 };
 
 #endif

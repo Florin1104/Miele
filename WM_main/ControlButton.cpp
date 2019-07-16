@@ -6,8 +6,8 @@
 @Description    check in header file for more details
 
 --------------------------------------------------------------------------------
-@Author         Iulian G.
-@Date           15.11.2018
+@Author         Iulian G.,  Bogdan Calinoiu
+@Date           15.11.2018, 22.04.2019
 
 @Copyright      Miele  Cie Copyright 2018
 
@@ -79,9 +79,8 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
         }
         if(error_e == BUTTON_ERROR_OK)
         {
-            m_InputPinNumber_u8 = pinNumber_u8;
-            pinMode(m_InputPinNumber_u8, INPUT_PULLUP);
-
+            m_InputPinNumber_u8 = pinNumber_u8;                        
+            pinMode(m_InputPinNumber_u8, INPUT_PULLUP);                    
             m_InitFlag_b = true;
         }
         else
@@ -126,4 +125,9 @@ uint8_t ControlButton::isPressed_b()
     // save the reading. Next time through the loop, it'll be the m_lastButtonState_u8
     m_lastButtonState_u8 = currentState_u8;
     return m_buttonState_u8;
+}
+
+ bool ControlButton::isDoorOpen_b()
+{
+    return (digitalRead(DOOR_PIN));
 }

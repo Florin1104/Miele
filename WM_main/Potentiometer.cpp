@@ -19,12 +19,12 @@
 #include "Potentiometer.h"
 
 #define NUMBER_OF_READINGS 1
-#define SERIAL_PRINT_ON (1)
+#define SERIAL_PRINT_ON (0)
 
 #if SERIAL_PRINT_ON == 1
 #define SERIAL_PRINT(Data) Serial.println(Data)
 #else
-define SERIAL_PRINT(Data)
+#define SERIAL_PRINT(Data)
 #endif //  SERIAL_PRINT_ON == 1
 
 /*******************************************************************************
@@ -37,12 +37,7 @@ bool Potentiometer::Init_b()
     {
         pinMode(InputPin_u8, INPUT);
 
-#if SERIAL_PRINT_ON == 1
-		Serial.begin(115200);
-		delay(200);
-#endif //  SERIAL_PRINT_ON == 1
-
-		InitFlag_b = true;
+		    InitFlag_b = true;
 
         return true;
     }
@@ -57,7 +52,8 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 {
     int RawPotentiometer_u8 = 0;
     RawPotentiometer_u8 = analogRead(InputPin_u8);
-	WashingProgram_te WashProgram_e;
+    
+	  WashingProgram_te WashProgram_e;
 
 
 

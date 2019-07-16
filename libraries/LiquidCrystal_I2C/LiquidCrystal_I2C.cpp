@@ -1,7 +1,7 @@
 #include "LiquidCrystal_I2C.h"
 #include <inttypes.h>
 #include <Arduino.h>
-#include <Wire.h>
+#include "Wire\src\Wire.h"
 
 // When the display powers up, it is configured as follows:
 //

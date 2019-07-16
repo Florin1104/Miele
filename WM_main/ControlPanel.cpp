@@ -128,7 +128,7 @@ ButtonError_te ControlPanel::Initialise_e()
     return error;
 }
 
-uint8_t ControlPanel::poolButtonsStateChanges_v()
+uint8_t ControlPanel::poolButtonsStateChanges_u8()
 {
     m_lastSuccessfulButtonPush_u8 = BUTTON_LAST_ENTRY_ID;
     

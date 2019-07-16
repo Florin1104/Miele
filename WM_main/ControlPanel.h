@@ -39,7 +39,7 @@ void setup()
 void loop()
 {
     // put your main code here, to run repeatedly:
-    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_v(); // constantly check if a button was pressed
+    lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_u8(); // constantly check if a button was pressed
     switch(lastButtonPressed_8)
     {
     case BUTTON_POWER_ID:
@@ -78,7 +78,7 @@ void loop()
 
 // enter button pin locations
 //                                      PowerPin,   StartPin,   WashPin,    SpinPin,    DoorPin
-static uint8_t s_pinLocation_au8[] =   {33,         18,         22,         13,         14       };
+static uint8_t s_pinLocation_au8[] =   {33,         18,         19,         13,         14       };
 
 class ControlPanel
 {
@@ -125,7 +125,7 @@ public:
      --------------------------------------------------------------------------------
      @Parameters    none
      *******************************************************************************/
-     uint8_t poolButtonsStateChanges_v();
+     uint8_t poolButtonsStateChanges_u8();
 
 
     /*******************************************************************************
