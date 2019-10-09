@@ -144,7 +144,7 @@ void HeaterModule::StartHeating_v(float value)
 	{
     // TODO - Check for DHT11 pins
     // start heating resistor
-	  //ledcWrite(PWM_CHANNEL_THREE,value);
+	  ledcWrite(PWM_CHANNEL_THREE,value);
 
    
 	}
