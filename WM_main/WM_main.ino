@@ -26,13 +26,13 @@ DoorPin  14
 ********************************************
 
 *********  Motor pins **********************
-Motor A
-Motor B
+Motor A 16
+Motor B 17
 valid pvm pins 15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32,39,36
 ********************************************
 
 ******** Twindows pins *********************
-Twindows Pin
+Twindows Pin 12
 ********************************************
 
 ******** LCD pins **************************
@@ -46,8 +46,8 @@ Potentiometer Pin
 
 
 
-ControlButton DoorButton_o;
-ControlButton SpinButton_o;
+//ControlButton DoorButton_o;
+//ControlButton SpinButton_o;
 MotorDriver Motor_o;
 TwinDos Twin_Cartrige_o;
 MotorRotation_te direction = MOTOR_ROTATION_CLOCKWISE;
@@ -56,11 +56,13 @@ Sounds_te DoorSound = DOOR_OPEN_SOUND;
 Sounds_te ProgramEndSound = PROGRAM_END_SOUND;
 ControlPanel controlPanel_o;
 LCDDisplay disp_o(21, 22, 0x3f);
-Potentiometer Pot_o(25);
+Potentiometer Pot_o(27);
 HeaterModule heaterModule_o;
 
 
+
 static uint8_t lastButtonPressed_8;
+static bool refresh_lcd_message_flag_b = false;
 
 
 
@@ -69,13 +71,15 @@ void setup()
 
     Serial.begin(9600);
     delay(1500);
-    Twin_Cartrige_o.Initialise_e(12);
-    DoorButton_o.Initialise_e(19);
-    SpinButton_o.Initialise_e(16);
-    Motor_o.Initialise_u16(23, 18);
+    Twin_Cartrige_o.Initialise_e(34);
+    Pot_o.Init_b();
+    //DoorButton_o.Initialise_e(12);
+    //SpinButton_o.Initialise_e(16);
+    Motor_o.Initialise_u16(16, 17);
     controlPanel_o.Initialise_e();      //be sure to initialise "s_pinLocation_au8[]" with propper pins
     disp_o.init_b();
-    heaterModule_o.Initialise_u16(GPIO_NUM_25, GPIO_NUM_15);
+    InitialiseSound_v();
+    heaterModule_o.Initialise_u16(15,25);
 }
 
 
@@ -84,31 +88,44 @@ void setup()
 
 void loop()
 {
-
-
+   
     // 1. Add here control panel testing code
     lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_u8(); // constantly check if a button was pressed
+    
     switch (lastButtonPressed_8)
     {
     case BUTTON_POWER_ID:
-        Serial.println("Power button pressed");
-        // TBD
+        Serial.println("Power was button pressed");
+
+        Serial.println("The motor shold spin right now MOTOR_ROTATION_CLOCKWISE!");
+        Motor_o.MoveMotor_u16(30, MOTOR_ROTATION_CLOCKWISE, 3);
+      
         break;
+
     case BUTTON_START_STOP_ID:
         Serial.println("Start/Stop button pressed");
-        // TBD
+        StopSound_v();
+        Motor_o.StopMotor_u16(1);
+
         break;
+
     case BUTTON_WASH_ID:
         Serial.println("Wash button pressed");
-        // TBD
+        GenerateSounds(8, 500);
+        delay(10);
+   
         break;
     case BUTTON_SPIN_ID:
-        Serial.println("Spin button pressed");
-        // TBD
+        Serial.println("Spin button pressed");          //!!! Water-in button activates the spin button
+        Serial.println("The motor shold spin right now MOTOR_ROTATION_COUNTER_CLOCKWISE!");
+        Motor_o.MoveMotor_u16(30, MOTOR_ROTATION_COUNTER_CLOCKWISE, 3);
+
+ 
         break;
     case BUTTON_DOOR_SWITCH_ID:
         Serial.println("Door button pressed");
-        // TBD
+       
+
         break;
     default:
         break;
@@ -116,12 +133,17 @@ void loop()
 
 
     // 2. Add test for LCD -> Write "Hello World Miele 2019" on lcd
-    disp_o.ClearScreen_b();
-    disp_o.DisplayString_b("Hello World Miele 2019");
+    // This flag is used in order not to refresh LCD.
+    if (refresh_lcd_message_flag_b == false) 
+    {
+        disp_o.ClearScreen_b();
+        disp_o.DisplayString_b("Hello World Miele 2019");
+        refresh_lcd_message_flag_b = true;
+    }
 
     // 3. Add here the code for potentiometer (vezi sa printezi valorile de la potentiometru)
-    WashingProgram_te WashProgram_e = Pot_o.GetSelectedProgram();
-    switch (WashProgram_e)
+    //WashingProgram_te Program_e = Pot_o.GetSelectedProgram();
+    switch (Program_e)
     {
     case WP_NONE:
         Serial.println("Program selected: 0");
@@ -158,38 +180,36 @@ void loop()
     }
 
     // 4. Add here buzzer sound
-    PlaySound_v(2, DOOR_OPEN_SOUND);
-    StopSound_v();
-    PlaySound_v(2, DOOR_CLOSED_SOUND);
-    StopSound_v();
-    PlaySound_v(2, PROGRAM_END_SOUND);
-    StopSound_v();
+
+
 
     // 5. Add code here heater(37 grade Celsius) and get the temperature from sensor (37 grade Celsius)
-    heaterModule_o.StartHeating_v(64);
-    float t = heaterModule_o.GetTemperature_f();
-    while (t < (float)35)
+    //heaterModule_o.StartHeating_v((float)10);       //works
+    //Serial.println("StartHeating_v");
+
+    //float t = heaterModule_o.GetTemperature_f();    //gets NAN
+    //Serial.println("GetTemperature_f");
+    //Serial.println(t);
+    /*while (t > (float)2)
     {
-        Serial.print(t);
+        //Serial.println(t);
+        //Serial.println("aici");
         t = heaterModule_o.GetTemperature_f();
     }
-    heaterModule_o.StopHeating_v();
+    heaterModule_o.StopHeating_v();*/
 
     // 6. Spin motor 2 sec clockwise and 2 second counter clockwise and then stop 2 seconds
-    Motor_o.MoveMotor_u16(30, MOTOR_ROTATION_CLOCKWISE, 2);
-    Serial.println("MOTOR_ROTATION_CLOCKWISE");
-    Motor_o.StopMotor_u16(2);
-    Motor_o.MoveMotor_u16(30, MOTOR_ROTATION_COUNTER_CLOCKWISE, 3);
-    Serial.println("MOTOR_ROTATION_COUNTER_CLOCKWISE");
+    //Serial.println("MOTOR_ROTATION_COUNTER_CLOCKWISE");
+    //Serial.println(Motor_o.counter_clockwiseChannel);
 
-    // 7. Twindows code detect if cartiges are insterted or not
-    if (Twin_Cartrige_o.isPresent_b())
+    //// 7. Twindows code detect if cartiges are insterted or not
+    /*if (Twin_Cartrige_o.isPresent_b())
     {
         Serial.println("twin detected");
     }
     else
     {
         Serial.println("twin not here");
-    }
+    }*/
 }
 

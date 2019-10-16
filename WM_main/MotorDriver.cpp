@@ -18,13 +18,13 @@
 @Project Includes
 *******************************************************************************/
 #include "MotorDriver.h"
-
+#include "PWM_Timer.h"
 /*******************************************************************************
 @Constants (global)
 *******************************************************************************/
 #define SECOND_TO_MILLISECONDS      (1000)
-#define PWM_CHANNEL_ONE             (1)
-#define PWM_CHANNEL_TWO              (2)
+//#define PWM_CHANNEL_ONE             (1)
+//#define PWM_CHANNEL_TWO              (2)
 
 #define PWM_FREQUENCY               (12000)
 #define RESOLUTION_BITS             (8)
@@ -64,6 +64,7 @@ are given at the function prototype in the header file
 uint16_t MotorDriver::Initialise_u16(uint8_t MotorPinClockwise_u8, uint8_t MotorPinCounterClockwise_u8)
 {
     uint16_t ErrorCode_u16 = ERROR_PIN_NOT_COMPATIBLE_WITH_PWM;
+    
 
     // Check that the pins are not the same
     if (MotorPinClockwise_u8 != MotorPinCounterClockwise_u8)
@@ -76,12 +77,12 @@ uint16_t MotorDriver::Initialise_u16(uint8_t MotorPinClockwise_u8, uint8_t Motor
             m_MotorPinCounterClockwise_u8 = MotorPinCounterClockwise_u8;
 
             // Initialise the channels.
-            ledcAttachPin(MotorPinClockwise_u8, PWM_CHANNEL_ONE);
-            ledcAttachPin(MotorPinCounterClockwise_u8, PWM_CHANNEL_TWO);
+            ledcAttachPin(MotorPinClockwise_u8, clockwiseChannel);
+            ledcAttachPin(MotorPinCounterClockwise_u8, counter_clockwiseChannel);
 
             // Set PWM channel.
-            ledcSetup(PWM_CHANNEL_ONE, PWM_FREQUENCY, RESOLUTION_BITS);
-            ledcSetup(PWM_CHANNEL_TWO, PWM_FREQUENCY, RESOLUTION_BITS);
+            ledcSetup(clockwiseChannel, PWM_FREQUENCY, RESOLUTION_BITS);
+            ledcSetup(counter_clockwiseChannel, PWM_FREQUENCY, RESOLUTION_BITS);
 
             // The motor is not moving.
             m_StopMotor_v();
@@ -115,33 +116,39 @@ uint16_t MotorDriver::MoveMotor_u16(uint8_t Speed_u8, MotorRotation_te Rotation_
         // Check if the speed is in limit.
         if (Speed_u8 <= 100)
         {
-            m_MotorRotation_e = Rotation_e;
-
-            // Map the values from 0-100 to 0-255.
-            Speed_u8 = map(Speed_u8, 0, 100, 0, 255);
-
-            // Transform seconds in milliseconds.
-            TimeInSeconds_u16 = TimeInSeconds_u16 * SECOND_TO_MILLISECONDS;
-
-            // How the motor should spin?
-            if (m_MotorRotation_e == MOTOR_ROTATION_CLOCKWISE)
+            if (Rotation_e == m_MotorRotation_e || m_MotorRotation_e == MOTOR_ROTATION_NOT_SPECIFIED)
             {
-                DELAY_NON_BREAKING(TimeInSeconds_u16) ledcWrite(PWM_CHANNEL_ONE, Speed_u8);
+                m_MotorRotation_e = Rotation_e;
 
-                ErrorCode_u16 = ERROR_NO_ERROR;
-            }
-            else if (m_MotorRotation_e == MOTOR_ROTATION_COUNTER_CLOCKWISE)
-            {
-                DELAY_NON_BREAKING(TimeInSeconds_u16) ledcWrite(PWM_CHANNEL_TWO, Speed_u8);
+                // Map the values from 0-100 to 0-255.
+                Speed_u8 = map(Speed_u8, 0, 100, 0, 255);
 
-                ErrorCode_u16 = ERROR_NO_ERROR;
+                // Transform seconds in milliseconds.
+                TimeInSeconds_u16 = TimeInSeconds_u16 * SECOND_TO_MILLISECONDS;
 
+                // How the motor should spin?
+                if (m_MotorRotation_e == MOTOR_ROTATION_CLOCKWISE)
+                {
+
+                    ledcWrite(clockwiseChannel, Speed_u8);
+
+                    ErrorCode_u16 = ERROR_NO_ERROR;
+                }
+                else if (m_MotorRotation_e == MOTOR_ROTATION_COUNTER_CLOCKWISE)
+                {
+                    ledcWrite(counter_clockwiseChannel, Speed_u8);
+
+                    ErrorCode_u16 = ERROR_NO_ERROR;
+
+                }
             }
             else
             {
                 // We have an error so stop the motor.
                 m_StopMotor_v();
+                Serial.println("We have an error, you want to change the direction while spinning. The motor will stop.");
                 ErrorCode_u16 = ERROR_ROTATION_MOTOR;
+                m_MotorRotation_e = MOTOR_ROTATION_NOT_SPECIFIED;
             }
         }
     }
@@ -181,7 +188,7 @@ uint16_t MotorDriver::StopMotor_u16(uint16_t TimeInSeconds_u16)
     // Is the module is intialised?
     if (m_isModuleInitialised_b == true)
     {
-        DELAY_NON_BREAKING(TimeInSeconds_u16*SECOND_TO_MILLISECONDS) m_StopMotor_v();
+        m_StopMotor_v();
         ErrorCode_u16 = ERROR_NO_ERROR;
         
     }
@@ -196,8 +203,8 @@ are given at the function prototype in the header file
 void MotorDriver::m_StopMotor_v()
 {
     // Set PWM pins to LOW
-    ledcWrite(PWM_CHANNEL_ONE, 0);
-    ledcWrite(PWM_CHANNEL_TWO, 0);
+    ledcWrite(clockwiseChannel, 0);
+    ledcWrite(counter_clockwiseChannel, 0);
 
     m_isMotorMoving_b = false;
     m_MotorRotation_e = MOTOR_ROTATION_NOT_SPECIFIED;

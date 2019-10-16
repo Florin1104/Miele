@@ -88,7 +88,7 @@ void PlaySound_v(uint16_t TimeInSeconds_u16, Sounds_te sounds);
 --------------------------------------------------------------------------------
 @Parameters    sound_freq
 *******************************************************************************/
-int GenerateSounds(int sound_freq);
+int GenerateSounds(int sound_freq, int time);
 
 /*******************************************************************************
 @Description   This method is used in order to stop playing a sound 

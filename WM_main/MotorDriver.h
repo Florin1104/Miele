@@ -32,7 +32,7 @@
 @Project Includes
 *******************************************************************************/
 #include "Arduino.h"
-
+#include "PWM_Timer.h"
 #define ERROR_NO_ERROR                      (0)
 #define ERROR_MODULE_IS_NOT_INTIALISED      (1)
 #define ERROR_ROTATION_MOTOR                (2)
@@ -61,6 +61,9 @@ typedef enum MotorRotation_e
 class MotorDriver
 {
 public:
+    uint8_t clockwiseChannel = 0;
+    uint8_t counter_clockwiseChannel = 0;
+
     /*******************************************************************************
     @Description   Public constructor.
 
@@ -70,7 +73,12 @@ public:
     --------------------------------------------------------------------------------
     @Parameters    None.
     *******************************************************************************/
-    MotorDriver() {}
+    MotorDriver() 
+    {
+        clockwiseChannel = getChannel();
+        counter_clockwiseChannel = getChannel();
+        
+    }
 
     /*******************************************************************************
     @Prototypes global Functions
@@ -153,6 +161,9 @@ private:
 
     // This is used to check wheter the module is moving
     bool m_isMotorMoving_b = false;
+
+    //
+   
 
     /*******************************************************************************
     @Description   Private method to stop motor.

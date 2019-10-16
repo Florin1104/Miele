@@ -17,7 +17,7 @@
 @Project Includes
 *******************************************************************************/
 #include "Sound.h"
-
+#include "PWM_Timer.h"
 /*******************************************************************************
 @Constants (global)
 *******************************************************************************/
@@ -47,7 +47,7 @@
 /*******************************************************************************
 @Local Variables
 *******************************************************************************/
-
+static  uint8_t channel_u8;
 /*******************************************************************************
 @External Prototypes
 *******************************************************************************/
@@ -64,8 +64,16 @@ are given at the function prototype in the header file
 
 void InitialiseSound_v()
 {
-    ledcSetup(PWM_CHANNEL, PWM_FREQUENCY, PWM_CHANNEL);
-    ledcAttachPin(BUZZER_PIN, PWM_CHANNEL);
+    channel_u8 = getChannel();
+    if (channel_u8 != 17)
+    {
+        ledcSetup(channel_u8, PWM_FREQUENCY, 8);
+        ledcAttachPin(BUZZER_PIN, channel_u8);
+    }
+    else
+    {
+        Serial.println("PWM channel is occupied");
+    }
 }
 
 /*******************************************************************************
@@ -74,18 +82,16 @@ are given at the function prototype in the header file
 *******************************************************************************/
 void PlaySound_v(uint16_t TimeInSeconds_u16, Sounds_te sounds)
 {
-	GenerateSounds(sounds);
+	GenerateSounds(sounds, TimeInSeconds_u16);
 }
 /*******************************************************************************
 Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
-int GenerateSounds(int sound_freq)
+int GenerateSounds(int sound_freq, int time)
 {
-	for(int freq= sound_freq; freq <7000; freq++)
-	{
-		sound_freq=ledcWriteTone(PWM_CHANNEL, freq);
-	}
+    
+    ledcWriteTone(channel_u8, sound_freq);  
 
 	return sound_freq;
 }
@@ -95,5 +101,5 @@ are given at the function prototype in the header file
 *******************************************************************************/
 void StopSound_v()
 {
-    DELAY_NON_BREAKING(500) ledcWriteTone(PWM_CHANNEL, 0);
+    DELAY_NON_BREAKING(500) ledcWriteTone(channel_u8, 0);
 }
