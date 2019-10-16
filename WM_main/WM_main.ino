@@ -99,6 +99,9 @@ void loop()
 
         Serial.println("The motor shold spin right now MOTOR_ROTATION_CLOCKWISE!");
         Motor_o.MoveMotor_u16(30, MOTOR_ROTATION_CLOCKWISE, 3);
+
+        disp_o.ClearScreen_b();
+        disp_o.DisplayString_b("Power was button pressed");
       
         break;
 
@@ -107,27 +110,41 @@ void loop()
         StopSound_v();
         Motor_o.StopMotor_u16(1);
 
+        disp_o.ClearScreen_b();
+        disp_o.DisplayString_b("Start/Stop button pressed");
+
         break;
 
     case BUTTON_WASH_ID:
         Serial.println("Wash button pressed");
         GenerateSounds(8, 500);
         delay(10);
+
+        disp_o.ClearScreen_b();
+        disp_o.DisplayString_b("Wash button pressed");
    
         break;
     case BUTTON_SPIN_ID:
         Serial.println("Spin button pressed");          //!!! Water-in button activates the spin button
         Serial.println("The motor shold spin right now MOTOR_ROTATION_COUNTER_CLOCKWISE!");
         Motor_o.MoveMotor_u16(30, MOTOR_ROTATION_COUNTER_CLOCKWISE, 3);
+        
+        disp_o.ClearScreen_b();
+        disp_o.DisplayString_b("Spin button pressed");
+
 
  
         break;
     case BUTTON_DOOR_SWITCH_ID:
         Serial.println("Door button pressed");
+
+        disp_o.ClearScreen_b();
+        disp_o.DisplayString_b("Door button pressed");
        
 
         break;
     default:
+        
         break;
     }
 
@@ -143,41 +160,41 @@ void loop()
 
     // 3. Add here the code for potentiometer (vezi sa printezi valorile de la potentiometru)
     //WashingProgram_te Program_e = Pot_o.GetSelectedProgram();
-    switch (Program_e)
-    {
-    case WP_NONE:
-        Serial.println("Program selected: 0");
-        break;
-    case WP_WASH:
-        Serial.println("Program selected: 1");
-        break;
-    case WP_SPIN:
-        Serial.println("Program selected: 2");
-        break;
-    case WP_HANDWASH:
-        Serial.println("Program selected: 3");
-        break;
-    case WP_FAST_WASH:
-        Serial.println("Program selected: 4");
-        break;
-    case WP_INTENSE_WASH:
-        Serial.println("Program selected: 5");
-        break;
-    case WP_WHITE_CLOTHES:
-        Serial.println("Program selected: 6");
-        break;
-    case WP_CLEAN_WASHING_MACHINE:
-        Serial.println("Program selected: 7");
-        break;
-    case WP_SHIRTS:
-        Serial.println("Program selected: 8");
-        break;
-    case WP_NOT_USED:
-        Serial.println("Program selected: 9");
-        break;
-    default:
-        break;
-    }
+    //switch (Program_e)
+    //{
+    //case WP_NONE:
+    //    Serial.println("Program selected: 0");
+    //    break;
+    //case WP_WASH:
+    //    Serial.println("Program selected: 1");
+    //    break;
+    //case WP_SPIN:
+    //    Serial.println("Program selected: 2");
+    //    break;
+    //case WP_HANDWASH:
+    //    Serial.println("Program selected: 3");
+    //    break;
+    //case WP_FAST_WASH:
+    //    Serial.println("Program selected: 4");
+    //    break;
+    //case WP_INTENSE_WASH:
+    //    Serial.println("Program selected: 5");
+    //    break;
+    //case WP_WHITE_CLOTHES:
+    //    Serial.println("Program selected: 6");
+    //    break;
+    //case WP_CLEAN_WASHING_MACHINE:
+    //    Serial.println("Program selected: 7");
+    //    break;
+    //case WP_SHIRTS:
+    //    Serial.println("Program selected: 8");
+    //    break;
+    //case WP_NOT_USED:
+    //    Serial.println("Program selected: 9");
+    //    break;
+    //default:
+    //    break;
+    //}
 
     // 4. Add here buzzer sound
 
