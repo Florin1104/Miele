@@ -159,44 +159,45 @@ void loop()
     }
 
     // 3. Add here the code for potentiometer (vezi sa printezi valorile de la potentiometru)
-    //WashingProgram_te Program_e = Pot_o.GetSelectedProgram();
-    //switch (Program_e)
-    //{
-    //case WP_NONE:
-    //    Serial.println("Program selected: 0");
-    //    break;
-    //case WP_WASH:
-    //    Serial.println("Program selected: 1");
-    //    break;
-    //case WP_SPIN:
-    //    Serial.println("Program selected: 2");
-    //    break;
-    //case WP_HANDWASH:
-    //    Serial.println("Program selected: 3");
-    //    break;
-    //case WP_FAST_WASH:
-    //    Serial.println("Program selected: 4");
-    //    break;
-    //case WP_INTENSE_WASH:
-    //    Serial.println("Program selected: 5");
-    //    break;
-    //case WP_WHITE_CLOTHES:
-    //    Serial.println("Program selected: 6");
-    //    break;
-    //case WP_CLEAN_WASHING_MACHINE:
-    //    Serial.println("Program selected: 7");
-    //    break;
-    //case WP_SHIRTS:
-    //    Serial.println("Program selected: 8");
-    //    break;
-    //case WP_NOT_USED:
-    //    Serial.println("Program selected: 9");
-    //    break;
-    //default:
-    //    break;
-    //}
+    WashingProgram_te Program_e = Pot_o.GetSelectedProgram();
+    switch (Program_e)
+    {
+    case WP_NONE:
+        Serial.println("Program selected: 0");
+        break;
+    case WP_WASH:
+        Serial.println("Program selected: 1");
+        break;
+    case WP_SPIN:
+        Serial.println("Program selected: 2");
+        break;
+    case WP_HANDWASH:
+        Serial.println("Program selected: 3");
+        break;
+    case WP_FAST_WASH:
+        Serial.println("Program selected: 4");
+        break;
+    case WP_INTENSE_WASH:
+        Serial.println("Program selected: 5");
+        break;
+    case WP_WHITE_CLOTHES:
+        Serial.println("Program selected: 6");
+        break;
+    case WP_CLEAN_WASHING_MACHINE:
+        Serial.println("Program selected: 7");
+        break;
+    case WP_SHIRTS:
+        Serial.println("Program selected: 8");
+        break;
+    case WP_NOT_USED:
+        Serial.println("Program selected: 9");
+        break;
+    default:
+        break;
+    }
 
     // 4. Add here buzzer sound
+    // Added on wash button you can stop it from stop button
 
 
 
