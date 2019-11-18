@@ -52,7 +52,7 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 {
     int RawPotentiometer_u8 = 0;
     RawPotentiometer_u8 = analogRead(InputPin_u8);
-    Serial.println(RawPotentiometer_u8);
+    //Serial.println(RawPotentiometer_u8);
 	  WashingProgram_te WashProgram_e;
 
 

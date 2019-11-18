@@ -62,7 +62,7 @@ bool TwinDos::Initialise_e(uint8_t pin_u8)
     if(m_InitFlag_b == false)
     {
         this->m_InputPin_u8 = pin_u8;
-        pinMode(this->m_InputPin_u8, INPUT_PULLUP);
+        pinMode(this->m_InputPin_u8, INPUT_PULLDOWN);
 
         this->m_InitFlag_b = true;    
     }
@@ -75,6 +75,6 @@ are given at the function prototype in the header file
 *******************************************************************************/
 bool TwinDos::isPresent_b()
 {    
-    // "!" because when pressed they will connected to ground, their value will be "0", so: if(false && false)    
-    return !digitalRead(this->m_InputPin_u8);
+    // "!" because when pressed they will connected to ground, their value will be "0", so: if(false && false)   esti prost 
+    return digitalRead(this->m_InputPin_u8);
 }
