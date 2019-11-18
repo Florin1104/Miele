@@ -30,7 +30,7 @@ typedef enum ButtonError_e
 }ButtonError_te;
 
 // wemos lolin32 (esp32) interrupt enabled pins
-static uint8_t interruptEnablePins_au8[] = {15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32};
+static uint8_t interruptEnablePins_au8[] = {15,2,0,4,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32};
 
 #define DEBOUNCE_DELAY_MS 50 // the debounce time, increase value if the output flickers
 #define DOOR_PIN  14

@@ -43,7 +43,7 @@
 *******************************************************************************/
 
 // keep last button interrupt
-static uint8_t LastButtonInterrupt_u8;
+static volatile uint8_t LastButtonInterrupt_u8;
 
 // button interrupt function
 void BTN_PowerActive_v()
@@ -117,11 +117,11 @@ ButtonError_te ControlPanel::Initialise_e()
         if(BUTTON_ERROR_OK == error)
         {
             // register buttons interrupts
-            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_POWER_ID]), BTN_PowerActive_v, CHANGE);
-            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_START_STOP_ID]), BTN_StartStopActive_v, CHANGE);
-            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_WASH_ID]), BTN_WashActive_v, CHANGE);
-            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_SPIN_ID]), BTN_SpinActive_v, CHANGE);
-            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_DOOR_SWITCH_ID]), BTN_DoorActive_v, CHANGE);
+            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_POWER_ID]), BTN_PowerActive_v, RISING);
+            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_START_STOP_ID]), BTN_StartStopActive_v, RISING);
+            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_WASH_ID]), BTN_WashActive_v, RISING);
+            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_SPIN_ID]), BTN_SpinActive_v, RISING);
+            attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_DOOR_SWITCH_ID]), BTN_DoorActive_v, RISING);
             m_InitFlag_b = true;
         }
     }
@@ -130,26 +130,13 @@ ButtonError_te ControlPanel::Initialise_e()
 
 uint8_t ControlPanel::poolButtonsStateChanges_u8()
 {
-    m_lastSuccessfulButtonPush_u8 = BUTTON_LAST_ENTRY_ID;
-    
-    if(LastButtonInterrupt_u8 != BUTTON_LAST_ENTRY_ID)
-    {
-        // ensure that is a LOW to HIGH transition
-        if(m_btnList_ao[LastButtonInterrupt_u8].isPressed_b() == LOW && m_ButtonCurrentState_ab[LastButtonInterrupt_u8] == false)
-        {
-            m_ButtonCurrentState_ab[LastButtonInterrupt_u8] = true;
-            m_lastSuccessfulButtonPush_u8 = LastButtonInterrupt_u8;
-            LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;
-        }
-        // ensure that is a HIGH to LOW transition
-        if(m_btnList_ao[LastButtonInterrupt_u8].isPressed_b() == HIGH && m_ButtonCurrentState_ab[LastButtonInterrupt_u8] == true)
-        {
-            m_ButtonCurrentState_ab[LastButtonInterrupt_u8] = false;
-            LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;
-        }
-    }
-    
-    return m_lastSuccessfulButtonPush_u8;
+
+    uint8_t RetrunedLastButton = LastButtonInterrupt_u8;
+
+    LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;
+ 
+  
+    return RetrunedLastButton;
 }
 
 bool ControlPanel::getButtonState_b(ButtonsPanel_te buttonID_e)

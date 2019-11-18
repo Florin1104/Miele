@@ -52,7 +52,7 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 {
     int RawPotentiometer_u8 = 0;
     RawPotentiometer_u8 = analogRead(InputPin_u8);
-    
+    //Serial.println(RawPotentiometer_u8);
 	  WashingProgram_te WashProgram_e;
 
 
@@ -63,57 +63,57 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 	//Serial.println(RawPotentiometer_u8);
 
 
-	if ((RawPotentiometer_u8 > 1) && (RawPotentiometer_u8 < 200)) 
+	if ((RawPotentiometer_u8 > 1) && (RawPotentiometer_u8 < 200)) //200
 	{
 		WashProgram_e = WP_WASH;
-		SERIAL_PRINT("Program selected is simple wash");
+		//SERIAL_PRINT("Program selected is simple wash");
 
 	}
-	else if ((RawPotentiometer_u8 > 200) && (RawPotentiometer_u8 < 600))
+	else if ((RawPotentiometer_u8 > 200) && (RawPotentiometer_u8 < 600))//200 600
 	{
 		WashProgram_e = WP_SPIN;
-		SERIAL_PRINT("Now we are spining");
+		//SERIAL_PRINT("Now we are spining");
 
 	}
-	else if ((RawPotentiometer_u8 > 600) && (RawPotentiometer_u8 < 1000))
+	else if ((RawPotentiometer_u8 > 600) && (RawPotentiometer_u8 < 1000))//600 1000
 	{
 		WashProgram_e = WP_HANDWASH;
-		SERIAL_PRINT("Program selected is handwash");
+		//SERIAL_PRINT("Program selected is handwash");
 	}
-	else if ((RawPotentiometer_u8 > 1000) && (RawPotentiometer_u8 < 1500))
+	else if ((RawPotentiometer_u8 > 1000) && (RawPotentiometer_u8 < 1500)) //1000 1500
 	{
 		WashProgram_e = WP_FAST_WASH;
-		SERIAL_PRINT("Program selected is fast wash");
+		//SERIAL_PRINT("Program selected is fast wash");
 	}
-	else if ((RawPotentiometer_u8 > 1500) && (RawPotentiometer_u8 < 2000))
+	else if ((RawPotentiometer_u8 > 1500) && (RawPotentiometer_u8 < 2000)) //1500 2000
 	{
 		WashProgram_e = WP_INTENSE_WASH;
-		SERIAL_PRINT("Program selected is intense wash");
+		//SERIAL_PRINT("Program selected is intense wash");
 	}
-	else if ((RawPotentiometer_u8 > 2000) && (RawPotentiometer_u8 < 2400))
+	else if ((RawPotentiometer_u8 > 2000) && (RawPotentiometer_u8 < 2400)) //200 2400
 	{
 		WashProgram_e = WP_WHITE_CLOTHES;
-		SERIAL_PRINT("We are now washing white clothes");
+		//SERIAL_PRINT("We are now washing white clothes");
 	}
-	else if ((RawPotentiometer_u8 > 2400) && (RawPotentiometer_u8 < 2800))
+	else if ((RawPotentiometer_u8 > 2400) && (RawPotentiometer_u8 < 2800)) //2400 2800
 	{
 		WashProgram_e = WP_CLEAN_WASHING_MACHINE;
-		SERIAL_PRINT("We are now cleaning the washing machine");
+		//SERIAL_PRINT("We are now cleaning the washing machine");
 	}
-	else if ((RawPotentiometer_u8 > 2800) && (RawPotentiometer_u8 < 3250))
+	else if ((RawPotentiometer_u8 > 2800) && (RawPotentiometer_u8 < 3250)) //2800 3250
 	{
 		WashProgram_e = WP_SHIRTS;
-		SERIAL_PRINT("We are now washing shirts");
+		//SERIAL_PRINT("We are now washing shirts");
 	}
-	else if ((RawPotentiometer_u8  > 3250))
+	else if ((RawPotentiometer_u8  > 3250))  //3250
 	{
 		WashProgram_e = WP_NOT_USED;
-		SERIAL_PRINT("We are over limit");
+		//SERIAL_PRINT("We are over limit");
 	}
 	else 
 	{
 		WashProgram_e = WP_NONE;
-		SERIAL_PRINT("We are doing nothing");
+		//SERIAL_PRINT("We are doing nothing");
 	}
 
     // TBD: Map the program to the read value
