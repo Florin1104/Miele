@@ -31,105 +31,23 @@ void setup()
 
 void loop()
 { 
-    // SCENARIO 1
-    /*lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_u8(); // constantly check if a button was pressed
-  
 
-    
-    switch(lastButtonPressed_8)
-    {
-    case BUTTON_POWER_ID:
-        Serial.println("Power button pressed");
-        // TBD
-        break;
-    case BUTTON_START_STOP_ID:
-        Serial.println("Start/Stop button pressed");       
-        startButtonPressed_b = true;
-        break;
-    case BUTTON_WASH_ID:
-        Serial.println("Wash button pressed");        
-        break;
-    case BUTTON_SPIN_ID:
-        Serial.println("Spin button pressed");
-        // TBD
-        break;
-    case BUTTON_DOOR_SWITCH_ID:
-        Serial.println("Door button pressed");
-        doorButtonPressed_b = true;
-        break;
-    default:        
-        break;
-    }
-
-       
-    // Check 
-    if(doorButtonPressed_b == true)
-    {
-        if (startButtonPressed_b == true)
-        {
-   
-            if(ControlButton::isDoorOpen_b() == true)
-            {
-                led.setColorRed_v();
-                startButtonPressed_b = false;                
-            }                
-            else
-            {
-                led.setColorGreen_v();   
-              
-            }         
-        }                        
-    }
-    */
 
     // SCENARIO 2
     lastButtonPressed_8 = controlPanel_o.poolButtonsStateChanges_u8(); // constantly check if a button was pressed
   
-
     //
     switch(lastButtonPressed_8)
     {
     case BUTTON_POWER_ID:
         Serial.println("Power button pressed");
-        // TBD
         break;
-    case BUTTON_START_STOP_ID:
-        Serial.println("Start/Stop button pressed");       
-        startButtonPressed_b = true;
-        break;
-    case BUTTON_WASH_ID:
-        Serial.println("Wash button pressed");        
-        break;
-    case BUTTON_SPIN_ID:
-        Serial.println("Spin button pressed");
-        // TBD
-        break;
-    case BUTTON_DOOR_SWITCH_ID:
-        Serial.println("Door button presssed");
-        doorButtonPressed_b = true;
+
         break;
     default:        
         break;
     }
                 
-    if(doorButtonPressed_b == true)
-    {
-        if (startButtonPressed_b == true)
-        {
-   
-            if(ControlButton::isDoorOpen_b() == true || !(twinDos_o.isPresent_b()))
-            {
-                led.setColorRed_v();
-                startButtonPressed_b = false;                
-            }                
-            else
-            {
-                if (twinDos_o.isPresent_b())
-                {
-                    led.setColorBlue_v();
-                }              
-            }         
-        }                        
-    }
+
     
 }
