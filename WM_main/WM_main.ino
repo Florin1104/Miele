@@ -17,6 +17,14 @@ bool doorButtonPressed_b = false;
 bool startButtonPressed_b = false;
 
 
+// Main TODO
+// 1. TODO: Create Touch Display Class with main functionalities
+// 2. TODO: Move all the Miele Libraries and Cpp files into a separate folder than Adafruit, LiquidCrista_I2c and etc
+// 3. TODO: Make a readme inside this file explianing a bit what is setup, loop and what needs to be done
+// details about the board ESP32 can be added
+// 4. TODO: In this file add autohors and copyright by Miele 2020
+// . Create a fully functional washing machine using all the components
+
 void setup()
 {
     // put your setup code here, to run once:

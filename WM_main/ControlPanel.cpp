@@ -77,9 +77,14 @@ void BTN_DoorActive_v()
 
 ControlPanel::ControlPanel()
 {
+	// TODO as a good practice here everything should be set it to default explicitly
     
 }
 
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
 ButtonError_te ControlPanel::Initialise_e()
 {
     LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;
@@ -111,12 +116,14 @@ ButtonError_te ControlPanel::Initialise_e()
                 if(error != BUTTON_ERROR_OK)
                 {
                     break;
+					// TODO  print the error on Serial.prin
                 }
             }
         }
         if(BUTTON_ERROR_OK == error)
         {
             // register buttons interrupts
+			// TODO add comments here why is on rising and what is happenign when the methods are called
             attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_POWER_ID]), BTN_PowerActive_v, RISING);
             attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_START_STOP_ID]), BTN_StartStopActive_v, RISING);
             attachInterrupt(digitalPinToInterrupt(s_pinLocation_au8[BUTTON_WASH_ID]), BTN_WashActive_v, RISING);
@@ -128,9 +135,14 @@ ButtonError_te ControlPanel::Initialise_e()
     return error;
 }
 
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
 uint8_t ControlPanel::poolButtonsStateChanges_u8()
 {
 
+	// TODO add comments
     uint8_t RetrunedLastButton = LastButtonInterrupt_u8;
 
     LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;
@@ -139,6 +151,10 @@ uint8_t ControlPanel::poolButtonsStateChanges_u8()
     return RetrunedLastButton;
 }
 
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
 bool ControlPanel::getButtonState_b(ButtonsPanel_te buttonID_e)
 {
     bool buttonState_u8 = false;

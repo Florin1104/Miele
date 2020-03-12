@@ -7,9 +7,10 @@
 
 --------------------------------------------------------------------------------
 @Description    Represents the control panel from the wasing machine
+// TODO add more description why is this to be used why this and not the control button etc.
 
 --------------------------------------------------------------------------------
-@Author         Iulian G.
+@Author         Iulian G. // TODO + me, u and marian 
 @Date           15.11.2018
 
 -------------------------------------------------------------------------------
@@ -77,14 +78,19 @@ void loop()
 #include "ControlButton.h"
 
 // enter button pin locations
+// TODO this can be put into the general config!? it will be much more easier to find or even better can be passed
+// in Contructor or initialise method
 //                                      PowerPin,   StartPin,   WashPin,    SpinPin,    DoorPin
 static uint8_t s_pinLocation_au8[] =   {33,         18,         19,         13,         14       };
 
+// TODO  add description
 class ControlPanel
 {
 private:
     ControlButton m_btnList_ao[BUTTON_LAST_ENTRY_ID];       // panel button list
+	// TODO why I need this variable add more desc
     uint8_t m_lastSuccessfulButtonPush_u8;                  // remember last button successful press
+	// TODO why I need this variable add more desc
     bool m_ButtonCurrentState_ab[BUTTON_LAST_ENTRY_ID];     // remember button state to answer when asked
     bool m_InitFlag_b;                                      // hold if init() has been called
 public:
@@ -104,10 +110,10 @@ public:
      @Description   Initialize control button panel with pins location (only once)
                     also searching for duplicates pin numbers
      --------------------------------------------------------------------------------
-     @Returns       bool - whether or not panel object was successfully initialized
+     @Returns       bool - whether or not panel object was successfully initialized // TODO ha? it is an enum
 
      --------------------------------------------------------------------------------
-     @Parameters    PowerPin_u8 - pin number
+     @Parameters    PowerPin_u8 - pin number // TODO here you do not have any [paramters
                     StartStopPin - pin number
                     WashPin - pin number
                     SpinPin - pin number
@@ -117,10 +123,10 @@ public:
 
 
     /*******************************************************************************
-     @Description   constantly checks if a button was pressed
+     @Description   constantly checks if a button was pressed // TODO are there any problems using delays in the code is this a good approach?>
 
      --------------------------------------------------------------------------------
-     @Returns       last button ID successful press
+     @Returns       last button ID successful press // TODO more details here? I see it returns an u8
 
      --------------------------------------------------------------------------------
      @Parameters    none
@@ -132,10 +138,10 @@ public:
      @Description   get a button's state
 
      --------------------------------------------------------------------------------
-     @Returns       true = pressed; false = not pressed
+     @Returns       true = pressed; false = not pressed // TODO What happens if I press a button which is not defined
 
      --------------------------------------------------------------------------------
-     @Parameters    buttonID_e - button ID
+     @Parameters    buttonID_e - button ID // TODO valid ID's
      *******************************************************************************/
     bool getButtonState_b(ButtonsPanel_te buttonID_e);
 };

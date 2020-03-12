@@ -66,7 +66,7 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
 {
     ButtonError_te error_e = BUTTON_ERROR_INVALID_PIN;
    
-    if(m_InitFlag_b == false && pinNumber_u8 != NULL)
+    if(m_InitFlag_b == false && pinNumber_u8 != NULL) // TODO here pinumber cannot be null never ever
     {
         uint8_t i;
         for(i = 0; i < s_interruptEnabledPinsCount_u8; i++)
@@ -127,6 +127,10 @@ uint8_t ControlButton::isPressed_b()
     return m_buttonState_u8;
 }
 
+/*******************************************************************************
+Function description and additional notes,
+are given at the function prototype in the header file
+*******************************************************************************/
  bool ControlButton::isDoorOpen_b()
 {
     return (digitalRead(DOOR_PIN));
