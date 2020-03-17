@@ -1,9 +1,10 @@
 #include "PWM_Timer.h"
-
-uint8_t getChannel()
+#include "Arduino.h"
+uint8_t GetAvailableChannel_u8()
 {
     uint8_t returnValue = 17;
     uint8_t timer = ((currentChannel / 2) % 4);
+	
     if (AvailableTimer[timer] == 0) 
     {
         AvailableTimer[timer] = 1;
@@ -22,5 +23,10 @@ uint8_t getChannel()
         
     }
 
+    if (returnValue == 17) 
+    {
+        Serial.println("Error: No more channels left please try the TV it has more channels! :)");
+    }
+        
     return returnValue;
 }

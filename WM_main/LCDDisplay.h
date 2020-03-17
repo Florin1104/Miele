@@ -20,12 +20,13 @@
 
 // !!! USE CASE EXAMPLE !!!
 // Create an object globally
+//LCDDisplay disp_o(21, 22, 0x27);		For this LCD Screen the address will be 0x27
 // In the setup function call .init() -> check for errors
 // Whenever you want to display something on THE LCD, call DisplayString_b() with the string you want to display
 
 //void setup()
 //{
-//    Serial.begin(9600);
+//  Serial.begin(9600);
 //	lcd.init_b();
 //}
 //

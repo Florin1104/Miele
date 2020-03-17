@@ -6,7 +6,7 @@
 @Description    check in header file for more details
 
 --------------------------------------------------------------------------------
-@Author         Iulian G.,  Bogdan Calinoiu
+@Author         Iulian G.,  Bogdan Calinoiu, Dragos B. , Marian S. , Stefan I. 
 @Date           15.11.2018, 22.04.2019
 
 @Copyright      Miele  Cie Copyright 2018
@@ -66,7 +66,7 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
 {
     ButtonError_te error_e = BUTTON_ERROR_INVALID_PIN;
    
-    if(m_InitFlag_b == false && pinNumber_u8 != NULL) // TODO here pinumber cannot be null never ever
+    if(m_InitFlag_b == false)
     {
         uint8_t i;
         for(i = 0; i < s_interruptEnabledPinsCount_u8; i++)
@@ -99,7 +99,7 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
 Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
-uint8_t ControlButton::isPressed_b()
+uint8_t ControlButton::isPressed_u8()
 {
     uint8_t currentState_u8 = digitalRead(m_InputPinNumber_u8);
         
@@ -127,11 +127,4 @@ uint8_t ControlButton::isPressed_b()
     return m_buttonState_u8;
 }
 
-/*******************************************************************************
-Function description and additional notes,
-are given at the function prototype in the header file
-*******************************************************************************/
- bool ControlButton::isDoorOpen_b()
-{
-    return (digitalRead(DOOR_PIN));
-}
+

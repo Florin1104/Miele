@@ -18,9 +18,11 @@
 //{
 //	InitialiseSound_v();
 //}
+
 //void loop()
 //{
-//	PlaySound_v(2, DOOR_OPEN_SOUND);
+//	GenerateSounds(8, 500);
+//  delay(10);
 //	StopSound_v();
 //}
 

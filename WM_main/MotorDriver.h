@@ -75,8 +75,17 @@ public:
     *******************************************************************************/
     MotorDriver() 
     {
-        clockwiseChannel = getChannel();
-        counter_clockwiseChannel = getChannel();
+        uint8_t currentChannel = GetAvailableChannel_u8();
+        if (currentChannel == 17) {
+            Serial.println("MotorDriver -- NO AVAILABLE CHANNEL LEFT");
+        }
+        else {
+            clockwiseChannel = currentChannel;
+            counter_clockwiseChannel = clockwiseChannel + 1;
+        }
+
+		
+		
         
     }
 

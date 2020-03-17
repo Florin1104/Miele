@@ -75,6 +75,5 @@ are given at the function prototype in the header file
 *******************************************************************************/
 bool TwinDos::isPresent_b()
 {    
-    // "!" because when pressed they will connected to ground, their value will be "0", so: if(false && false)   esti prost 
     return digitalRead(this->m_InputPin_u8);
 }

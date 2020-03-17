@@ -1,7 +1,7 @@
 /*******************************************************************************
 @Module         MD used for WM module.
 --------------------------------------------------------------------------------
-@Filename       MotorDriver.cpp
+@Filename       Sound.cpp
 --------------------------------------------------------------------------------
 @Description    Check the header and class description for more details.
 
@@ -22,7 +22,7 @@
 @Constants (global)
 *******************************************************************************/
 #define SECOND_TO_MILLISECONDS      (1000)
-#define PWM_CHANNEL                  (1)
+//#define PWM_CHANNEL                  (1)
 #define BUZZER_PIN                   (12)
 
 
@@ -64,7 +64,7 @@ are given at the function prototype in the header file
 
 void InitialiseSound_v()
 {
-    channel_u8 = getChannel();
+    channel_u8 = GetAvailableChannel_u8();
     if (channel_u8 != 17)
     {
         ledcSetup(channel_u8, PWM_FREQUENCY, 8);

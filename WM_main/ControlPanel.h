@@ -7,10 +7,13 @@
 
 --------------------------------------------------------------------------------
 @Description    Represents the control panel from the wasing machine
-// TODO add more description why is this to be used why this and not the control button etc.
-
+This is a framework for all the buttons. It is recomended to use this instead off
+ControlButton, because the function poolButtonsStateChanges_u8() in this module
+constantly checks if a button was pressed, by listening to interrupts. 
+It is easier to do it like this, than checking each button individualy by calling 
+Button_ob.isPressed_u8();
 --------------------------------------------------------------------------------
-@Author         Iulian G. // TODO + me, u and marian 
+@Author         Iulian G. , Dragos B. , Marian S. , Stefan I. 
 @Date           15.11.2018
 
 -------------------------------------------------------------------------------
@@ -76,22 +79,22 @@ void loop()
 #include <stdint.h>
 #include "Arduino.h"
 #include "ControlButton.h"
+#include "GeneralConfig.h"
+
 
 // enter button pin locations
-// TODO this can be put into the general config!? it will be much more easier to find or even better can be passed
-// in Contructor or initialise method
 //                                      PowerPin,   StartPin,   WashPin,    SpinPin,    DoorPin
-static uint8_t s_pinLocation_au8[] =   {33,         18,         19,         13,         14       };
+//static uint8_t s_pinLocation_au8[] =   {33,         18,         19,         13,         14       };
 
-// TODO  add description
+// The ControlPanel class controls all the buttons on the washing machine.
+//It attaches an interrupt on each button and waits for it to occur when the button is pressed
+//It holds the InitFlag variable, which tells us weather the class is initialized or not, and
+//the m_btnList_ao array which holds the Button Objects
 class ControlPanel
 {
 private:
     ControlButton m_btnList_ao[BUTTON_LAST_ENTRY_ID];       // panel button list
-	// TODO why I need this variable add more desc
-    uint8_t m_lastSuccessfulButtonPush_u8;                  // remember last button successful press
-	// TODO why I need this variable add more desc
-    bool m_ButtonCurrentState_ab[BUTTON_LAST_ENTRY_ID];     // remember button state to answer when asked
+	
     bool m_InitFlag_b;                                      // hold if init() has been called
 public:
     /*******************************************************************************
@@ -109,15 +112,16 @@ public:
     /*******************************************************************************
      @Description   Initialize control button panel with pins location (only once)
                     also searching for duplicates pin numbers
+					PowerPin_u8 - pin number from s_pinLocation_au8[]
+                    StartStopPin - pin number from s_pinLocation_au8[]
+                    WashPin - pin number from s_pinLocation_au8[]
+                    SpinPin - pin number from s_pinLocation_au8[]
+                    DoorPin - pin number from s_pinLocation_au8[]
      --------------------------------------------------------------------------------
-     @Returns       bool - whether or not panel object was successfully initialized // TODO ha? it is an enum
+     @Returns       ButtonError_te - error
 
      --------------------------------------------------------------------------------
-     @Parameters    PowerPin_u8 - pin number // TODO here you do not have any [paramters
-                    StartStopPin - pin number
-                    WashPin - pin number
-                    SpinPin - pin number
-                    DoorPin - pin number
+     @Parameters    
      *******************************************************************************/
      ButtonError_te Initialise_e();
 
@@ -126,7 +130,11 @@ public:
      @Description   constantly checks if a button was pressed // TODO are there any problems using delays in the code is this a good approach?>
 
      --------------------------------------------------------------------------------
-     @Returns       last button ID successful press // TODO more details here? I see it returns an u8
+     @Returns      uint8_t last button ID successful press 	//	BUTTON_POWER_ID = 0
+															//	BUTTON_START_STOP_ID = 1
+															//	BUTTON_WASH_ID = 2
+															//	BUTTON_SPIN_ID = 3
+															//	BUTTON_DOOR_SWITCH_ID = 4
 
      --------------------------------------------------------------------------------
      @Parameters    none
@@ -138,10 +146,10 @@ public:
      @Description   get a button's state
 
      --------------------------------------------------------------------------------
-     @Returns       true = pressed; false = not pressed // TODO What happens if I press a button which is not defined
+     @Returns       true = pressed; false = not pressed or error if button is undefined
 
      --------------------------------------------------------------------------------
-     @Parameters    buttonID_e - button ID // TODO valid ID's
+     @Parameters    buttonID_e - button ID
      *******************************************************************************/
     bool getButtonState_b(ButtonsPanel_te buttonID_e);
 };

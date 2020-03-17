@@ -28,30 +28,30 @@
 @Example:
 --------------------------------------------------------------------------------
 
-#include "TwinDos.h";
-TwinDos twinDos_o;
+#include "TwinDos.h"
+#define TWIN_DOS_PIN 34
+TwinDos Twin_Cartrige_o;
+
 
 void setup()
 {
     // put your setup code here, to run once:
-    Serial.begin(9600);
-    delay(1000);
 
-    twinDos_o.Initialise_e(26); //setup TwinDos pin number
+    Serial.begin(9600);                 // serial init for test messages
+    Twin_Cartrige_o.Initialise_e(TWIN_DOS_PIN);
 }
 
 void loop()
 {
     // put your main code here, to run repeatedly:
-    if(twinDos_o.isPresent_b())
-    {
-        Serial.println("Connected");
-    }
-    else
-    {
-        Serial.println("NOT connected");
-    }
-
+    if(Twin_Cartrige_o.isPresent_b())
+	{
+		Serial.println("TwinDos is Present");
+	}
+	else
+	{
+		Serial.println("TwinDos is not detected");
+	}
 }
 
 *******************************************************************************/

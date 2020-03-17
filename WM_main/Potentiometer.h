@@ -19,11 +19,11 @@
 
 /*******************************************************************************
 // Example:
-Potentiometer x(GPIO_NUM_25);
+Potentiometer x(GPIO_NUM_27);
 
 // This should be in the setup()
 
-if (x.init_b() == true)
+if (x.Init_b() == true)
 {
 	Serial.println("We are now intialised.");
 }
@@ -35,6 +35,14 @@ WashingProgram_te WashProgram_e = x.GetSelectedProgram();
 if (WashProgram_e == WP_WASH)
 {
 	// Do something
+}
+else if (WashProgram_e == WP_SPIN)
+{
+	// You need to select a program by turning the wheel
+}
+else if (WashProgram_e == WP_WHITE_CLOTHES)
+{
+	// You need to select a program by turning the wheel
 }
 else if (WashProgram_e == WP_NONE || WashProgram_e == WP_NOT_USED)
 {
