@@ -23,7 +23,7 @@ bool startButtonPressed_b = false;
 // 3. TODO: Make a readme inside this file explianing a bit what is setup, loop and what needs to be done
 // details about the board ESP32 can be added
 // 4. TODO: In this file add autohors and copyright by Miele 2020
-// . Create a fully functional washing machine using all the components
+// 5. Create a fully functional washing machine using all the components
 
 void setup()
 {
