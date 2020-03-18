@@ -168,7 +168,7 @@ private:
     uint8_t m_MotorPinClockwise_u8;
     uint8_t m_MotorPinCounterClockwise_u8;
 
-    // This is used to check wheter the module is moving
+    // This is used to check wheter the module is moving // TODO add spellchecker
     bool m_isMotorMoving_b = false;
 
     //

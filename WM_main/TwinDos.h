@@ -1,7 +1,7 @@
 /*******************************************************************************
-@Module         Twin Dos
+@Module         TwinDos.h
 
-/*******************************************************************************
+/******************************************************************************* // TODO remove this line
 --------------------------------------------------------------------------------
 @Filename       TwinDos.h
 
@@ -90,7 +90,7 @@ class TwinDos
      TwinDos();
 
      /*******************************************************************************
-     @Description   Initialize TwinDos sytem with pin location (only once)
+     @Description   Initialize TwinDos sytem with pin location (only once) // TODO sytem
 
      --------------------------------------------------------------------------------
      @Returns       bool - whether or not TwinDos was successfully initialized

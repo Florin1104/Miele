@@ -10,7 +10,7 @@
 @Description     Implementation of potentiometer class
 
 --------------------------------------------------------------------------------
-@Author          Marian S., Baver D.
+@Author          Marian S., Baver D., Bratu D.
 @Date            14.11.2018
 
 -------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 
 
     int PotentiometerValue = 0;
-    //PotentiometerValue = map(RawPotentiometer_u8,0,4095,0,100);
+    //PotentiometerValue = map(RawPotentiometer_u8,0,4095,0,100); // TODO  do we still need this?
 	//Serial.println(PotentiometerValue);
 	//Serial.println(RawPotentiometer_u8);
 
@@ -72,7 +72,7 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 	else if ((RawPotentiometer_u8 > 200) && (RawPotentiometer_u8 < 600))//200 600
 	{
 		WashProgram_e = WP_SPIN;
-		//SERIAL_PRINT("Now we are spining");
+		//SERIAL_PRINT("Now we are spining"); // TODO spinning (Do we need this serial prins here?
 
 	}
 	else if ((RawPotentiometer_u8 > 600) && (RawPotentiometer_u8 < 1000))//600 1000
@@ -131,4 +131,5 @@ Potentiometer::Potentiometer(uint8_t InputPin_u8)
 void Potentiometer::TurnProgramLED_v(WashingProgram_te ProgramSelected_e)
 {
     // TBD Map an led color to the selected wasching program
+	// TODO are wee still keeping this?
 }

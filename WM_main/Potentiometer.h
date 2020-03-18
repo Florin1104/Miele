@@ -7,7 +7,7 @@
 
 --------------------------------------------------------------------------------
 @Description     Mainly used for interpreting different potetiometer positions 
-                 as washing programmes
+                 as washing programmes //TODO potetiometer, programmes(is this French?)
 
 --------------------------------------------------------------------------------
 @Author          Marian S., Baver D.
@@ -64,23 +64,23 @@ typedef enum WashingProgram
 {
 	// Position 0 - No program is selected
     WP_NONE = 0,
-	//  Postion 1 - Used for selecting wash program
+	//  Postion 1 - Used for selecting wash program // TODO Postion
 	WP_WASH = 1,
-	//	Postion 2 - Used for only spinning the tub
+	//	Postion 2 - Used for only spinning the tub // TODO Postion
 	WP_SPIN = 2,
-	//	Postion 3 - Used for selecting handwash program
+	//	Postion 3 - Used for selecting handwash program // TODO Postion, handwash
 	WP_HANDWASH = 3,
-	//	Postion 4 - Used for selecting fast-wash program
+	//	Postion 4 - Used for selecting fast-wash program // TODO Postion
 	WP_FAST_WASH = 4,
-	//	Postion 5 - Used for selecting intense wash program
+	//	Postion 5 - Used for selecting intense wash program // // TODO Postion
 	WP_INTENSE_WASH = 5,
-	//	Postion 6 - Used for selecting to wash white clothes
+	//	Postion 6 - Used for selecting to wash white clothes // TODO Postion
 	WP_WHITE_CLOTHES = 6,
-	//	Postion 7 - Used for selecting to wash only the washing machine itself
-	WP_CLEAN_WASHING_MACHINE = 7,
-	//	Postion 8 - Used for selecting a wash program for shirts
+	//	Postion 7 - Used for selecting to wash only the washing machine itself // TODO Postion
+	WP_CLEAN_WASHING_MACHINE = 7, 
+	//	Postion 8 - Used for selecting a wash program for shirts // TODO Postion
 	WP_SHIRTS   = 8,
-	//	Postions 9 and above have no program attached
+	//	Postions 9 and above have no program attached // TODO Postion
 	WP_NOT_USED = 9,
 	// Warning!! This should be the last in enum
     WP_ENUM_MAX
@@ -92,7 +92,7 @@ class Potentiometer
 {
 
  private:
-	 // Used to verify if everything is initialized adn ready to go
+	 // Used to verify if everything is initialized adn ready to go // TODO adn
      bool InitFlag_b;
      // Holds the number of the pin that the potentiometer is attached to
      uint8_t InputPin_u8;
@@ -110,7 +110,7 @@ class Potentiometer
      @Returns       none
 
      --------------------------------------------------------------------------------
-     @Parameters    InputPin_u8 - pin number which the potetntiometer is attached
+     @Parameters    InputPin_u8 - pin number which the potetntiometer is attached // TODO potetntiometer
      *******************************************************************************/
 	 Potentiometer(uint8_t InputPin_u8);
     
@@ -119,17 +119,17 @@ class Potentiometer
                     position
 
      --------------------------------------------------------------------------------
-     @Returns       WashingProgram_te - Wasching program selected
-					    WP_NONE - Postion 0 - No program is selected
-						WP_WASH - Postion 1 - Used for selecting wash program
-						WP_SPIN - Postion 2 - Used for only spinning the tub
-						WP_HANDWASH - Postion 3 - Used for selecting handwash program
-						WP_FAST_WASH - Postion 4 - Used for selecting fast-wash program
-						WP_INTENSE_WASH  - Postion 5 - Used for selecting intense wash program
-						WP_WHITE_CLOTHES - Postion 6 - Used for selecting to wash white clothes
-						WP_CLEAN_WASHING_MACHINE - Postion 7 - Used for selecting to wash only the washing machine itself
-						WP_SHIRTS - Postion 8 - Used for selecting a wash program for shirts
-						WP_NOT_USED - Postions 9 and above have no program attached
+     @Returns       WashingProgram_te - Wasching program selected  // TODO Wasching
+					    WP_NONE - Postion 0 - No program is selected // TODO Postion
+						WP_WASH - Postion 1 - Used for selecting wash program // TODO Postion
+						WP_SPIN - Postion 2 - Used for only spinning the tub // TODO Postion
+						WP_HANDWASH - Postion 3 - Used for selecting handwash program // TODO Postion, handwash
+						WP_FAST_WASH - Postion 4 - Used for selecting fast-wash program // TODO Postion
+						WP_INTENSE_WASH  - Postion 5 - Used for selecting intense wash program  // TODO Postion, more than 80 chars
+						WP_WHITE_CLOTHES - Postion 6 - Used for selecting to wash white clothes // TODO Postion, more than 80 chars
+						WP_CLEAN_WASHING_MACHINE - Postion 7 - Used for selecting to wash only the washing machine itself // TODO Postion, more than 80 chars
+						WP_SHIRTS - Postion 8 - Used for selecting a wash program for shirts // TODO Postion, more than 80 chars
+						WP_NOT_USED - Postions 9 and above have no program attached // TODO Postion, more than 80 chars
 
      --------------------------------------------------------------------------------
      @Parameters    None
@@ -142,7 +142,7 @@ class Potentiometer
 	 after the object creation.
 
 	 --------------------------------------------------------------------------------
-	 @Returns       none
+	 @Returns       none // TODO are you sure?
 
 	 --------------------------------------------------------------------------------
 	 @Parameters    none

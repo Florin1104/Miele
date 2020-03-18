@@ -7,7 +7,7 @@
 
 #define PWM_FREQUENCY				(12000)
 #define RESOLUTION_BITS             (8)
-
+// TODO missing comments, description like in the other libraries.
 LED::LED(void)
 {
 }

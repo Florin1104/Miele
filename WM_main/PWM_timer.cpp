@@ -1,5 +1,6 @@
 #include "PWM_Timer.h"
 #include "Arduino.h"
+// TODO add some comments explaining what are we doing here
 uint8_t GetAvailableChannel_u8()
 {
     uint8_t returnValue = 17;
@@ -14,7 +15,7 @@ uint8_t GetAvailableChannel_u8()
     }
     else
     {
-        if(currentChannel<8)
+        if(currentChannel<8) //TODO why is 8?
         {
             currentChannel++;
             returnValue = currentChannel++;

@@ -126,6 +126,7 @@ ButtonError_te ControlPanel::Initialise_e()
         }
         if(BUTTON_ERROR_OK == error)
         {
+			// TODO use ., Capital letters and before comment add a space e.g. // This is a comment and not //this is a comment 
             // register buttons interrupts
 			
 			//The buttons are set in the Initialise_e() as INPUT_PULLUP
@@ -137,14 +138,14 @@ ButtonError_te ControlPanel::Initialise_e()
 			//the board pin is pulled to ground, causing the board report a "0", or LOW.
 			
 			//The Interrupt will trigger on the RISING edge of the signal, so when the button will bounce back
-			//a new RISING edge will be produced and the Intterupt will be called
+			//a new RISING edge will be produced and the Intterupt will be called // TODO Intterupt
 			
 			
 			// The programmer defines the code that is to be executed when a particular interrupt occurs within the program itself. 
 			// In Arduino, we use a function called attachInterrupt() to do this and the recommended syntax looks similar to the output below.
 			// attachInterrupt(digitalPinToInterrupt(pin), ISR, mode)
 			// This function takes three parameters:
-												// First Parameter (i.e. digitalPinToInterrupt(pin)) - Pin number of the interrupt, which tells the microprocessor which pin to monitor. 
+												// First Parameter (i.e. digitalPinToInterrupt(pin)) - Pin number of the interrupt, which tells the microprocessor which pin to monitor. // TODO align the comments and no more than 80 chars
 																									 //The pin depends on the microcontroller being used.
 
 												// Second Parameter (i.e. ISR) - The location of code we want to execute if this interrupt is triggered.
@@ -174,8 +175,8 @@ uint8_t ControlPanel::poolButtonsStateChanges_u8()
 {
 
 	//Whenever an interrupt is triggered, the code will stop its current execution flow
-	//and will deal with the interrrupt routine. In this case the button pressed activated interrupts
-	//Each interrrupt updates the LastButtonInterrupt_u8 value with the ID of the current pressed button
+	//and will deal with the interrrupt routine. In this case the button pressed activated interrupts // TODO interrrupt
+	//Each interrrupt updates the LastButtonInterrupt_u8 value with the ID of the current pressed button // TODO interrrupt
     uint8_t RetrunedLastButton = LastButtonInterrupt_u8;
 
     LastButtonInterrupt_u8 = BUTTON_LAST_ENTRY_ID;

@@ -124,6 +124,7 @@ bool LCDDisplay::m_isPinI2C_b(uint8_t Pin_u8)
 	bool isI2CPinValid_b=false;
 
 	// All the pins that are I2C capable for ESP32.
+	// TODO I think this can be easily moved to genral config and used also by other i2c pins
     const uint8_t ValidI2CPins_au8[] = { 15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32,39,36};
 	
 	// Is pin I2C capable?
