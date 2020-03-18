@@ -220,6 +220,10 @@ bool MotorDriver::m_isPinPwm_b(uint8_t Pin_8)
     bool isPwmPinValid_b = false;
     
     // All the pins that are PWM capable for ESP32.
+	// TODO this can be moved into general config like this
+	// #define VALID_PWM_PINS  { 15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32,39,36}
+	// here in the code it can be used like this: 
+	// const uint8_t ValidPwmPins_au8[] = VALID_PWM_PINS;
     const uint8_t ValidPwmPins_au8[] = { 15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32,39,36};
 
     for (uint8_t i = 0; i< sizeof(ValidPwmPins_au8)/sizeof(ValidPwmPins_au8[0]); i++)

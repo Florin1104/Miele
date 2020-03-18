@@ -38,7 +38,7 @@
 // It should be used like this: DELAY_NON_BREAKING(WaitMs_u32) CodeToBeCalled();
 #define DELAY_NON_BREAKING(WaitMs_u32) for (static unsigned long time_now = millis(); millis() < time_now + WaitMs_u32;)
 
-// This part is the replacement of delay frm Arduino
+// This part is the replacement of delay frm Arduino // TODO frm
 #define DELAY_DO_NOTHING(WaitMs_u32) DELAY_NON_BREAKING(WaitMs_u32);
 
 /*******************************************************************************
@@ -62,7 +62,7 @@
 *******************************************************************************/
 HeaterModule::HeaterModule()
 {
-    uint8_t currentChannel = GetAvailableChannel_u8();
+    uint8_t currentChannel = GetAvailableChannel_u8(); // TODO i have some errors here with heaterChannel and GetAvailableChannel_u8
     if (currentChannel == 17) {
         Serial.println("HeaterModule -- NO AVAILABLE CHANNEL LEFT");
     }
@@ -94,6 +94,8 @@ float HeaterModule::GetTemperature_f()
 //    { 
 //      SimuTemperature_f = 75;  
 //    }
+	 // TODO do we still keep the above?
+	 // TODO alling the below comment and write it in a proper way e.g. // If the temperature exceeds the safe limits, then stop the heater.
 //if the temperature exceds the safe limits, then stop the heater
 	if(temperature >= HEATING_ELEMENT_TEMPERATURE_MAX)
 		{ 
@@ -162,7 +164,7 @@ value: the number to map.
 fromLow: the lower bound of the value’s current range.
 fromHigh: the upper bound of the value’s current range.
 toLow: the lower bound of the value’s target range.
-toHigh: the upper bound of the value’s target range.
+toHigh: the upper bound of the value’s target range. // TODO align the comments and explain also what map does and why it is used here
 */
 	value=map(value,0,MAX_POWER_PWM,0,100);
 	//get the current temp

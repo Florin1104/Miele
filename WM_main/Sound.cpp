@@ -34,7 +34,7 @@
 // It should be used like this: DELAY_NON_BREAKING(WaitMs_u32) CodeToBeCalled();
 #define DELAY_NON_BREAKING(WaitMs_u32) for (unsigned long time_now = millis(); millis() < time_now + WaitMs_u32;)
 
-// This part is the replacement of delay frm Arduino
+// This part is the replacement of delay from Arduino
 #define DELAY_DO_NOTHING(WaitMs_u32) DELAY_NON_BREAKING(WaitMs_u32);
 /*******************************************************************************
 @Macros (global)
@@ -88,7 +88,7 @@ void PlaySound_v(uint16_t TimeInSeconds_u16, Sounds_te sounds)
 Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
-int GenerateSounds(int sound_freq, int time)
+int GenerateSounds(int sound_freq, int time) 
 {
     
     ledcWriteTone(channel_u8, sound_freq);  

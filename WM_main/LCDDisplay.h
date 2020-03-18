@@ -1,7 +1,7 @@
 /*******************************************************************************
 @Module          LCD display
 
-/*******************************************************************************
+/******************************************************************************* // TODO delete this line you already have it
 --------------------------------------------------------------------------------
 @Filename        LCDDisplay.h
 
@@ -20,7 +20,7 @@
 
 // !!! USE CASE EXAMPLE !!!
 // Create an object globally
-//LCDDisplay disp_o(21, 22, 0x27);		For this LCD Screen the address will be 0x27
+// LCDDisplay disp_o(21, 22, 0x27);		For this LCD Screen the address will be 0x27 // TODO this example does not work (trust me :P) please assure that each example provided it is working.
 // In the setup function call .init() -> check for errors
 // Whenever you want to display something on THE LCD, call DisplayString_b() with the string you want to display
 
@@ -52,7 +52,7 @@ class LCDDisplay
 {
 
 private:
-
+	// TODO missing description 
     uint8_t SdaPinNumber_u8;
     uint8_t SclPinNumber_u8;
     uint8_t DeviceAdress_u8;
@@ -64,7 +64,7 @@ private:
     // Send a character to the LCD display (it is mainly called to display a string)
     bool SendCharacter_b(char CharacterToSend_c);
 
-    // Pointer to the object 
+    // Pointer to the object // TODO this is obvious what is the purpose of this pointer why is to LiquidCrystal_I2C
     LiquidCrystal_I2C * lcd_po;
 
 
@@ -77,9 +77,9 @@ public:
     @Returns       none
 
     --------------------------------------------------------------------------------
-    @Parameters    SdaPinNumber_u8 - for the data line in the I2C protocol
+    @Parameters    SdaPinNumber_u8 - for the data line in the I2C protocol // TODO what pin number can i use here?
                    SclPinNumber_u8 - for the clock line in the I2C protocol
-                   DeviceAdress_u8 - device's adress in the I2C protocol
+                   DeviceAdress_u8 - device's adress in the I2C protocol //TODO address, how can i find this address?
     *******************************************************************************/
     LCDDisplay(uint8_t SdaPinNumber_u8, uint8_t SclPinNumber_u8, uint8_t DeviceAdress_u8)
     {

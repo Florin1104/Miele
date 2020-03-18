@@ -85,6 +85,7 @@ void loop()
 // enter button pin locations
 //                                      PowerPin,   StartPin,   WashPin,    SpinPin,    DoorPin
 //static uint8_t s_pinLocation_au8[] =   {33,         18,         19,         13,         14       };
+// TODO what is with above comment?
 
 // The ControlPanel class controls all the buttons on the washing machine.
 //It attaches an interrupt on each button and waits for it to occur when the button is pressed
@@ -130,23 +131,36 @@ public:
      @Description   constantly checks if a button was pressed // TODO are there any problems using delays in the code is this a good approach?>
 
      --------------------------------------------------------------------------------
-     @Returns      uint8_t last button ID successful press 	//	BUTTON_POWER_ID = 0
+     @Returns      uint8_t last button ID successful press 	//	BUTTON_POWER_ID = 0 // TODO Apparently it returns an enum it should be poolButtonsStateChanges_e
 															//	BUTTON_START_STOP_ID = 1
 															//	BUTTON_WASH_ID = 2
 															//	BUTTON_SPIN_ID = 3
 															//	BUTTON_DOOR_SWITCH_ID = 4
+	// TODO here add more description e.g.:
+		 @Returns ButtonsPanel_e an enum containing the last button that was pressed
+		 BUTTON_POWER_ID (0) - In case the Power button was pressed.
+		 BUTTON_START_STOP_ID (1) - In case ....
+		 ......
+		 .....
+		 ....
+		 BUTTON_LAST_ENTRY_ID - If no button was pressed....
+
 
      --------------------------------------------------------------------------------
      @Parameters    none
      *******************************************************************************/
-     uint8_t poolButtonsStateChanges_u8();
+     uint8_t poolButtonsStateChanges_u8(void);
 
 
     /*******************************************************************************
-     @Description   get a button's state
+     @Description   get a button's state // TODO grammar and proper description "This function get a specific button state"
+	 // TODO it seems that this method is not valid anymore.
 
      --------------------------------------------------------------------------------
      @Returns       true = pressed; false = not pressed or error if button is undefined
+	 // TODO here you need to be consistent
+	 TRUE if...
+	 FALSE if...
 
      --------------------------------------------------------------------------------
      @Parameters    buttonID_e - button ID
