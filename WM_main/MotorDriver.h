@@ -5,7 +5,7 @@
 --------------------------------------------------------------------------------
 @Description   This class is used to control the motor using PWM signal from
                ESP32 module.
-               The motor can be spined in clockwise and counterclockwise.
+               The motor can be spun in clockwise and counterclockwise.
         
     Example: 
     #define ERROR_SERIAL(err){Serial.print(__LINE__);Serial.print("ERROR is: ");Serial.println((int)err);}
@@ -23,7 +23,7 @@
 @Date            13.11.2018
 
 -------------------------------------------------------------------------------
-@Copyright       Miele & Cie Copyright 2018
+@Copyright       Miele & Cie Copyright 2020
 *******************************************************************************/
 
 #ifndef _MOTORDRIVER_H_
@@ -33,6 +33,10 @@
 *******************************************************************************/
 #include "Arduino.h"
 #include "PWM_Timer.h"
+#include "GeneralConfig.h"
+/*******************************************************************************
+@Type definitions  (global)
+*******************************************************************************/
 #define ERROR_NO_ERROR                      (0)
 #define ERROR_MODULE_IS_NOT_INTIALISED      (1)
 #define ERROR_ROTATION_MOTOR                (2)
@@ -94,11 +98,11 @@ public:
     *******************************************************************************/
 
     /*******************************************************************************
-    @Description   This method is used to initialise the module. It should be called
+    @Description   This method is used to initialize the module. It should be called
                    after the object creation.
 
     --------------------------------------------------------------------------------
-    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not intialised.
+    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not initialized.
                    ERROR_PIN_NOT_COMPATIBLE_WITH_PWM - Pin not PWM capable.
 
     --------------------------------------------------------------------------------
@@ -112,7 +116,7 @@ public:
     @Description   This method is used to move the motor.
 
     --------------------------------------------------------------------------------
-    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not intialised.
+    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not initialized.
                    ERROR_NO_ERROR - In case if no error is encountered.
                    ERROR_ROTATION_MOTOR - Rotation out of range.
                    ERROR_VALUE_TOO_HIGH - if the speed percentage is not in range
@@ -133,7 +137,7 @@ public:
     @Description   This method stops the motor.
 
     --------------------------------------------------------------------------------
-    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not intialised.
+    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not initialized.
                    ERROR_NO_ERROR - In case if no error is encountered.
 
     --------------------------------------------------------------------------------
@@ -156,7 +160,7 @@ public:
 #endif
 private:
     // This is used in order to check if the module
-    // is inialised.
+    // is invalided.
     bool m_isModuleInitialised_b = false;
 
     // Specify motor direction.
@@ -168,10 +172,10 @@ private:
     uint8_t m_MotorPinClockwise_u8;
     uint8_t m_MotorPinCounterClockwise_u8;
 
-    // This is used to check wheter the module is moving // TODO add spellchecker
+    // This is used to check whether the module is moving or not
     bool m_isMotorMoving_b = false;
 
-    //
+    
    
 
     /*******************************************************************************

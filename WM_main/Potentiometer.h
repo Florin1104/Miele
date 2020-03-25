@@ -1,20 +1,17 @@
 /*******************************************************************************
 @Module          Potentiometer
-
-/*******************************************************************************
 --------------------------------------------------------------------------------
 @Filename        Potentiometer.h
 
 --------------------------------------------------------------------------------
-@Description     Mainly used for interpreting different potetiometer positions 
-                 as washing programmes //TODO potetiometer, programmes(is this French?)
-
+@Description     Mainly used for interpreting different potentiometer positions 
+                 as washing programs 
 --------------------------------------------------------------------------------
-@Author          Marian S., Baver D.
+@Author          Marian S., Baver D., Stefan I.
 @Date            13.11.2018
 
 -------------------------------------------------------------------------------
-@Copyright       Miele & Cie Copyright 2019
+@Copyright       Miele & Cie Copyright 2020
 *******************************************************************************/
 
 /*******************************************************************************
@@ -25,7 +22,7 @@ Potentiometer x(GPIO_NUM_27);
 
 if (x.Init_b() == true)
 {
-	Serial.println("We are now intialised.");
+	Serial.println("We are now initialized.");
 }
 
 // This should be in the loop()
@@ -64,35 +61,33 @@ typedef enum WashingProgram
 {
 	// Position 0 - No program is selected
     WP_NONE = 0,
-	//  Postion 1 - Used for selecting wash program // TODO Postion
+	//  Position 1 - Used for selecting wash program 
 	WP_WASH = 1,
-	//	Postion 2 - Used for only spinning the tub // TODO Postion
+	//	Position 2 - Used for only spinning the tub 
 	WP_SPIN = 2,
-	//	Postion 3 - Used for selecting handwash program // TODO Postion, handwash
+	//	Position 3 - Used for selecting hand wash program 
 	WP_HANDWASH = 3,
-	//	Postion 4 - Used for selecting fast-wash program // TODO Postion
+	//	Position 4 - Used for selecting fast-wash program 
 	WP_FAST_WASH = 4,
-	//	Postion 5 - Used for selecting intense wash program // // TODO Postion
+	//	Position 5 - Used for selecting intense wash program 
 	WP_INTENSE_WASH = 5,
-	//	Postion 6 - Used for selecting to wash white clothes // TODO Postion
+	//	Position 6 - Used for selecting to wash white clothes 
 	WP_WHITE_CLOTHES = 6,
-	//	Postion 7 - Used for selecting to wash only the washing machine itself // TODO Postion
+	//	Position 7 - Used for selecting to wash only the washing machine itself 
 	WP_CLEAN_WASHING_MACHINE = 7, 
-	//	Postion 8 - Used for selecting a wash program for shirts // TODO Postion
+	//	Position 8 - Used for selecting a wash program for shirts
 	WP_SHIRTS   = 8,
-	//	Postions 9 and above have no program attached // TODO Postion
+	//	Position 9 and above have no program attached 
 	WP_NOT_USED = 9,
 	// Warning!! This should be the last in enum
     WP_ENUM_MAX
-}	
-
-WashingProgram_te;
+}WashingProgram_te;
 
 class Potentiometer
 {
 
  private:
-	 // Used to verify if everything is initialized adn ready to go // TODO adn
+	 // Used to verify if everything is initialized and ready to go
      bool InitFlag_b;
      // Holds the number of the pin that the potentiometer is attached to
      uint8_t InputPin_u8;
@@ -110,26 +105,28 @@ class Potentiometer
      @Returns       none
 
      --------------------------------------------------------------------------------
-     @Parameters    InputPin_u8 - pin number which the potetntiometer is attached // TODO potetntiometer
+     @Parameters    InputPin_u8 - pin number which the potentiometer is attached
      *******************************************************************************/
 	 Potentiometer(uint8_t InputPin_u8);
     
+	
      /*******************************************************************************
      @Description   Used to get the selected program based on the potentiometer's 
                     position
 
      --------------------------------------------------------------------------------
-     @Returns       WashingProgram_te - Wasching program selected  // TODO Wasching
-					    WP_NONE - Postion 0 - No program is selected // TODO Postion
-						WP_WASH - Postion 1 - Used for selecting wash program // TODO Postion
-						WP_SPIN - Postion 2 - Used for only spinning the tub // TODO Postion
-						WP_HANDWASH - Postion 3 - Used for selecting handwash program // TODO Postion, handwash
-						WP_FAST_WASH - Postion 4 - Used for selecting fast-wash program // TODO Postion
-						WP_INTENSE_WASH  - Postion 5 - Used for selecting intense wash program  // TODO Postion, more than 80 chars
-						WP_WHITE_CLOTHES - Postion 6 - Used for selecting to wash white clothes // TODO Postion, more than 80 chars
-						WP_CLEAN_WASHING_MACHINE - Postion 7 - Used for selecting to wash only the washing machine itself // TODO Postion, more than 80 chars
-						WP_SHIRTS - Postion 8 - Used for selecting a wash program for shirts // TODO Postion, more than 80 chars
-						WP_NOT_USED - Postions 9 and above have no program attached // TODO Postion, more than 80 chars
+     @Returns   WashingProgram_te - Washing program selected
+	  WP_NONE - Position 0 - No program is selected
+	  WP_WASH - Position 1 - Used for selecting wash program
+	  WP_SPIN - Position 2 - Used for only spinning the tub
+	  WP_HANDWASH - Position 3 - Used for selecting hand wash program
+	  WP_FAST_WASH - Position 4 - Used for selecting fast-wash program 
+	  WP_INTENSE_WASH  - Position 5 - Used for selecting intense wash program
+	  WP_WHITE_CLOTHES - Position 6 - Used for selecting to wash white clothes 
+	  WP_CLEAN_WASHING_MACHINE - Position 7 - Used for selecting to wash 
+                                            only the washing machine itself 
+	  WP_SHIRTS - Position 8 - Used for selecting a wash program for shirts 
+	  WP_NOT_USED - Position 9 and above have no program attached 
 
      --------------------------------------------------------------------------------
      @Parameters    None
@@ -138,11 +135,12 @@ class Potentiometer
 
  
 	 /*******************************************************************************
-	 @Description   This method is used to initialise the module. It should be called
+	 @Description   This method is used to initialize the module. It should be called
 	 after the object creation.
 
 	 --------------------------------------------------------------------------------
-	 @Returns       none // TODO are you sure?
+	 @Returns       TRUE  - the device has initialized
+					FALSE - the device failed to initialized
 
 	 --------------------------------------------------------------------------------
 	 @Parameters    none

@@ -1,4 +1,3 @@
-
 /*******************************************************************************
 @Module          Potentiometer
 
@@ -14,7 +13,7 @@
 @Date            14.11.2018
 
 -------------------------------------------------------------------------------
-@Copyright       Miele & Cie Copyright 2019
+@Copyright       Miele & Cie Copyright 2020
 *******************************************************************************/
 #include "Potentiometer.h"
 
@@ -56,54 +55,39 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 	  WashingProgram_te WashProgram_e;
 
 
-
-    int PotentiometerValue = 0;
-    //PotentiometerValue = map(RawPotentiometer_u8,0,4095,0,100); // TODO  do we still need this?
-	//Serial.println(PotentiometerValue);
-	//Serial.println(RawPotentiometer_u8);
-
-
 	if ((RawPotentiometer_u8 > 1) && (RawPotentiometer_u8 < 200)) //200
 	{
 		WashProgram_e = WP_WASH;
-		//SERIAL_PRINT("Program selected is simple wash");
 
 	}
 	else if ((RawPotentiometer_u8 > 200) && (RawPotentiometer_u8 < 600))//200 600
 	{
 		WashProgram_e = WP_SPIN;
-		//SERIAL_PRINT("Now we are spining"); // TODO spinning (Do we need this serial prins here?
 
 	}
 	else if ((RawPotentiometer_u8 > 600) && (RawPotentiometer_u8 < 1000))//600 1000
 	{
 		WashProgram_e = WP_HANDWASH;
-		//SERIAL_PRINT("Program selected is handwash");
 	}
 	else if ((RawPotentiometer_u8 > 1000) && (RawPotentiometer_u8 < 1500)) //1000 1500
 	{
 		WashProgram_e = WP_FAST_WASH;
-		//SERIAL_PRINT("Program selected is fast wash");
 	}
 	else if ((RawPotentiometer_u8 > 1500) && (RawPotentiometer_u8 < 2000)) //1500 2000
 	{
 		WashProgram_e = WP_INTENSE_WASH;
-		//SERIAL_PRINT("Program selected is intense wash");
 	}
 	else if ((RawPotentiometer_u8 > 2000) && (RawPotentiometer_u8 < 2400)) //200 2400
 	{
 		WashProgram_e = WP_WHITE_CLOTHES;
-		//SERIAL_PRINT("We are now washing white clothes");
 	}
 	else if ((RawPotentiometer_u8 > 2400) && (RawPotentiometer_u8 < 2800)) //2400 2800
 	{
 		WashProgram_e = WP_CLEAN_WASHING_MACHINE;
-		//SERIAL_PRINT("We are now cleaning the washing machine");
 	}
 	else if ((RawPotentiometer_u8 > 2800) && (RawPotentiometer_u8 < 3250)) //2800 3250
 	{
 		WashProgram_e = WP_SHIRTS;
-		//SERIAL_PRINT("We are now washing shirts");
 	}
 	else if ((RawPotentiometer_u8  > 3250))  //3250
 	{
@@ -113,10 +97,10 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 	else 
 	{
 		WashProgram_e = WP_NONE;
-		//SERIAL_PRINT("We are doing nothing");
+		
 	}
 
-    // TBD: Map the program to the read value
+    
 	
     return WashProgram_e;
 }
@@ -130,6 +114,7 @@ Potentiometer::Potentiometer(uint8_t InputPin_u8)
 
 void Potentiometer::TurnProgramLED_v(WashingProgram_te ProgramSelected_e)
 {
-    // TBD Map an led color to the selected wasching program
+    // TBD Map an led color to the selected washing program
 	// TODO are wee still keeping this?
+	// Nu STIU??
 }

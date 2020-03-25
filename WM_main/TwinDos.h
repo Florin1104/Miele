@@ -1,16 +1,13 @@
 /*******************************************************************************
-@Module         TwinDos.h
-
-/******************************************************************************* // TODO remove this line
+@Module         Twin-Dos
 --------------------------------------------------------------------------------
 @Filename       TwinDos.h
-
 --------------------------------------------------------------------------------
 @Description    TwinDos is a two-phase washing system built into the Miele W1
-                range of front loader washing machines. It uses two integrated
-                cartridges - 
-                the first filled with a liquid detergent (UltraPhase 1)
-                and the second a detergent enhancer liquid (UltraPhase 2),
+                range of front loader washing machines. 
+				It uses two integrated cartridges:
+                - the first filled with a liquid detergent (UltraPhase 1)
+                - the second a detergent enhancer liquid (UltraPhase 2),
                 including oxygenated bleach for stain removals. 
                 The liquids are dispensed at the appropriate time in the wash
                 cycle and the appropriate ratio depending on the type of wash.
@@ -20,7 +17,7 @@
 @Date           14.11.2018
 
 -------------------------------------------------------------------------------
-@Copyright      Miele & Cie Copyright 2018
+@Copyright      Miele & Cie Copyright 2020
 *******************************************************************************/
 
 
@@ -60,6 +57,9 @@ void loop()
 #ifndef _TWINDOS_H_
 #define _TWINDOS_H_
 
+/*******************************************************************************
+@Project Includes
+*******************************************************************************/
 #include <stdint.h>
 #include "Arduino.h"
 
@@ -79,7 +79,7 @@ class TwinDos
  public:
 
      /*******************************************************************************
-     @Description   Constructor used to initialise a TwinDos system object
+     @Description   Constructor used to initialize a TwinDos system object
 
      --------------------------------------------------------------------------------
      @Returns       none
@@ -89,22 +89,26 @@ class TwinDos
      *******************************************************************************/
      TwinDos();
 
+	 
      /*******************************************************************************
-     @Description   Initialize TwinDos sytem with pin location (only once) // TODO sytem
+     @Description   Initialize TwinDos system with pin location (only once)
 
      --------------------------------------------------------------------------------
      @Returns       bool - whether or not TwinDos was successfully initialized
+					TRUE -	Success
+					FALSE - Failed
 
      --------------------------------------------------------------------------------
      @Parameters    pin_u8 - first pin number
      *******************************************************************************/
      bool Initialise_e(uint8_t pin_u8);
 
+	 
      /*******************************************************************************
-     @Description   check if both cartridges are in
+     @Description   Check if BOTH cartridges are inserted.
 
      --------------------------------------------------------------------------------
-     @Returns       bool - true if both are in
+     @Returns       bool - TRUE if both are in
 
      --------------------------------------------------------------------------------
      @Parameters    None

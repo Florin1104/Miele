@@ -11,7 +11,7 @@
 @Author        Dragos B., Fabian V.
 @Date          13.11.2018
 
-@Copyright     Miele  Cie Copyright 2018
+@Copyright     Miele  Cie Copyright 2020
 
 *******************************************************************************/
 
@@ -38,7 +38,7 @@
 // It should be used like this: DELAY_NON_BREAKING(WaitMs_u32) CodeToBeCalled();
 #define DELAY_NON_BREAKING(WaitMs_u32) for (static unsigned long time_now = millis(); millis() < time_now + WaitMs_u32;)
 
-// This part is the replacement of delay frm Arduino // TODO frm
+// This part is the replacement of delay form Arduino 
 #define DELAY_DO_NOTHING(WaitMs_u32) DELAY_NON_BREAKING(WaitMs_u32);
 
 /*******************************************************************************
@@ -62,7 +62,7 @@
 *******************************************************************************/
 HeaterModule::HeaterModule()
 {
-    uint8_t currentChannel = GetAvailableChannel_u8(); // TODO i have some errors here with heaterChannel and GetAvailableChannel_u8
+    uint8_t currentChannel = GetAvailableChannel_u8(); 
     if (currentChannel == 17) {
         Serial.println("HeaterModule -- NO AVAILABLE CHANNEL LEFT");
     }
@@ -94,9 +94,8 @@ float HeaterModule::GetTemperature_f()
 //    { 
 //      SimuTemperature_f = 75;  
 //    }
-	 // TODO do we still keep the above?
-	 // TODO alling the below comment and write it in a proper way e.g. // If the temperature exceeds the safe limits, then stop the heater.
-//if the temperature exceds the safe limits, then stop the heater
+	 // TODO do we still keep the above? 					!!!!!IDK ;)!!!!!!!!
+     // If the temperature exceeds the safe limits, then stop the heater.
 	if(temperature >= HEATING_ELEMENT_TEMPERATURE_MAX)
 		{ 
 			StopHeating_v();
@@ -124,20 +123,20 @@ uint16_t HeaterModule::Initialise_u16(uint8_t HeatingElementPin_u8, uint8_t Heat
 			m_HeatingElementPin_u8=HeatingElementPin_u8;
 			m_HeaterSensorPin_u8=HeaterSensorPin_u8;
 
-			// Initialise the channels
+			// Initialize the channels
 			ledcAttachPin(HeatingElementPin_u8, heaterChannel);
 			
 			// Set PWM channel.
 			ledcSetup(heaterChannel, PWM_FREQUENCY,RESOLUTION_BITS);
 
-			// Initialise DHT module
+			// Initialize DHT module
 			dht_o=DHT(m_HeaterSensorPin_u8,DHT_SENSOR_TYPE);
 			dht_o.begin();
 		
 			// The element is not heating 
 			StopHeating_v();
 
-			// Module is now initialised
+			// Module is now initialized
 			m_isModuleInitialized_b=true;
 
 			ErrorCode_u16 = ERROR_HEATER_NO_ERROR;
@@ -156,20 +155,28 @@ void HeaterModule::StartHeating_v(float value)
 {   
 
 
-/*
-map(value, fromLow, fromHigh, toLow, toHigh)
+	// Re-maps a number from one range to another. 
+	// That is, a value of fromLow would get mapped to toLow, 
+	// a value of fromHigh to toHigh, values in-between to values in-between, etc..
+	// Here we use map function in order to change a difficult to represent value,
+	// into something more easy to visualize(0-100), like a percentage.
+	
+	/*
+	map(value, fromLow, fromHigh, toLow, toHigh)
 
-Parameters
-value: the number to map.
-fromLow: the lower bound of the value’s current range.
-fromHigh: the upper bound of the value’s current range.
-toLow: the lower bound of the value’s target range.
-toHigh: the upper bound of the value’s target range. // TODO align the comments and explain also what map does and why it is used here
-*/
+	Parameters:
+	value: 		the number to map.
+	fromLow: 	the lower bound of the value’s current range.
+	fromHigh: 	the upper bound of the value’s current range.
+	toLow: 		the lower bound of the value’s target range.
+	toHigh: 	the upper bound of the value’s target range. 
+	
+	*/
+	
 	value=map(value,0,MAX_POWER_PWM,0,100);
-	//get the current temp
+	// get the current temp
 	float temperature = dht_o.readTemperature();
-	//if we enter a valid value and the heater is not hot already
+	// if we enter a valid value and the heater is not hot already
 	if((value <= MAX_POWER_PWM) && (temperature <= HEATING_ELEMENT_TEMPERATURE_MAX))
 	{
     // TODO - Check for DHT11 pins

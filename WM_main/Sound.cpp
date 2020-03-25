@@ -9,7 +9,7 @@
 @Author        Dragos B., Fabian V.
 @Date          13.11.2018
 
-@Copyright     Miele  Cie Copyright 2018
+@Copyright     Miele  Cie Copyright 2020
 
 *******************************************************************************/
 

@@ -10,8 +10,9 @@
 @Date            20.03.2019
 
 -------------------------------------------------------------------------------
-@Copyright       Miele & Cie Copyright 2018
+@Copyright       Miele & Cie Copyright 2020
 *******************************************************************************/
+/*******************************************************************************
 
 // Example
 //void setup()
@@ -25,9 +26,11 @@
 //  delay(10);
 //	StopSound_v();
 //}
-
+*******************************************************************************/
 #ifndef _SOUND_H_
 #define _SOUND_H_
+
+
 /*******************************************************************************
 @Project Includes
 *******************************************************************************/
@@ -39,7 +42,27 @@
 /*******************************************************************************
 @Type definitions (global)
 *******************************************************************************/
-// TODO add description for each enum
+
+
+
+
+/*
+Enum is a user defined data type where we specify a set of values for a variable
+and the variable can only take one out of a small set of possible values. 
+We use enum keyword to define a Enumeration.
+By default, DOOR_OPEN_SOUND is 0, DOOR_CLOSED_SOUND is 1 and so on. 
+You can change the default value of an enum element during declaration (if necessary).
+In this case we changed the default values to the values of the frequency: 5000, 6000 etc.
+*/
+
+// This enum holds all the basic frequencies for the Sound module
+// Possible values can be:
+// - DOOR_OPEN_SOUND: Sound is produced when the door opens
+// - DOOR_CLOSED_SOUND: Sound is produced when the door closes
+// - PROGRAM_START_SOUND: Sound is produced when the washing program starts
+// - PROGRAM_END_SOUND: Sound is produced when the washing program finishes
+
+
 typedef enum Sounds_e
 {
 	DOOR_OPEN_SOUND = 5000,
@@ -59,7 +82,7 @@ typedef enum Sounds_e
 *******************************************************************************/
 
 /*******************************************************************************
-@Description   This method is used to initialise the module. It should be called
+@Description   This method is used to initialize the module. It should be called
                after the object creation.
 
 --------------------------------------------------------------------------------
@@ -82,7 +105,7 @@ void InitialiseSound_v();
 void PlaySound_v(uint16_t TimeInSeconds_u16, Sounds_te sounds);
 
 /*******************************************************************************
-@Description   This method is used in order to generate sounds by diffrent // TODO diffrent
+@Description   This method is used in order to generate sounds by different
 			   frequency
 --------------------------------------------------------------------------------
 @Returns       none

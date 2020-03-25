@@ -1,5 +1,6 @@
 /*******************************************************************************
-@Module         MD used for WM module.
+@Module         Motor Driver used for WM module
+
 --------------------------------------------------------------------------------
 @Filename       MotorDriver.cpp
 --------------------------------------------------------------------------------
@@ -9,7 +10,7 @@
 @Author        Dragos B.
 @Date          13.11.2018
                
-@Copyright     Miele  Cie Copyright 2018
+@Copyright     Miele  Cie Copyright 2020
 
 *******************************************************************************/
 
@@ -20,7 +21,7 @@
 #include "MotorDriver.h"
 #include "PWM_Timer.h"
 /*******************************************************************************
-@Constants (global)
+@Macros (global)
 *******************************************************************************/
 #define SECOND_TO_MILLISECONDS      (1000)
 //#define PWM_CHANNEL_ONE             (1)
@@ -34,10 +35,10 @@
 // It should be used like this: DELAY_NON_BREAKING(WaitMs_u32) CodeToBeCalled();
 #define DELAY_NON_BREAKING(WaitMs_u32) for (unsigned long time_now = millis(); millis() < time_now + WaitMs_u32;)
 
-// This part is the replacement of delay frm Arduino
+// This part is the replacement of delay form Arduino
 #define DELAY_DO_NOTHING(WaitMs_u32) DELAY_NON_BREAKING(WaitMs_u32);
 /*******************************************************************************
-@Macros (global)
+@Constants (global)
 *******************************************************************************/
 
 /*******************************************************************************
@@ -76,7 +77,7 @@ uint16_t MotorDriver::Initialise_u16(uint8_t MotorPinClockwise_u8, uint8_t Motor
             m_MotorPinClockwise_u8 = MotorPinClockwise_u8;
             m_MotorPinCounterClockwise_u8 = MotorPinCounterClockwise_u8;
 
-            // Initialise the channels.
+            // Initialize the channels.
             ledcAttachPin(MotorPinClockwise_u8, clockwiseChannel);
             ledcAttachPin(MotorPinCounterClockwise_u8, counter_clockwiseChannel);
 
@@ -87,7 +88,7 @@ uint16_t MotorDriver::Initialise_u16(uint8_t MotorPinClockwise_u8, uint8_t Motor
             // The motor is not moving.
             m_StopMotor_v();
 
-            // Module is now initialised.
+            // Module is now initialized.
             m_isModuleInitialised_b = true;
 
 
@@ -107,7 +108,7 @@ uint16_t MotorDriver::MoveMotor_u16(uint8_t Speed_u8, MotorRotation_te Rotation_
 {
     uint16_t ErrorCode_u16 = ERROR_MODULE_IS_NOT_INTIALISED;
 
-    // Is the module is intialised?
+    // Is the module is initialized?
     if (m_isModuleInitialised_b == true)
     {
         // Speed value should be between 0-100
@@ -163,7 +164,7 @@ are given at the function prototype in the header file
 #if FUTURE_IMPLEMENATION == 1
 MotorRotation_te MotorDriver::GetMotorRotation_e()
 {
-    // Is the module is intialised?
+    // Is the module is initialized?
     if (m_isModuleInitialised_b == true)
     {
         return m_MotorRotation_e;
@@ -185,7 +186,7 @@ uint16_t MotorDriver::StopMotor_u16(uint16_t TimeInSeconds_u16)
 {
     uint16_t ErrorCode_u16 = ERROR_MODULE_IS_NOT_INTIALISED;
 
-    // Is the module is intialised?
+    // Is the module is initialized?
     if (m_isModuleInitialised_b == true)
     {
         m_StopMotor_v();
@@ -220,12 +221,10 @@ bool MotorDriver::m_isPinPwm_b(uint8_t Pin_8)
     bool isPwmPinValid_b = false;
     
     // All the pins that are PWM capable for ESP32.
-	// TODO this can be moved into general config like this
-	// #define VALID_PWM_PINS  { 15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32,39,36}
+	
 	// here in the code it can be used like this: 
-	// const uint8_t ValidPwmPins_au8[] = VALID_PWM_PINS;
-    const uint8_t ValidPwmPins_au8[] = { 15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32,39,36};
-
+	const uint8_t ValidPwmPins_au8[] = VALID_PWM_I2C_PINS;
+	
     for (uint8_t i = 0; i< sizeof(ValidPwmPins_au8)/sizeof(ValidPwmPins_au8[0]); i++)
     {
         // Is pin PWM capable?

@@ -44,9 +44,8 @@ void DHT_Unified::setName(sensor_t* sensor) {
       strncpy(sensor->name, "DHT22", sizeof(sensor->name) - 1);
       break;
     default:
-      // TODO: Perhaps this should be an error?  However main DHT library doesn't enforce
-      // restrictions on the sensor type value.  Pick a generic name for now.
-      strncpy(sensor->name, "DHT?", sizeof(sensor->name) - 1);
+      // TODO: Perhaps this should be an error?  
+      strncpy(sensor->name, "DHT_UNKNOWN", sizeof(sensor->name) - 1);
       break;
   }
   sensor->name[sizeof(sensor->name)- 1] = 0;

@@ -6,16 +6,25 @@
 @Filename        HeaterModule.h
 
 --------------------------------------------------------------------------------
-@Description     TODO
-
+@Description     This module controls both the Heating Element and the Temperature
+				 Sensor functionality.
+				 Using this module one can start and stop the heating process of 
+				 the heating element and get the temperature using the DHT Sensor
 --------------------------------------------------------------------------------
 @Author          Dragos B., Fabian V.
 @Date            20.3.2019
 
 -------------------------------------------------------------------------------
-@Copyright       Miele & Cie Copyright 2018
+@Copyright       Miele & Cie Copyright 2020
 *******************************************************************************/
-// Example
+
+
+
+
+/*******************************************************************************
+@Example:
+--------------------------------------------------------------------------------
+
 //HeaterModule heaterModule_o;
 //
 //void setup()
@@ -40,6 +49,8 @@
 //  Stop the heater module
 //	heaterModule_o.StopHeating_v();
 //}
+
+*******************************************************************************/
 #ifndef _HEATERMODULE_H_  
 #define _HEATERMODULE_H_
 /*******************************************************************************
@@ -48,6 +59,7 @@
 #include "Arduino.h"
 #include "DHT.h"
 #include "DHT_U.h"
+#include "PWM_Timer.h"
 
 #define HEATER_PIN									(25)
 #define HEATER_TEMPERATURE_SENSOR_PIN				(15)
@@ -80,30 +92,28 @@ class HeaterModule
 public:
 	/*******************************************************************************
     @Description   Default constructor.
-
     *******************************************************************************/
 	HeaterModule(); 
-
-    /*******************************************************************************
-    @Prototypes global Functions
-    *******************************************************************************/
+	uint8_t heaterChannel = 0;
+	
     /*******************************************************************************
     @Description   This method is used to get the heater temperature form the Heater
 
     --------------------------------------------------------------------------------
-    @Returns       t- is the value for the temperature to be returened
+    @Returns       t - is the value for the temperature to be returned
 
     --------------------------------------------------------------------------------
-    @Parameters    no parameters
+    @Parameters    none
     *******************************************************************************/
     float GetTemperature_f();
 
+	
     /*******************************************************************************
-    @Description   This method is used to initialise the module. It should be called
+    @Description   This method is used to initialize the module. It should be called
                    after the object creation.
 
     --------------------------------------------------------------------------------
-    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not intialised.
+    @Returns       ERROR_MODULE_IS_NOT_INTIALISED if the module was not initialized.
                    ERROR_PIN_NOT_COMPATIBLE_WITH_PWM - Pin not PWM capable.
 
     --------------------------------------------------------------------------------
@@ -112,6 +122,7 @@ public:
     *******************************************************************************/
 	uint16_t Initialise_u16(uint8_t HeatingElementPin_u8, uint8_t HeaterSensorPin_u8);
 
+	
     /*******************************************************************************
     @Description   This method is used to produce PWM signals to the Heater module
 
@@ -119,21 +130,23 @@ public:
     @Returns       none
 
     --------------------------------------------------------------------------------
-    @Parameters    value- is used to map the PWM signal range
+    @Parameters    value - is used to map the PWM signal range
     *******************************************************************************/
 	void StartHeating_v(float value);
 
+	
     /*******************************************************************************
     @Description   This method is used to set the PWM signal to 0 for the Heater
 
     --------------------------------------------------------------------------------
-    @Returns       no returns
+    @Returns       none
 
     --------------------------------------------------------------------------------
-    @Parameters    no parameters
+    @Parameters    none
     *******************************************************************************/
     void StopHeating_v();
 
+	
 	/*******************************************************************************
     @Description   Default destructor.
 
@@ -143,11 +156,11 @@ public:
 private:
     uint16_t m_TemperatureAndHumiditySensor_o;
 
-	// This variable is used in order to chek if the module
-	// is initalised
+	// This variable is used in order to check if the module
+	// is initialized
 	bool m_isModuleInitialized_b = false;
 
-	// m_HeatingElementPin_u8  shloud pe pwm capable
+	// m_HeatingElementPin_u8  should be PWM capable
 	uint8_t m_HeatingElementPin_u8;
 	
 	// Pin used for temperature sensor.
@@ -156,7 +169,7 @@ private:
 	// Object used for DHT sensor.
 	DHT dht_o;
 
-  // Simualted temperature
+  // Simulated temperature
   float SimuTemperature_f = MAINS_WATER_TEMPERATURE_DEFAULT;
 
     /*******************************************************************************

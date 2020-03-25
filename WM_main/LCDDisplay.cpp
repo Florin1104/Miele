@@ -1,7 +1,6 @@
 /*******************************************************************************
 @Module          LCD display
 
-/*******************************************************************************
 --------------------------------------------------------------------------------
 @Filename        LCDDisplay.cpp
 
@@ -13,7 +12,7 @@
 @Date            14.11.2018
 
 -------------------------------------------------------------------------------
-@Copyright       Miele & Cie Copyright 2018
+@Copyright       Miele & Cie Copyright 2020
 *******************************************************************************/
 
 #include "LCDDisplay.h"
@@ -63,11 +62,12 @@ bool LCDDisplay::DisplayString_b(char* StringToDisplay_pc)
 		ClearScreen_b();
 		DisplayString_b("FORBIDDEN!");
 	}
-
+	
+	//WTF IS THIS FOR?
 	if (strcmp(StringToDisplay_pc, "FORBIDDEN!") == 0)
 	{
 		return false;
-	}
+	}//end of WTF
     if (lcd_po != NULL && StringToDisplay_pc !=NULL)
     {
         while (*StringToDisplay_pc != '\0')
@@ -124,8 +124,7 @@ bool LCDDisplay::m_isPinI2C_b(uint8_t Pin_u8)
 	bool isI2CPinValid_b=false;
 
 	// All the pins that are I2C capable for ESP32.
-	// TODO I think this can be easily moved to genral config and used also by other i2c pins
-    const uint8_t ValidI2CPins_au8[] = { 15,2,0,4,16,17,5,18,23,19,21,22,13,12,14,27,26,25,35,34,33,32,39,36};
+    const uint8_t ValidI2CPins_au8[] = VALID_PWM_I2C_PINS;
 	
 	// Is pin I2C capable?
 	for (uint8_t i = 0; i< sizeof(ValidI2CPins_au8)/sizeof(ValidI2CPins_au8[0]); i++)

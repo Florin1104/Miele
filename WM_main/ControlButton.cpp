@@ -9,7 +9,7 @@
 @Author         Iulian G.,  Bogdan Calinoiu, Dragos B. , Marian S. , Stefan I. 
 @Date           15.11.2018, 22.04.2019
 
-@Copyright      Miele  Cie Copyright 2018
+@Copyright      Miele  Cie Copyright 2020
 
 *******************************************************************************/
 
@@ -85,7 +85,7 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
         }
         else
         {
-            Serial.println("Pin initialise error: " + String(pinNumber_u8));
+            Serial.println("Pin initialize error: " + String(pinNumber_u8));
         }
     }
     else
@@ -99,7 +99,7 @@ ButtonError_te ControlButton::Initialise_e(uint8_t pinNumber_u8)
 Function description and additional notes,
 are given at the function prototype in the header file
 *******************************************************************************/
-uint8_t ControlButton::isPressed_u8()
+uint8_t ControlButton::IsButtonPressed_u8()
 {
     uint8_t currentState_u8 = digitalRead(m_InputPinNumber_u8);
         

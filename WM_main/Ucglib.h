@@ -81,19 +81,83 @@ class Ucglib : public Print
     Ucglib(void) { init(); }
     Ucglib(ucg_dev_fnptr dev, ucg_dev_fnptr ext = ucg_ext_none) { init(); dev_cb = dev; ext_cb = ext; }
 
+		
+	/*******************************************************************************
+	@Description   This command will set the position for next "print" command.
+
+	--------------------------------------------------------------------------------
+	@Returns       none
+
+	--------------------------------------------------------------------------------
+	@Parameters    	x, y: Reference position for the characters of the next print command.
+					check: https://github.com/olikraus/ucglib/wiki/reference#setprintpos
+	*******************************************************************************/
     void setPrintPos(ucg_int_t x, ucg_int_t y) { tx = x; ty = y; }
-    void setPrintDir(uint8_t dir) { tdir = dir; }
+    
+	
+	/*******************************************************************************
+	@Description    This command will set the print direction for the following
+					"print" commands.
+
+	--------------------------------------------------------------------------------
+		@Returns       none
+
+	--------------------------------------------------------------------------------
+	@Parameters     dir: One of the values 0 (left to right), 1 (top down),
+					2 (right left) or 3 (bottom up).
+					check: https://github.com/olikraus/ucglib/wiki/reference#setprintdir
+	*******************************************************************************/
+	void setPrintDir(uint8_t dir) { tdir = dir; }
     size_t write(uint8_t c);
+	
+
+	/*******************************************************************************
+	@Description    This command returns a pointer to the internal c-structure.
+
+	--------------------------------------------------------------------------------
+	@Returns       Pointer to ucg_t structure.
+	--------------------------------------------------------------------------------
+	@Parameters     none
+	*******************************************************************************/
     ucg_t *getUcg(void) { return &ucg; }
     
+		
+	/*******************************************************************************
+	@Description    This command returns the width of the display.
+
+	--------------------------------------------------------------------------------
+	@Returns       the width of the display.
+	--------------------------------------------------------------------------------
+	@Parameters     none
+	*******************************************************************************/	
     ucg_int_t getWidth(void) { return ucg_GetWidth(&ucg); }
+	
+		
+	/*******************************************************************************
+	@Description    This command returns the hight of the display.
+
+	--------------------------------------------------------------------------------
+	@Returns       the hight of the display.
+	--------------------------------------------------------------------------------
+	@Parameters     none
+	*******************************************************************************/
     ucg_int_t getHeight(void) { return ucg_GetHeight(&ucg); }
     
     
     void setFontRefHeightText(void) 	{ ucg_SetFontRefHeightText(&ucg); }
     void setFontRefHeightExtendedText(void) { ucg_SetFontRefHeightExtendedText(&ucg); }
     void setFontRefHeightAll(void) 	{ ucg_SetFontRefHeightAll(&ucg); }
-
+	
+		
+	/*******************************************************************************
+	@Description    This command  Change the reference position for the character 
+					output procedures print, drawString and drawGlyph.
+		check: https://github.com/olikraus/ucglib/wiki/reference#setfontposbaseline
+	--------------------------------------------------------------------------------
+	@Returns       none
+	--------------------------------------------------------------------------------
+	@Parameters     none
+	*******************************************************************************/
     void setFontPosBaseline(void) 	{ ucg_SetFontPosBaseline(&ucg); }
     void setFontPosBottom(void) 	{ ucg_SetFontPosBottom(&ucg); }
     void setFontPosTop(void) 		{ ucg_SetFontPosTop(&ucg); }
@@ -101,15 +165,86 @@ class Ucglib : public Print
     
     void setFont(const ucg_fntpgm_uint8_t  *font)
       { ucg_SetFont(&ucg, font); }
+		  
+	/*******************************************************************************
+	@Description    This command  Define the text output mode.
+	See examples in link for the difference between UCG_FONT_MODE_TRANSPARENT 
+	and UCG_FONT_MODE_SOLID. Do not use transparent fonts with UCG_FONT_MODE_SOLID.
+					
+	check: https://github.com/olikraus/ucglib/wiki/reference#setfontmode
+	--------------------------------------------------------------------------------
+	@Returns       0, if the init procedure fails.
+	--------------------------------------------------------------------------------
+	@Parameters    fontmode: UCG_FONT_MODE_TRANSPARENT, UCG_FONT_MODE_SOLID 
+	*******************************************************************************/
+		  
     void setFontMode(uint8_t is_transparent) 
       { ucg_SetFontMode(&ucg, is_transparent); }
+	
+		
+	/*******************************************************************************
+	@Description  This command Returns the height of the character 'A' or the number '1' 
+	above the baseline. 
+	For the font in the example below, getFontAscent returns the value 24.
+					
+	check: https://github.com/olikraus/ucglib/wiki/reference#getfontascent
+	--------------------------------------------------------------------------------
+	@Returns      The height of the font.
+	--------------------------------------------------------------------------------
+	@Parameters     None.
+	*******************************************************************************/	  
     ucg_int_t getFontAscent(void)
       { return ucg_GetFontAscent(&ucg); }
-    ucg_int_t getFontDescent(void)
+    
+		
+	/*******************************************************************************
+	@Description  Some glphys of a font might are extended below the baseline ('g' or ')').
+	This procedure returns the extension of these characters above baseline. 
+	If the extension is below the baseline (which is usually the case) then a negative 
+	number is returned. 
+	In the example below, the returned descent value is "-7".
+					
+	check: https://github.com/olikraus/ucglib/wiki/reference#getfontdescent
+	--------------------------------------------------------------------------------
+	@Returns	the extension of the characters below the baseline.
+	--------------------------------------------------------------------------------
+	@Parameters     None.
+	*******************************************************************************/	 	
+	ucg_int_t getFontDescent(void)
       { return ucg_GetFontDescent(&ucg); }
+	  
+		  
+	/*******************************************************************************
+	@Description  Returns the number of pixels, required for the text in *s with the
+	current font settings. 
+	Some extra pixels are added in front and after the text as defined in the current font.
+					
+	check: https://github.com/olikraus/ucglib/wiki/reference#getstrwidth
+	--------------------------------------------------------------------------------
+	@Returns	Width of the text in pixel.
+	--------------------------------------------------------------------------------
+	@Parameters     None.
+	*******************************************************************************/	 	  
     ucg_int_t getStrWidth(const char *s)
       { return ucg_GetStrWidth(&ucg, s); }
-    
+
+
+	/*******************************************************************************
+	@Description   Defines up to four different colors for the graphics primitives. 
+	Most commands will use the color at index position 0. 
+	If the index (first argument) is skipped, then the color is stored as index 0.
+					
+	check: https://github.com/olikraus/ucglib/wiki/reference#setcolor
+	--------------------------------------------------------------------------------
+	@Returns	none
+	--------------------------------------------------------------------------------
+	@Parameters     idx: The index of the color being set. 
+						 See each drawing function to determine the index to use. (Default: 0)
+						 
+					r, g, b: Red, green and blue component of the color. 
+					Color range is always from 0 to 255 for each of the color components.
+	*******************************************************************************/	 	  
+	  
     void setColor(uint8_t idx, uint8_t r, uint8_t g, uint8_t b)
       { ucg_SetColor(&ucg, idx, r, g, b); }
     void setColor(uint8_t r, uint8_t g, uint8_t b)
@@ -123,8 +258,29 @@ class Ucglib : public Print
 
     void undoScale(void) { ucg_UndoScale(&ucg); }
     void setScale2x2(void) { ucg_SetScale2x2(&ucg); }
-    
+	
+	
+	/*******************************************************************************
+	@Description   Put display into power down state (not implemented for all displays).
+					
+	check: https://github.com/olikraus/ucglib/wiki/reference#powerdown
+	--------------------------------------------------------------------------------
+	@Returns	none
+	--------------------------------------------------------------------------------
+	@Parameters     none
+	*******************************************************************************/	 	  
     void powerDown(void) { ucg_PowerDown(&ucg); }
+	
+		
+	/*******************************************************************************
+	@Description   Wakeup display from power down state (not implemented for all displays).
+					
+	check: https://github.com/olikraus/ucglib/wiki/reference#powerup
+	--------------------------------------------------------------------------------
+	@Returns	none
+	--------------------------------------------------------------------------------
+	@Parameters     none
+	*******************************************************************************/	 	  
     void powerUp(void) { ucg_PowerUp(&ucg); }
     
     
