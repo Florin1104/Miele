@@ -28,16 +28,16 @@ The programming language that is beeing used is C++.
 ---------------------------------------------------------
 The washing machine contains the following parts:
 ---------------------------------------------------------
--12V DC motor
--RGB LED
--Dual H-Bridge
--DHT11 Temperature Sensor
--Piezoelectric buzzer
--Switch
--100k Potentiometer
--16x2 LCD Display
--Push Buttons
--50 Ohm Resistors
+- 12V DC motor
+- RGB LED
+- Dual H-Bridge
+- DHT11 Temperature Sensor
+- Piezoelectric buzzer
+- Switch
+- 100k Potentiometer
+- 16x2 LCD Display
+- Push Buttons
+- 50 Ohm Resistors
 
 The functionality that controls this Washing Machine Module is already written.
 In order to create a functional apliance, you will need to use the code given and come up with a logic.
@@ -47,7 +47,7 @@ it is global.
 ---------------------------------------------------------
 setup() function:
 ---------------------------------------------------------
-#Description
+
 The setup() function is called when a sketch starts. 
 Use it to initialize variables, pin modes, start using libraries, etc. 
 The setup() function will only run once, after each powerup or reset of the Arduino board.
@@ -56,7 +56,6 @@ The setup() function will only run once, after each powerup or reset of the Ardu
 loop() function:
 ---------------------------------------------------------
 
-#Description
 After creating a setup() function, which initializes and sets the initial values, 
 the loop() function does precisely what its name suggests, and loops consecutively, 
 allowing your program to change and respond. Use it to actively control the Arduino board.
