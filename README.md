@@ -1,4 +1,3 @@
-# CreateYourOwnWashingMachine
 
 ___  ____      _        _____  _____  _____  _____ 
 |  \/  (_)    | |      / __  \|  _  |/ __  \|____ |
@@ -8,7 +7,7 @@ ___  ____      _        _____  _____  _____  _____
 \_|  |_/_|\___|_|\___| \_____/ \___/ \_____/\____/ 
                                                    
                                                    
-                                                                                      
+                                                                               
 										      
 This is the link for arduino ->	 https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
                                                                                          
