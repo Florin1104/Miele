@@ -2,7 +2,7 @@
 @Filename       WM_main.ino
 --------------------------------------------------------------------------------
 @Description    This is the main file. This is where the functions are called inside
-				setup() function or in the loop() function
+        setup() function or in the loop() function
 
 --------------------------------------------------------------------------------
 @Author        Dragos B., Marian S., Stefan I.
@@ -45,8 +45,5 @@ void loop()
     disp_o.DisplayString_b("Hello world1");
     delay(1000);
     disp_o.ClearScreen_b();
-    disp_o.DisplayString_b("Hello world2");
-
-    
-    
+    disp_o.DisplayString_b("Hello world2");    
 }

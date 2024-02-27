@@ -42,7 +42,7 @@ void setup()
 void loop()
 {
     // put your main code here, to run repeatedly:
-    if(button_o.isPressed_u8()==0)
+    if(button_o.IsButtonPressed_u8()==0)
 	{
 		Serial.println("BUTTON IS PRESSED");
 	}
@@ -51,7 +51,7 @@ void loop()
 		Serial.println("BUTTON IS NOT PRESSED");
 	}
 	
-	if(button_o1.isPressed_u8()==0)
+	if(button_o1.IsButtonPressed_u8()==0)
 	{
 		Serial.println("BUTTON IS PRESSED");
 	}

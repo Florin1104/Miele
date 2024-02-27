@@ -55,41 +55,41 @@ WashingProgram_te Potentiometer::GetSelectedProgram()
 	  WashingProgram_te WashProgram_e;
 
 
-	if ((RawPotentiometer_u8 > 1) && (RawPotentiometer_u8 < 200)) //200
+	if ((RawPotentiometer_u8 < 3000) && (RawPotentiometer_u8 > 2500)) //200
 	{
 		WashProgram_e = WP_WASH;
 
 	}
-	else if ((RawPotentiometer_u8 > 200) && (RawPotentiometer_u8 < 600))//200 600
+	else if ((RawPotentiometer_u8 < 2500) && (RawPotentiometer_u8 > 1600))
 	{
 		WashProgram_e = WP_SPIN;
 
 	}
-	else if ((RawPotentiometer_u8 > 600) && (RawPotentiometer_u8 < 1000))//600 1000
+	else if ((RawPotentiometer_u8 < 1600) && (RawPotentiometer_u8 > 1200))
 	{
 		WashProgram_e = WP_HANDWASH;
 	}
-	else if ((RawPotentiometer_u8 > 1000) && (RawPotentiometer_u8 < 1500)) //1000 1500
+	else if ((RawPotentiometer_u8 < 1200) && (RawPotentiometer_u8 > 1000)) 
 	{
 		WashProgram_e = WP_FAST_WASH;
 	}
-	else if ((RawPotentiometer_u8 > 1500) && (RawPotentiometer_u8 < 2000)) //1500 2000
+	else if ((RawPotentiometer_u8 < 1000) && (RawPotentiometer_u8 > 750)) 
 	{
 		WashProgram_e = WP_INTENSE_WASH;
 	}
-	else if ((RawPotentiometer_u8 > 2000) && (RawPotentiometer_u8 < 2400)) //200 2400
+	else if ((RawPotentiometer_u8 < 750) && (RawPotentiometer_u8 > 600)) 
 	{
 		WashProgram_e = WP_WHITE_CLOTHES;
 	}
-	else if ((RawPotentiometer_u8 > 2400) && (RawPotentiometer_u8 < 2800)) //2400 2800
+	else if ((RawPotentiometer_u8 < 600) && (RawPotentiometer_u8 > 570)) 
 	{
 		WashProgram_e = WP_CLEAN_WASHING_MACHINE;
 	}
-	else if ((RawPotentiometer_u8 > 2800) && (RawPotentiometer_u8 < 3250)) //2800 3250
+	else if ((RawPotentiometer_u8 < 570) && (RawPotentiometer_u8 > 450)) 
 	{
 		WashProgram_e = WP_SHIRTS;
 	}
-	else if ((RawPotentiometer_u8  > 3250))  //3250
+	else if ((RawPotentiometer_u8  < 450))  
 	{
 		WashProgram_e = WP_NOT_USED;
 		//SERIAL_PRINT("We are over limit");

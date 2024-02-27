@@ -47,7 +47,7 @@ bool TouchDisplay::ClearScreen_b()
     if (touchDisp_po != NULL)
     {
         touchDisp_po->clearScreen();
-		ucg.setPrintPos(0,0);
+		    touchDisp_po->setPrintPos(0,0);
         WritingCursor_X_u8 = WritingCursor_Y_u8 = 0;
         return true;
     }
@@ -68,7 +68,7 @@ bool TouchDisplay::ClearScreen_b()
 bool TouchDisplay::DisplayString_b(char* StringToDisplay_pc /*color, direction,indent*/)
 {
 	// maximum for filling the connected LCD display
-	if (strlen(StringToDisplay_pc) > touchDisp_po->ucg_int_t getWidth() * touchDisp_po->ucg_int_t getHeight())
+	if (strlen(StringToDisplay_pc) > (touchDisp_po->getWidth() * touchDisp_po->getHeight()))
 	{
 		ClearScreen_b();
 		DisplayString_b("ERROR- STRING TOO BIG");
@@ -109,12 +109,12 @@ bool TouchDisplay::DisplayFormatedString_b(
 											uint8_t B, 
 											uint8_t direction, 
 											uint8_t indent_x,  
-											uint8_t indent_y
+											uint8_t indent_y,
 											const ucg_fntpgm_uint8_t *font
 											)
 {
 	// maximum for filling the connected LCD display
-	if (strlen(StringToDisplay_pc) > touchDisp_po->ucg_int_t getWidth() * touchDisp_po->ucg_int_t getHeight())
+	if (strlen(StringToDisplay_pc) > (touchDisp_po->getWidth() * touchDisp_po->getHeight()))
 	{
 		ClearScreen_b();
 		DisplayString_b("ERROR- STRING TOO BIG");
